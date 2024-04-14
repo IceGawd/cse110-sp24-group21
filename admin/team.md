@@ -40,15 +40,15 @@ Our team color is a combination of Green and Lavendar (voted by democracy). We s
 ## Member Details
 Below are all of our members; click our names to view our personal Github pages!
 ### Members
-- Avighna Kukreja (Team Leader)
-- Abdulaziz Khader
-- Dhruv Patravali
-- Diego Marquez
-- Kane Li
-- Michael
-- Peter Yoon
-- Po-Yu Lai (Luca)
-- Sierra Myers
-- Stefan Gadient
-- Yijie He
-- Yuehua Xie
+- [Avighna Kukreja (Team Leader)](https://github.com/IceGawd)
+- [Abdulaziz Khader](https://github.com/AbdulazizKhader)
+- [Dhruv Patravali](https://github.com/dpatravaliUCSD)
+- [Diego Marquez](https://github.com/evawlve)
+- [Kane Li](https://github.com/Li-Kane)
+- [Michael](https://github.com/mdimapilis)
+- [Peter Yoon](https://github.com/peterjhyoon)
+- [Po-Yu Lai (Luca)](https://github.com/Astraeven0502)
+- [Sierra Myers](https://github.com/sierra392)
+- [Stefan Gadient](https://github.com/ssgadient)
+- [Yijie He](https://github.com/HenoHyj)
+- [Yuehua Xie](https://github.com/yue-hua-x)
