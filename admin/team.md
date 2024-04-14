@@ -21,10 +21,11 @@ Below are the team values we have decided to abide by throughout this quarter:
 We want to make sure that we are able to communicate any of our ideas both effectively and in a manner inclusive of everyone.
 > Growth Mindset
 
-We want to make sure that everyone has an opportunity to learn something new and grow our skills as aspiring software engineers.
+We want to make sure that everyone has an opportunity to learn something new and grow our skills as aspiring software engineers. Be like Gordon Ramsay. But also don't be as mad as him.
+
 > Psychological Safety
 
-Be like Gordon Ramsey. But also don't be as mad as him.
+Make sure everyone feels safe and is welcomed. No one is left out!
 > Don't Overstress
 
 The project is a shared responsibility; by delegating work appropriately we'll ensure that no one is overworked, and that we will be able to complete the project in a timely manner (hopefully without having to stress out too much).
