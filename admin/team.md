@@ -9,7 +9,7 @@
 ## The Team
 Hi! We're Team **9+10==21**! 
 
-![Our Team](/admin/src/team.png)
+![Our Team](/admin/src/9+10.jpeg)
 
 We're a diverse group of 11 sophomores and juniors who will overtake the tech industry.
 
