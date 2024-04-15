@@ -1,6 +1,6 @@
 # Kickoff Meeting 
 Location: B225 from 5-7pm  
-Missing: Yijie He
+Missing: Yijie He  
 Present: Abdulaziz, Avighna, Diego, Dhruv, Kane, Michael, Luca, Peter, Sierra, Stefan, Yueha
 
 **Notes**
