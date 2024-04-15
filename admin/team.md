@@ -45,7 +45,7 @@ Below are all of our members; click our names to view our personal Github pages!
 - [Abdulaziz Khader](https://github.com/AbdulazizKhader)
 - [Dhruv Patravali](https://github.com/dpatravaliUCSD)
 - [Diego Marquez](https://github.com/evawlve)
-- [Kane Li](https://github.com/Li-Kane)
+- [Kane Li](https://github.com/Li-Kane) : I am a second year computer science major from Cypress, CA. My hobbies are Taiko, reading, and running. Overall, I'm excited to work on this project! 
 - [Michael](https://github.com/mdimapilis)
 - [Peter Yoon](https://github.com/peterjhyoon)
 - [Po-Yu Lai (Luca)](https://github.com/Astraeven0502)
