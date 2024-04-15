@@ -47,7 +47,7 @@ Below are all of our members; click our names to view our personal Github pages!
 - [Diego Marquez](https://github.com/evawlve)
 - [Kane Li](https://github.com/Li-Kane) : I am a second year computer science major from Cypress, CA. My hobbies are Taiko, reading, and running. Overall, I'm excited to work on this project! 
 - [Michael](https://github.com/mdimapilis)
-- [Peter Yoon](https://github.com/peterjhyoon)
+- [Peter Yoon](https://github.com/peterjhyoon) : I am a third year Math-CS major from Seoul, Korea. My hobbies are Badminton and listening to music!
 - [Po-Yu Lai (Luca)](https://github.com/Astraeven0502)
 - [Sierra Myers](https://github.com/sierra392) : I am a second year computer science major from Ventura, CA and I look forward to working on this project!
 - [Stefan Gadient](https://github.com/ssgadient)
