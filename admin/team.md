@@ -52,4 +52,4 @@ Below are all of our members; click our names to view our personal Github pages!
 - [Sierra Myers](https://github.com/sierra392) : I am a second year computer science major from Ventura, CA and I look forward to working on this project!
 - [Stefan Gadient](https://github.com/ssgadient)
 - [Yijie He](https://github.com/HenoHyj)
-- [Yuehua Xie](https://github.com/yue-hua-x)
+- [Yuehua Xie](https://github.com/yue-hua-x): I am a second year (first year transfer) CS + biochemistry major from San Diego, CA. My hobbies are reading and sleeping, and I'm excited to work on this project!
