@@ -1,4 +1,5 @@
 # Team Nine Plus Ten 
+![9 + 10 == 21 Banner](/admin/branding/banner.jpg)
 
 ## Overview
 1. [About the Team](#the-team)
@@ -32,17 +33,18 @@ The project is a shared responsibility; by delegating work appropriately we'll e
 > Have Fun!
 
 Building software is supposed to be fun (or at least we think so)! We'll try to enjoy the process, including all the highs and lows we'll face. Hopefully more highs than lows though.
+
 ## Team Brand
 Our team brand is that we're **underdogs**. This ties closely into one of our values of maintaining a persistent growth mindset! Although we may not have as much industry experience compared to some of the other groups out there, all 12 of us are eager to learn something new and contribute towards this project.
 
 Our team color is a combination of Green and Lavendar (voted by democracy). We sure are confident that with our teamwork, we can produce an app that would revolutionize the tech industry! (or so we believe).
 
-
 ## Member Details
 Below are all of our members; click our names to view our personal Github pages!
+
 ### Members
-- [Avighna Kukreja (Team Leader)](https://github.com/IceGawd)
-- [Abdulaziz Khader](https://github.com/AbdulazizKhader)
+- [Avighna Kukreja (Team Leader)](https://github.com/IceGawd) : I am a third year (first year transfer) CS major from Pleasanton, California. My hobbies mostly involve making games, playing games, hosting tournaments for games, etc. 
+- [Abdulaziz Khader (Team Leader)](https://github.com/AbdulazizKhader)
 - [Dhruv Patravali](https://github.com/dpatravaliUCSD)
 - [Diego Marquez](https://github.com/evawlve)
 - [Kane Li](https://github.com/Li-Kane) : I am a second year computer science major from Cypress, CA. My hobbies are Taiko, reading, and running. Overall, I'm excited to work on this project! 
