@@ -1,4 +1,4 @@
-# Team 21
+# Team Nine Plus Ten 
 
 ## Overview
 1. [About the Team](#the-team)
@@ -49,7 +49,7 @@ Below are all of our members; click our names to view our personal Github pages!
 - [Michael](https://github.com/mdimapilis)
 - [Peter Yoon](https://github.com/peterjhyoon)
 - [Po-Yu Lai (Luca)](https://github.com/Astraeven0502)
-- [Sierra Myers](https://github.com/sierra392)
+- [Sierra Myers](https://github.com/sierra392) : I am a second year computer science major from Ventura, CA and I look forward to working on this project!
 - [Stefan Gadient](https://github.com/ssgadient)
 - [Yijie He](https://github.com/HenoHyj)
 - [Yuehua Xie](https://github.com/yue-hua-x)
