@@ -45,7 +45,7 @@ Below are all of our members; click our names to view our personal Github pages!
 ### Members
 - [Avighna Kukreja (Team Leader)](https://github.com/IceGawd) : I am a third year (first year transfer) CS major from Pleasanton, California. My hobbies mostly involve making games, playing games, hosting tournaments for games, etc. 
 - [Abdulaziz Khader (Team Leader)](https://github.com/AbdulazizKhader)
-- [Dhruv Patravali](https://github.com/dpatravaliUCSD)
+- [Dhruv Patravali](https://github.com/dpatravaliUCSD) : I am a third year Computer Science spec. Bioinformatics major. I like to play sports like soccer and beach volleyball, and I love to make music in my freetime. We are going to kill this project!
 - [Diego Marquez](https://github.com/evawlve) : I am a fourth year computer engineering major. I like to stay active by playing sports like soccer and volleyball, weightlifting, and watching tv.
 - [Kane Li](https://github.com/Li-Kane) : I am a second year computer science major from Cypress, CA. My hobbies are Taiko, reading, and running. Overall, I'm excited to work on this project! 
 - [Michael](https://github.com/mdimapilis)
