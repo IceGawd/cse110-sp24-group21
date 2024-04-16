@@ -53,5 +53,5 @@ Below are all of our members; click our names to view our personal Github pages!
 - [Po-Yu Lai (Luca)](https://github.com/Astraeven0502) :  I am a third year computer science major from Taiwan. My hobbies are playing video games and volleyball. Look forward to being in the best team in this class! :muscle:
 - [Sierra Myers](https://github.com/sierra392) : I am a second year computer science major from Ventura, CA and I look forward to working on this project!
 - [Stefan Gadient](https://github.com/ssgadient)
-- [Yijie He](https://github.com/HenoHyj)
+- [Yijie He](https://github.com/HenoHyj) : I am a third year Computer Engineering major student from Shenzhen, China. I used to play video games and badminton in my spare time, but now I only want to sleep as much as I can when I'm done with my works lol.
 - [Yuehua Xie](https://github.com/yue-hua-x): I am a second year (first year transfer) CS + biochemistry major from San Diego, CA. My hobbies are reading and sleeping, and I'm excited to work on this project!
