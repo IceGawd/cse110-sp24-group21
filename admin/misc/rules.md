@@ -19,4 +19,3 @@ Weekly overall group meetings will be held Friday 5-7pm at the CSE basement unle
 - If an issue arises between a team member and a team lead, it may be escalated to the other team lead/a TA or the professor.
 - If there is an issue that cannot be resolved by the team itself, the team will reach out to the course staff.
 ## Signature:
-Peter Yoon
