@@ -1,8 +1,8 @@
 # Frontend Meeting April 25
 Location: \[Zoom] \
 Time: \[8:00 PM\] \
-Missing:  None\
-Present:  Aziz, Michael, Peter, Diego\
+Missing:  Kane\
+Present:  Aziz, Michael, Peter, Diego, Luca\
 Scribe: Aziz
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
