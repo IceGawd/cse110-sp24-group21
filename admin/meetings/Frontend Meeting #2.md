@@ -1,7 +1,7 @@
 # Frontend Meeting April 25
 Location: \[Zoom] \
 Time: \[8:00 PM\] \
-Missing:  Luca\
+Missing:  None\
 Present:  Aziz, Michael, Peter, Diego\
 Scribe: Aziz
 
