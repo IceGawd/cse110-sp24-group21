@@ -25,3 +25,9 @@ Scribe: Stefan
 - more test cases
 - maybe separate large functions into different scripts
 - maybe start incorporating Github actions
+
+**Recording:**
+
+[meeting recording:](https://ucsd.zoom.us/rec/share/soqSt0hf3Tf8jAutuJVzbxAYzxpRCJCkSBJXzCU70oTiLS35ZQAvik0PX4q8xLpQ.v_Snyg4HULt9l-Wx )\
+Passcode: 4cE^*wm4\
+note: we forgot to record the first ~15 minutes of the meeting or so.
