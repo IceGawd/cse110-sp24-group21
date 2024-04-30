@@ -10,7 +10,7 @@ Present:  Michael, Avighna, Abdulaziz, Peter, Dhruv, Kane, Yuehua, Luca, Sierra,
 Scribe: Michael
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
-- 
+- Note 1
 - Note 2
 - Note 3
 
