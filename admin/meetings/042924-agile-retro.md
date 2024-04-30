@@ -6,11 +6,11 @@ Present:  Michael, Avighna, Abdulaziz, Peter, Dhruv, Kane, Yuehua, Luca, Sierra,
 Scribe: Michael
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
-- Setting up retrium
+- 
 - Note 2
 - Note 3
 
 **Events** <!---Important things that happened or were decided-->
-- Event 1
+- Setting up retrium
 - Event 2
 - Event 3
