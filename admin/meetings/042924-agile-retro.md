@@ -1,8 +1,12 @@
 # Meeting Name
 Location: Zoom
+
 Time: 6-7 PM
+
 Missing:  Stefan, Yijie
+
 Present:  Michael, Avighna, Abdulaziz, Peter, Dhruv, Kane, Yuehua, Luca, Sierra, Diego
+
 Scribe: Michael
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
