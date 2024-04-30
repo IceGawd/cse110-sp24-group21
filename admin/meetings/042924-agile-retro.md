@@ -10,11 +10,11 @@ Present:  Michael, Avighna, Abdulaziz, Peter, Dhruv, Kane, Yuehua, Luca, Sierra,
 Scribe: Michael
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
-- Note 1
-- Note 2
-- Note 3
+- Based on Retrium, we can improve on time management and scheduling issues, knowing who will and who will not attend meetings
+- Also discussed team coordination, between front end and back end teams, weekly checkups
+- Better use of Github features (creating & merging branches, resolving issues)
 
 **Events** <!---Important things that happened or were decided-->
-- Setting up retrium
-- Event 2
-- Event 3
+- Setting up Retrium
+- Avighna was facilitator on Retrium
+- Finished Retrium
