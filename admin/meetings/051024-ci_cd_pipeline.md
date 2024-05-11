@@ -1,8 +1,12 @@
-# Meeting Name
+# CI/CD Pipline and ADR discussion meeting
 Location: Zoom
+
 Time: 5:00-6:00PM
+
 Missing:  
-Present:  Yijie, Sierra, Yuehua, Peter, Kane, Avighna, Luca, Stefan, Diego, Michael, Dhruv, Abdulaziz
+
+Present:  Yijie, Sierra, Yuehua, Peter, Kane, Avighna, Luca, Stefan, Diego, Michael, Dhruv, Abdulaziz 
+
 Scribe: Diego
 
 **Notes** <!---Things to keep in mind for the future, such as due dates-->
