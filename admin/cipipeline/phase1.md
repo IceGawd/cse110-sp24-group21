@@ -26,7 +26,7 @@ In this phase of our CI/CD pipeline, we have experimented with various different
 - Integrate into pipeline to automatically updat documentation
 
 ## Diagram
-- ![Phase 1 Pipeline Diagram](admin/cipipeline/phase1.png)
+- ![Phase 1 Pipeline Diagram](https://github.com/cse110-sp24-group21/cse110-sp24-group21/blob/31bda55296f920798c435ae3574c0298049a1f56/admin/cipipeline/phase1.png)
 
 ## Conclusion
 Our CI/CD pipeline will integrate tools like ESLint and Jest, apply them using Github Actions to enhance code quality and streamline development processes. We plan to do some further enchancement by adding unit testing with Jest and do automated documentation with JSDoc, which will further support our commitment to maintainability and efficient workflow management.
