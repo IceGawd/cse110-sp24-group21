@@ -1,0 +1,26 @@
+name: Lint  # name of the test
+
+on: [push, pull_request]
+  # the Github Action will activate "on" the event that you "push" to the repo
+  # Trigger the workflow on push or pull request
+  
+
+jobs:  # the things being executed
+  build:  # the name of your status check
+    name: Lint Code Base
+    runs-on: ubuntu-latest  # which device on Github's server that you are running the Actions on
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_HTML: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
