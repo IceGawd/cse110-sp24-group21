@@ -1,5 +1,5 @@
 # Start of Weekend Meeting to Divvy up Initial Backend Tasks
-Location: Zoom
+Location: Zoom\
 Time: 5:00pm
 Missing:
 Present: Dhruv, Avighna, Yijie, Sierra, Stefan
