@@ -1,13 +1,14 @@
 # Start of Weekend Meeting to Divvy up Initial Backend Tasks
 Location: Zoom\
-Time: 5:00pm
+Time: 5:00pm\
 Missing:
-Present: Dhruv, Avighna, Yijie, Sierra, Stefan
-Scribe: Dhruv Patravali
+Present: Dhruv, Avighna, Yijie, Sierra, Stefan\
+Scribe: Dhruv Patravali\
 
 **Events**
 - Using the figma to organize and plan tasks
 - Divied up tasks
+
 **Notes**
 - Want to divy up the tasks to work on this weekend (5/17 - 5/18)
 - Calendar: Sierra
