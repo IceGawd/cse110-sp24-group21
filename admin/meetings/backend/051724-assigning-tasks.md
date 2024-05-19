@@ -3,7 +3,7 @@ Location: Zoom\
 Time: 5:00pm\
 Missing:
 Present: Dhruv, Avighna, Yijie, Sierra, Stefan\
-Scribe: Dhruv Patravali\
+Scribe: Dhruv Patravali
 
 **Events**
 - Using the figma to organize and plan tasks
