@@ -1,8 +1,8 @@
 # Frontend Meeting #1
-Location: Zoom
-Time: 7-8pm
-Present: Kane Li, Peter Yoon, Po Lai, Abdulaziz Khader, Michael Dimapilis
-Scribe: Kane Li
+Location: Zoom  
+Time: 7-8pm  
+Present: Kane Li, Peter Yoon, Po Lai, Abdulaziz Khader, Michael Dimapilis  
+Scribe: Kane Li  
 
 **Notes**
 - Peter made a basic UI calendar after following a tutorial
