@@ -1,7 +1,7 @@
 # Start of Weekend Meeting to Divvy up Initial Backend Tasks
 Location: Zoom\
 Time: 5:00pm\
-Missing:
+Missing:\
 Present: Dhruv, Avighna, Yijie, Sierra, Stefan\
 Scribe: Dhruv Patravali
 
