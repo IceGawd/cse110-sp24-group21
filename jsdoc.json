@@ -1,6 +1,6 @@
 {
     "source": {
-      "include": ["testjsdoc.js"],
+      "include": ["./tests/testjsdoc.js"],
       "excludePattern": "(^|\\/|\\\\)_"
     },
     "opts": {
