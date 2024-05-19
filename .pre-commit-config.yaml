@@ -3,8 +3,7 @@ repos:
     hooks:
       - id: check-src-changes
         name: Check for changes in src folder
-        entry: bash -c 'git diff --cached --name-only | grep "^src/"'
+        entry: bash -c 'git diff --cached --name-only | while read -r file; do if [[ $file == src/* ]]; then echo "Changes to files in 'src' directory are not allowed." && exit 1; fi; done'
         language: system
         stages: [commit]
-        files: ^src/
         types: [file]
