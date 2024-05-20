@@ -16,11 +16,11 @@ storage.getItems = function (feature) {
 /**
  * Adds an item to the cart and stores that cart
  */
-storage.addItem = function (feature, id) {
+storage.addItem = function (feature, object) {
   // Get the current cart
   const currItems = storage.getItems(feature);
   // Add the id of the new item to the cart
-  currItems.push(id);
+  currItems.push(object);
   // localStorage only stores strings so you must JSON.stringify() any arrays
   localStorage.setItem(feature, JSON.stringify(currItems));
 };

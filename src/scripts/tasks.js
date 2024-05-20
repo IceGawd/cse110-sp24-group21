@@ -1,10 +1,7 @@
 import { storage } from './storage.js';
 
 let tasks; // The variable we'll use to add our array of objects we fetch
-let taskURL = './assets/json/tasklist.json'; // the URL to fetch from
-const tasklistContainer = document.getElementById("task-list");   // determine the tasklist container
-const addTaskButton = document.getElementById("add-task");  // get an add task button
-const deleteTaskButton = document.getElementById("delete-task");  // get a delete task button
+let taskURL = '../assets/json/tasklist.json'; // the URL to fetch from
 
 // Bind the init() function to run once the page loads
 window.addEventListener('DOMContentLoaded', init);
@@ -56,24 +53,28 @@ async function fetchTasks() {
  * Adds the Fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
-  return
   if (!tasks) return;
   // Get all of the items currently in the cart from storage
   tasks = storage.getItems('tasklist');
   // Iterate over each of the items in the array
-  items.forEach(item => {
+  const htmlDates = document.querySelectorAll('.day-container > .date');
+  let visibleDates = [];
+  htmlDates.forEach(date => {visibleDates.push(date.innerHTML) });
+
+  tasks.forEach(element => {
     // Create <product-item> element and populate it with item data
-    let productItem = document.createElement('task-element');
-    productItem.data = item;
-    // If the item was in the cart already, set it to be that way
-    if (inCart.indexOf(item.id) > -1) {
-      productItem.alreadyInCart();
+    for (let i = 0; i < visibleDates.length; i++) {
+      if (element.dueDate === visibleDates[i]) {
+        let taskElement = document.createElement('task-element');
+        taskElement.data = element;
+        const day = document.querySelectorAll('.day-container')[i];
+        console.log(day);
+        console.log(taskElement);
+        const addButton = day.querySelector('.add-task');
+        day.insertBefore(taskElement, addButton);
+      }
     }
-    // Add the item to the webpage
-    document.querySelector('#product-list').appendChild(productItem);
   });
-  // Update the cart count in the webpage
-  document.querySelector('#cart-count').innerHTML = inCart.length;
 }
 
 /**
@@ -81,48 +82,110 @@ function populatePage() {
  * from cart buttons get pressed
  */
 function bindUpdates() {
-  addTaskButton.addEventListener('click', () => { addTask() });
-  // deleteTaskButton.addEventListener('deleteSelectedTasks', () => { deleteSelectedTasks() });
+  const days = Array.from(document.querySelectorAll('.day-container'));
+  days.forEach(day => {
+    const dailyTasks = Array.from(day.querySelectorAll(".task-element"));
+    dailyTasks.forEach(task => {
+      // Save button handler
+      const fields = Array.from(task.querySelectorAll("textarea"));
+      fields.forEach(field => {
+        field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
+      })
+      task.querySelector(".save-task").addEventListener('click', () => { saveTask(task) });
+      task.querySelector(".delete-task").addEventListener('click', () => { deleteTask(task) });
+      task.addEventListener('Saved', () => { saveTask(task) });
+      task.addEventListener('Deleted', () => { deleteTask(task) });
+    });
+    // Add button handler
+    day.querySelector('.add-task').addEventListener('click', () => { getNewTask(day) });
+  });
 }
 
-//Creates new task elements
-function createTaskElement(){
-    // storage.addItem('task', id) cart update
-    const inputTitle = document.getElementById("input-title").value;
-    const inputDate = document.getElementById("input-date").value;
-    const inputDescription = document.getElementById("input-description").value;
-    const inputTags = document.getElementById("input-tags").value;
-    let currDate = new Date();
-    try {
-      let darr = inputDate.split("-");
-      let dobj = new Date(parseInt(darr[0]),parseInt(darr[1])-1,parseInt(darr[2]));
-      let dueDate = dobj.toISOString()
-      let taskObject = {
-        id: Math.floor(Math.random() * 2000000),
-        title: inputTitle,
-        assignDate: currDate.toISOString(),
-        dueDate: dueDate,
-        description: inputDescription,
-        tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
-      };
-      console.log(taskObject);
-      return taskObject;
-    } catch (err) {
-      console.log(`Invalid Due Date`);
-      return;
+function addTask(wrapper) {
+  const inputTitle = wrapper.querySelector(".title").value;
+  const inputDate = wrapper.parentElement.querySelector(".date").innerHTML;
+  const inputDescription = wrapper.querySelector(".description").value;
+  const inputTags = wrapper.querySelector(".tags").value;
+  tasks = storage.getItems("tasklist");
+
+  // check for unique id
+  let inputId = Math.floor(Math.random() * 2000000);
+  while (true) {
+    let newId = true;
+    for (let t in tasks) {
+      if (inputId == tasks[t].id) {
+        newId = false;
+      }
     }
+    if (newId) {
+      break;
+    }
+    inputId = Math.floor(Math.random() * 2000000);
+  }
+
+  try {
+    let taskObject = {
+      id: inputId,
+      title: inputTitle,
+      dueDate: inputDate,
+      description: inputDescription,
+      tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
+    };
+    storage.addItem("tasklist", taskObject);
+    console.log(taskObject);
+  } catch (err) {
+    console.log(`Error Occured!`);
+    return;
+  }
+
 }
 
-//Adds new Notes to page
-function addTask(){
+// Adds new empty task template, does not save
+function getNewTask(day){
 
-  const tasklist = getTasks();
-  const taskElement = createTaskElement();
-  if (!taskElement) {
-    tasklist.push(taskElement);
+  let addButton = day.lastElementChild;
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('task');
+
+  // Create the task title
+  const title = document.createElement('textarea');
+  title.placeholder = "Task Title";
+  title.classList.add('title');
+
+  const description = document.createElement('textarea');
+  description.placeholder = "Task Description";
+  description.classList.add('description');
+
+  const tags = document.createElement('textarea');
+  tags.placeholder = "Task Tags"
+  tags.classList.add('tags');
+
+  const buttonWrapper = document.createElement('div');
+  buttonWrapper.classList.add('task-buttons');
+
+  const saveImg = document.createElement('img');
+  saveImg.src = "../assets/icons/save.svg"
+  saveImg.addEventListener('click', () => { addTask(wrapper) });
+  saveImg.classList.add('save-task');
+
+  const deleteImg = document.createElement('img');
+  deleteImg.src = "../assets/icons/delete.svg"
+  deleteImg.addEventListener('click', () => { deleteTask(wrapper) });
+  deleteImg.classList.add('delete-task');
+
+  buttonWrapper.append(saveImg, deleteImg);
+
+  wrapper.append(title, description, tags, buttonWrapper);
+  
+  day.insertBefore(wrapper, addButton);
+}
+
+function deleteTask(wrapper){
+  console.log(wrapper);
+  if (wrapper.data) {
+    console.log(wrapper.data);
   }
-  saveTasks(tasklist);
-  console.log(localStorage);
 }
 
 //Updates Task with new given content
@@ -150,7 +213,7 @@ function saveTasks(tasks){
 }
 
 //Deletes a single specific task with double click
-function deleteTask(id, element){
+function deleteTaskbyId(id, element){
     const tasks = getTasks().filter(task => task.id != id);
     saveTasks(tasks);
     tasksContainer.removeChild(element);

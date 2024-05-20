@@ -1,1 +1,109 @@
 /* CSS for just the tasks page */
+body {
+    font-family: 'Radio Canada'
+}
+
+.scroll-container {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+.day-container {
+    flex: 0 0 auto;
+    width: 400px;
+    margin-right: 10px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Other elements inside daily container */
+
+.add-task{
+    padding: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-size: 30px;
+    margin-top: 10px;
+    align-self: center;
+    color:rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.add-task:hover{
+    background: #0056b3;
+}
+
+.date {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 36px;
+    padding: 10px;
+}
+
+/* Task style */
+
+.task {
+    position: relative;
+    flex: 0 0 auto;
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    border: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+    resize: none;
+}
+
+.description {
+    border: 1px solid #ddd;
+    resize: none;
+}
+
+.tags {
+    border: 1px solid #ddd;
+    border-radius: 0 0 10px 10px;
+    resize: none;
+}
+
+.task-buttons {
+    position: absolute;
+    bottom: 15px;
+    right: 20px; 
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-left: 10px;
+    justify-content: flex-end;
+}
+
+.task-buttons > .save-task {
+    height: 15px;
+    width: 15px;
+    padding-top: 5px;
+}
+
+.task-buttons > .delete-task {
+    height: 25px;
+    width: 25px;
+}
