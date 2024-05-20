@@ -96,14 +96,32 @@ body {
     margin-left: 10px;
     justify-content: flex-end;
 }
+  
+.task-buttons > button {
+    background-position: center;
+    background-color: white; 
+    height: 20px;
+    width: 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.5s;
+  }
+  
+  .save-task {
+    background-image: url(../assets/icons/save.svg);
+    background-size: 20px 20px;
+  }
 
-.task-buttons > .save-task {
-    height: 15px;
-    width: 15px;
-    padding-top: 5px;
-}
+  .save-task:hover {
+    background-color: #d3d3d3;
+  }
+  
+  .delete-task {
+    background-image: url(../assets/icons/delete.svg);
+    background-size: 35px 35px;
+  }
 
-.task-buttons > .delete-task {
-    height: 25px;
-    width: 25px;
-}
+  .delete-task:hover {
+    background-color: #d3d3d3;
+  }

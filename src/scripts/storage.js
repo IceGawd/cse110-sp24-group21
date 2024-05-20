@@ -32,19 +32,20 @@ storage.removeItem = function (feature, id) {
   // Get the current cart
   const currItems = storage.getItems(feature);
   // Get the index of the item to remove
-  const indexOfId = currItems.indexOf(id);
+  let indexOfId = currItems.findIndex((element) => element.id == id);
   // Remove that index of the item to remove from the cart
   if (indexOfId > -1) currItems.splice(indexOfId, 1);
   // localStorage only stores strings so you must JSON.stringify() any arrays
   localStorage.setItem(feature, JSON.stringify(currItems));
 };
 
-storage.updateItem = function (feature, id) {
+storage.updateItem = function (feature, object) {
     // Get the current cart
     const currItems = storage.getItems(feature);
     // Get the index of the item to remove
-    const indexOfId = currItems.indexOf(id);
+    let indexOfId = currItems.findIndex((element) => element.id == object.id);
     // Update item somehow
+    currItems[indexOfId] = object;
     // localStorage only stores strings so you must JSON.stringify() any arrays
     localStorage.setItem(feature, JSON.stringify(currItems));
   };

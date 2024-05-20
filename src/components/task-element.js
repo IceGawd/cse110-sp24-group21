@@ -51,16 +51,34 @@ class TaskElement extends HTMLElement {
         margin-left: 10px;
         justify-content: flex-end;
     }
-    
-    .task-buttons > .save-task {
-        height: 15px;
-        width: 15px;
-        padding-top: 5px;
+
+    .task-buttons > button {
+      background-position: center;
+      background-color: white; 
+      height: 20px;
+      width: 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.5s;
     }
     
-    .task-buttons > .delete-task {
-        height: 25px;
-        width: 25px;
+    .save-task {
+      background-image: url(../assets/icons/save.svg);
+      background-size: 20px 20px;
+    }
+
+    .save-task:hover {
+      background-color: #d3d3d3;
+    }
+    
+    .delete-task {
+      background-image: url(../assets/icons/delete.svg);
+      background-size: 35px 35px;
+    }
+
+    .delete-task:hover {
+      background-color: #d3d3d3;
     }
     `;
 
@@ -72,11 +90,13 @@ class TaskElement extends HTMLElement {
     const title = document.createElement('textarea');
     title.classList.add('title');
     title.innerHTML = data.title;
+    title.placeholder = "Task Title"
 
     // Create the task description
     const description = document.createElement('textarea');
     description.classList.add('description');
     description.innerHTML = data.description;
+    description.placeholder = "Task Description"
 
     // Create the task description
     const tags = document.createElement('textarea');
@@ -87,29 +107,26 @@ class TaskElement extends HTMLElement {
       tag_content += ' ';
     }
     tags.innerHTML = tag_content;
+    tags.placeholder = "Task Tags"
 
     const buttonWrapper = document.createElement('div');
     buttonWrapper.classList.add('task-buttons');
 
-    const savedEvent = new CustomEvent('Saved', {bubbles: true, composed: true});
-    const deletedEvent = new CustomEvent('Deleted', {bubbles: true, composed: true});
+    const savedEvent = new Event('saved', {bubbles: true, composed: true});
+    const deletedEvent = new Event('deleted', {bubbles: true, composed: true});
     const handler = this;
-    const saveImg = document.createElement('img');
-    saveImg.src = "../assets/icons/save.svg"
-    saveImg.addEventListener('click', () => { handler.dispatchEvent(savedEvent) });
-    saveImg.classList.add('save-task');
+    const saveButton = document.createElement('button');
+    saveButton.addEventListener('click', () => { handler.dispatchEvent(savedEvent); });
+    saveButton.classList.add('save-task');
   
-    const deleteImg = document.createElement('img');
-    deleteImg.src = "../assets/icons/delete.svg"
-    deleteImg.addEventListener('click', () => { handler.dispatchEvent(deletedEvent) });
-    deleteImg.classList.add('delete-task');
+    const deleteButton = document.createElement('button');
+    deleteButton.addEventListener('click', () => { handler.dispatchEvent(deletedEvent); });
+    deleteButton.classList.add('delete-task');
 
-    buttonWrapper.append(saveImg, deleteImg);
+    buttonWrapper.append(saveButton, deleteButton);
 
     // Add all of the above elements to the wrapper
     wrapper.append(title, description, tags, buttonWrapper);
-
-    console.log(wrapper);
 
     // Append the wrapper and the styles to the Shadow DOM
     this.shadowRoot.append(styles, wrapper);

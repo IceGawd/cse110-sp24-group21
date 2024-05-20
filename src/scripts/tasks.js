@@ -62,19 +62,25 @@ function populatePage() {
   htmlDates.forEach(date => {visibleDates.push(date.innerHTML) });
 
   tasks.forEach(element => {
-    // Create <product-item> element and populate it with item data
     for (let i = 0; i < visibleDates.length; i++) {
       if (element.dueDate === visibleDates[i]) {
         let taskElement = document.createElement('task-element');
         taskElement.data = element;
         const day = document.querySelectorAll('.day-container')[i];
-        console.log(day);
-        console.log(taskElement);
         const addButton = day.querySelector('.add-task');
         day.insertBefore(taskElement, addButton);
       }
     }
   });
+}
+
+function bindTaskUpdates(task) {
+  const fields = Array.from(task.shadowRoot.querySelectorAll("textarea"));
+  fields.forEach(field => {
+    field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
+  })
+  task.addEventListener('saved', () => { saveTask(task) });
+  task.addEventListener('deleted', () => { deleteTask(task) });
 }
 
 /**
@@ -84,54 +90,30 @@ function populatePage() {
 function bindUpdates() {
   const days = Array.from(document.querySelectorAll('.day-container'));
   days.forEach(day => {
-    const dailyTasks = Array.from(day.querySelectorAll(".task-element"));
-    dailyTasks.forEach(task => {
-      // Save button handler
-      const fields = Array.from(task.querySelectorAll("textarea"));
-      fields.forEach(field => {
-        field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
-      })
-      task.querySelector(".save-task").addEventListener('click', () => { saveTask(task) });
-      task.querySelector(".delete-task").addEventListener('click', () => { deleteTask(task) });
-      task.addEventListener('Saved', () => { saveTask(task) });
-      task.addEventListener('Deleted', () => { deleteTask(task) });
-    });
     // Add button handler
-    day.querySelector('.add-task').addEventListener('click', () => { getNewTask(day) });
+    day.querySelector('.add-task').addEventListener('click', () => { addTask(day) });
   });
+  const tasks = Array.from(document.querySelectorAll("task-element"));
+  tasks.forEach(task => { bindTaskUpdates(task); });
 }
 
-function addTask(wrapper) {
+function saveTask(task) {
+  tasks = storage.getItems("tasklist");
+  const wrapper = task.shadowRoot;
   const inputTitle = wrapper.querySelector(".title").value;
-  const inputDate = wrapper.parentElement.querySelector(".date").innerHTML;
+  const inputDate = task.parentElement.querySelector(".date").innerHTML;
   const inputDescription = wrapper.querySelector(".description").value;
   const inputTags = wrapper.querySelector(".tags").value;
-  tasks = storage.getItems("tasklist");
-
-  // check for unique id
-  let inputId = Math.floor(Math.random() * 2000000);
-  while (true) {
-    let newId = true;
-    for (let t in tasks) {
-      if (inputId == tasks[t].id) {
-        newId = false;
-      }
-    }
-    if (newId) {
-      break;
-    }
-    inputId = Math.floor(Math.random() * 2000000);
-  }
 
   try {
     let taskObject = {
-      id: inputId,
+      id: task.data.id,
       title: inputTitle,
       dueDate: inputDate,
       description: inputDescription,
       tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
     };
-    storage.addItem("tasklist", taskObject);
+    storage.updateItem("tasklist", taskObject);
     console.log(taskObject);
   } catch (err) {
     console.log(`Error Occured!`);
@@ -140,90 +122,37 @@ function addTask(wrapper) {
 
 }
 
-// Adds new empty task template, does not save
-function getNewTask(day){
+function addTask(day) {
+  tasks = storage.getItems("tasklist");
+  const date = day.querySelector(".date").innerHTML;
 
-  let addButton = day.lastElementChild;
-
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('task');
-
-  // Create the task title
-  const title = document.createElement('textarea');
-  title.placeholder = "Task Title";
-  title.classList.add('title');
-
-  const description = document.createElement('textarea');
-  description.placeholder = "Task Description";
-  description.classList.add('description');
-
-  const tags = document.createElement('textarea');
-  tags.placeholder = "Task Tags"
-  tags.classList.add('tags');
-
-  const buttonWrapper = document.createElement('div');
-  buttonWrapper.classList.add('task-buttons');
-
-  const saveImg = document.createElement('img');
-  saveImg.src = "../assets/icons/save.svg"
-  saveImg.addEventListener('click', () => { addTask(wrapper) });
-  saveImg.classList.add('save-task');
-
-  const deleteImg = document.createElement('img');
-  deleteImg.src = "../assets/icons/delete.svg"
-  deleteImg.addEventListener('click', () => { deleteTask(wrapper) });
-  deleteImg.classList.add('delete-task');
-
-  buttonWrapper.append(saveImg, deleteImg);
-
-  wrapper.append(title, description, tags, buttonWrapper);
-  
-  day.insertBefore(wrapper, addButton);
-}
-
-function deleteTask(wrapper){
-  console.log(wrapper);
-  if (wrapper.data) {
-    console.log(wrapper.data);
+  // Generate new id
+  let inputId = Math.floor(Math.random() * 2000000);
+  while (true) {
+    let newId = true;
+    for (let t in tasks) { if (inputId == tasks[t].id) { newId = false; } }
+    if (newId) { break; }
+    inputId = Math.floor(Math.random() * 2000000);
   }
+
+  let taskObject = {
+    id: inputId,
+    title: "",
+    dueDate: date,
+    description: "",
+    tags: []  // might have some trouble with this method (whitespaces)
+  };
+  storage.addItem("tasklist", taskObject);
+  let taskElement = document.createElement('task-element');
+  taskElement.data = taskObject;
+  bindTaskUpdates(taskElement);
+  const addButton = day.querySelector('.add-task');
+  day.insertBefore(taskElement, addButton);
 }
 
-//Updates Task with new given content
-function updateTask(id, newContent) {
-
-    tasks = getTasks();
-    updatedTask = getTask(tasks, id);
-    updatedTask.content = newContent;
-    saveTasks(tasks);
-}
-
-//Get all the tasks from local storage
-function getTasks() {
-    return storage.getItems('tasklist');
-}
-
-//Get a certain task based of id
-function getTask(tasks, id) {
-    return tasks.filter(task => task.id == id)[0];
-}
-
-//Saves all tasks to local storage
-function saveTasks(tasks){
-    localStorage.setItem('tasklist', JSON.stringify(tasks));
-}
-
-//Deletes a single specific task with double click
-function deleteTaskbyId(id, element){
-    const tasks = getTasks().filter(task => task.id != id);
-    saveTasks(tasks);
-    tasksContainer.removeChild(element);
-    taskCount--;
-}
-
-//deletes all tasks with crt + shift + D
-function deleteSelectedTasks(event){ 
-    for(var i = 0; i < taskCount; i++){
-        tasksContainer.removeChild(tasksContainer.lastChild);
-    }
-    saveTasks(JSON.parse("[]"));
+function deleteTask(task) {
+  storage.removeItem("tasklist", task.data.id);
+  const day = task.parentElement;
+  day.removeChild(task);
+  console.log(storage.getItems("tasklist"));
 }
