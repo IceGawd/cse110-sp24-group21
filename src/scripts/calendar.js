@@ -87,6 +87,7 @@ function showCalendar(month, year) {
 				cell.setAttribute("data-month", month + 1);
 				cell.setAttribute("data-year", year);
 				cell.setAttribute("data-month_name", months[month]);
+				cell.setAttribute('data-day_of_week', j + 1);
 				cell.className = "date-picker";
 				cell.innerHTML = "<span>" + date + "</span";
 
@@ -103,6 +104,7 @@ function showCalendar(month, year) {
 		}
 		tbl.appendChild(row);
 	}
+	datesIntoButtons();
 }
 
 // display calendar
@@ -111,4 +113,63 @@ showCalendar(currentMonth, currentYear);
 // Function to get the number of days in a month
 function daysInMonth(iMonth, iYear) {
 	return 32 - new Date(iYear, iMonth, 32).getDate();
+}
+/**
+ * Function to make every valid date cell of the calendar a button
+ */
+function datesIntoButtons(){
+	let dates = document.querySelectorAll(".date-picker");
+	for(let i = 0; i < dates.length; i++){
+		dates[i].addEventListener("click", () => {
+			if(document.querySelector(".date-picker.selected") != null){
+				document.querySelector(".date-picker.selected").className = "date-picker";
+			}
+			dates[i].className = "date-picker selected";
+			changeDateHeader();
+			clearTasks();
+			addNewTasks();
+		});
+	}
+}
+/**
+ * Function to change the date header to the selected day
+ */
+function changeDateHeader(){
+	let dateHeader = document.getElementById("curr-day");
+	let date = document.querySelector(".date-picker.selected");
+	let dofW = date.dataset['day_of_week'];
+	if(dofW == 1){ dofW = "Sunday";}
+	if(dofW == 2){ dofW = "Moday";}
+	if(dofW == 3){ dofW = "Tuesday";}
+	if(dofW == 4){ dofW = "Wednesday";}
+	if(dofW == 5){ dofW = "Thursday";}
+	if(dofW == 6){ dofW = "Friday";}
+	if(dofW == 7){ dofW = "Saturday";}
+	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
+
+}
+/**
+ * Function to clear the tasks that are being displayed for a selected date
+ */
+function clearTasks(){
+	allEvents = document.querySelectorAll(".events");
+	for(let i = 0; i < allEvents.length; i++){
+		//remove all tasks from each hour
+	}
+}
+/**
+ * Function to display the tasks that correspond to a selected day in its appropriate time slot
+ */
+function addNewTasks(){
+
+}
+/**
+ * Function to add upcoming tasks to the Upcoming Tasks section
+ */
+function populateUpcoming(){
+	const upcomingBox = document.getElementById("upoming-container");
+	//use current date
+	//find tasks assigned to it 
+
+
 }
