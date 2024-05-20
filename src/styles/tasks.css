@@ -1,6 +1,6 @@
 /* CSS for just the tasks page */
 body {
-    font-family: 'Radio Canada';
+    font-family: 'Radio Canada', sans-serif;
 }
 
 .scroll-container {
@@ -19,50 +19,64 @@ body {
     min-height: 100%;
     width: 300px;
     margin-right: 10px;
-    padding: 20px;
+    padding: 20px; /* Adjust padding */
     background-color: #f4f4f4;
     border: 1px solid #ddd;
-    text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    position: relative; 
+    text-align: left; 
+}
+
+/* Styles for the date */
+.day-container .date {
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    font-family: 'Radio Canada', sans-serif; 
+    color: #000000; 
+    margin-bottom: 0; 
+    line-height: 1; 
+}
+
+/* Styles for the day of the week */
+.day-container .day-of-week {
+    font-size: 1.1rem; 
+    font-family: 'Radio Canada', sans-serif; 
+    color: #000000; 
+    margin-top: 0px; 
+    margin-bottom: 10px; 
 }
 
 /* Other elements inside daily container */
-
-.add-task{
-    padding: 10px;
-    width: 100%;
-    border: none;
-    outline: none;
-    font-family: monospace;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-size: 30px;
-    margin-top: 10px;
-    align-self: center;
-    color:rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: background 1s;
+.add-task {
+    background: none; 
+    border: none; 
+    color: #827F7F;
+    font-size: 1.2rem; 
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+    font-family: 'Radio Canada', sans-serif;
+    margin-top: 0px; 
 }
 
-.add-task:hover{
-    background: #0056b3;
+/* Plus icon styles */
+.add-task::before {
+    content: '+'; 
+    color: #ff0000; 
+    font-size: 1.4rem; 
+    margin-right: 10px; 
 }
 
-.date {
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 36px;
-    padding: 10px;
+/* add hover effects */
+.add-task:hover {
+    text-decoration: underline; 
 }
 
 /* Task style */
-
 .task {
-    position: relative;
-    flex: 0 0 auto;
-    margin-right: 10px;
+    margin-top: 0px; 
     padding: 10px;
     background-color: #f4f4f4;
     text-align: center;
@@ -71,23 +85,27 @@ body {
     flex-direction: column;
 }
 
+/* Task title style */
 .title {
     border: 1px solid #ddd;
     border-radius: 10px 10px 0 0;
     resize: none;
 }
 
+/* Task description style */
 .description {
     border: 1px solid #ddd;
     resize: none;
 }
 
+/* Task tags style */
 .tags {
     border: 1px solid #ddd;
     border-radius: 0 0 10px 10px;
     resize: none;
 }
 
+/* Task buttons style */
 .task-buttons {
     position: absolute;
     bottom: 15px;
@@ -98,7 +116,7 @@ body {
     margin-left: 10px;
     justify-content: flex-end;
 }
-  
+
 .task-buttons > button {
     background-position: center;
     background-color: white; 
@@ -108,22 +126,22 @@ body {
     border-radius: 3px;
     cursor: pointer;
     transition: background 0.5s;
-  }
-  
-  .save-task {
+}
+
+.save-task {
     background-image: url(../assets/icons/save.svg);
     background-size: 20px 20px;
-  }
+}
 
-  .save-task:hover {
+.save-task:hover {
     background-color: #d3d3d3;
-  }
-  
-  .delete-task {
+}
+
+.delete-task {
     background-image: url(../assets/icons/delete.svg);
     background-size: 35px 35px;
-  }
+}
 
-  .delete-task:hover {
+.delete-task:hover {
     background-color: #d3d3d3;
-  }
+}
