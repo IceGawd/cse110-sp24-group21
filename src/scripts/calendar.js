@@ -37,7 +37,7 @@ $dataHead += "</tr>";
 
 document.getElementById("thead-month").innerHTML = $dataHead;
 
-monthAndYear = document.getElementById("monthAndYear");
+monthAndYear = document.getElementById("month-and-year");
 
 // Function to navigate between next/prev months
 function next() {
