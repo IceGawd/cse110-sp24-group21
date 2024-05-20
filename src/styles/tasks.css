@@ -1,12 +1,13 @@
 /* CSS for just the tasks page */
 body {
-    font-family: 'Radio Canada'
+    font-family: 'Radio Canada';
 }
 
 .scroll-container {
     display: flex;
-    height: 100%;
+    min-height: 100%;
     overflow-x: auto;
+    overflow-y: auto;
     white-space: nowrap;
     padding: 10px;
     box-sizing: border-box;
@@ -15,7 +16,8 @@ body {
 
 .day-container {
     flex: 0 0 auto;
-    width: 400px;
+    min-height: 100%;
+    width: 300px;
     margin-right: 10px;
     padding: 20px;
     background-color: #f4f4f4;
