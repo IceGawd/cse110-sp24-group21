@@ -73,7 +73,7 @@ const style= `
 .delete-task:hover {
   background-color: #d3d3d3;
 }
-    `;
+`;
 
 
 class TaskElement extends HTMLElement {
@@ -82,20 +82,13 @@ class TaskElement extends HTMLElement {
     this.attachShadow({ mode: 'open' }); // Creates the Shadow DOM
   }
 
-  createTitle(text) {
-    const title = document.createElement('textarea');
-    title.classList.add('title');
-    title.innerHTML = text;
-    title.placeholder = "Task Title"
-    return title;
-  }
-
-  createDescription(text) {
-    const description = document.createElement('textarea');
-    description.classList.add('description');
-    description.innerHTML = text;
-    description.placeholder = "Task Description"
-    return description;
+  // Create textarea with inner text and placeholder text
+  createTextarea(text, placeholderText) {
+    const el = document.createElement('textarea');
+    el.classList.add('description');
+    el.innerHTML = text;
+    el.placeholder = placeholderText
+    return el;
   }
 
   // Create tag text by taking tags from arrays and adding spaces in between each tag
@@ -145,8 +138,8 @@ class TaskElement extends HTMLElement {
     wrapper.classList.add('task');
 
     // Create fields and buttons inside wrapper
-    const title = this.createTitle(data.title);
-    const description = this.createDescription(data.description);
+    const title = this.createTextarea(data.title, "Task Title");
+    const description = this.createTextarea(data.description, "Task Description");
     const tags = this.createTags(data.tags);
     const buttons = this.createButtons();
 

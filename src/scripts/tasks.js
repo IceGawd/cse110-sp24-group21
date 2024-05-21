@@ -108,15 +108,18 @@ function bindUpdates() {
 
 // Generates random id not found in storage
 function genId() {
-  tasks = storage.getItems("tasklist");
-  let id = Math.floor(Math.random() * 2000000);
-  while (true) {
-    let newId = true;
-    // Checks if id is in storage already
-    for (let t in tasks) { if (id == tasks[t].id) { newId = false; } }
-    if (newId) { break; }
+  // Retrieve tasks from storage
+  const tasks = storage.getItems("tasklist");
+  
+  // Create a set of existing IDs for fast lookup
+  const existingIds = new Set(tasks.map(task => task.id));
+  
+  let id;
+  // Loop until a unique ID is found
+  do {
     id = Math.floor(Math.random() * 2000000);
-  }
+  } while (existingIds.has(id));
+  
   return id;
 }
 
