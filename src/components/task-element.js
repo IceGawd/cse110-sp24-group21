@@ -83,9 +83,9 @@ class TaskElement extends HTMLElement {
   }
 
   // Create textarea with inner text and placeholder text
-  createTextarea(text, placeholderText) {
+  createTextarea(text, placeholderText, className) {
     const el = document.createElement('textarea');
-    el.classList.add('description');
+    el.classList.add(className);
     el.innerHTML = text;
     el.placeholder = placeholderText
     return el;
@@ -138,8 +138,8 @@ class TaskElement extends HTMLElement {
     wrapper.classList.add('task');
 
     // Create fields and buttons inside wrapper
-    const title = this.createTextarea(data.title, "Task Title");
-    const description = this.createTextarea(data.description, "Task Description");
+    const title = this.createTextarea(data.title, "Task Title", 'title');
+    const description = this.createTextarea(data.description, "Task Description", 'description');
     const tags = this.createTags(data.tags);
     const buttons = this.createButtons();
 
