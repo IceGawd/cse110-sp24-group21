@@ -7,26 +7,45 @@ body {
     display: flex;
     min-height: 100%;
     overflow-x: auto;
-    overflow-y: auto;
+    overflow-y: hidden; /* Hide vertical overflow */
     white-space: nowrap;
-    padding: 10px;
+    padding: 10px; /* Adjust padding if needed */
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid 
+    #ccc;
 }
+
+/* Style for horizontal scrollbar */
+.scroll-container::-webkit-scrollbar {
+    height: 12px; /* Set the height of the scrollbar */
+}
+
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #555; /* Set the color */
+    border-radius: 6px; /* Rounded corners */
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Change color on hover */
+}
+
 
 .day-container {
     flex: 0 0 auto;
-    min-height: 100%;
-    width: 300px;
-    margin-right: 10px;
-    padding: 20px; /* Adjust padding */
+    min-height: calc(100vh - 60px); /* Minimum height as per the design */
+    width: 450px; /* Set the width as per the design */
+    margin-right: 50px; /* Set the spacing between day-containers */
+    padding: 20px; /* Adjust padding if needed */
     background-color: #f4f4f4;
     border: 1px solid #ddd;
+    border-radius: 15px; /* Add rounded edges */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    position: relative; 
-    text-align: left; 
+    position: relative; /* Allows absolute positioning if needed */
+    text-align: left; /* Align text to the left */
+    overflow: hidden; /* Ensure overflow is hidden */
 }
 
 /* Styles for the date */

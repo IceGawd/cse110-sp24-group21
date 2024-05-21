@@ -37,5 +37,7 @@
 }
 
 main {
-    margin-left: 100px;
+    margin-left: 100px; /* Ensure main content starts after the sidebar */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    padding: 10px; /* Optional: Add some padding */
 }
