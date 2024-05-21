@@ -109,10 +109,10 @@ function bindUpdates() {
 // Generates random id not found in storage
 function genId() {
   // Retrieve tasks from storage
-  const tasks = storage.getItems("tasklist");
+  const tasks = Array.from(document.querySelectorAll("task-element"));
   
   // Create a set of existing IDs for fast lookup
-  const existingIds = new Set(tasks.map(task => task.id));
+  const existingIds = new Set(tasks.map(task => task.data.id));
   
   let id;
   // Loop until a unique ID is found
@@ -137,9 +137,6 @@ function addTask(day) {
     description: "",
     tags: []  // might have some trouble with this method (whitespaces)
   };
-
-  // Add to storage
-  storage.addItem("tasklist", taskObject);
 
   // Create element and bind events to buttons
   let taskElement = document.createElement('task-element');

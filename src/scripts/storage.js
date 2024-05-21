@@ -48,7 +48,7 @@ storage.updateItem = function (feature, object) {
   // Get the index of the item to update
   let indexOfId = currItems.findIndex((element) => element.id == object.id);
   // Overwrite current item in storage with new object
-  currItems[indexOfId] = object;
+  (indexOfId != -1) ? currItems[indexOfId] = object : currItems.push(object);
   // localStorage only stores strings so you must JSON.stringify() any arrays
   localStorage.setItem(feature, JSON.stringify(currItems));
 };
