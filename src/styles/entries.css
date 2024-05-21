@@ -7,10 +7,14 @@ main {
     display: flex;
 }
 
+h3 {
+    text-align: center;
+}
+
 .scrollableEntries {
     border-right-style: solid;
     overflow-y: scroll;
-    width: 50%;
+    width: 25%;
 }
 
 #search {
@@ -54,13 +58,18 @@ ol {
 }
 
 .scrollableEntries a:hover {
-    background-color: #f7f7f7;
+    background-color: #ffffff;
+    border-radius: 8px;
 }
 
-.entry-container {
+.content {
+    overflow-y: auto;
+    margin: auto;
     background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 20px;
+    border-radius: 20px;
+    width: 60vw;
+    height: 85%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
