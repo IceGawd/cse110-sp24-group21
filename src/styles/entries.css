@@ -15,12 +15,13 @@ h3 {
     border-right-style: solid;
     overflow-y: scroll;
     width: 25%;
+    mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 100%);
 }
 
 #search {
     position: relative;
     left: 10px;
-    top: 10px;
+    top: 15px;
     border-radius: 5px;
     border: none;
     font-size: 18px;
@@ -40,14 +41,15 @@ details > summary {
 
 .scrollableEntries li {
     list-style: none;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    
 }
 
 .scrollableEntries a {
     text-decoration: none;
     color: #333;
     display: block;
-    padding: 40px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s;
 
@@ -57,9 +59,13 @@ ol {
     padding-left: 10px;
 }
 
+details {
+    padding: 5px 15px 0px 15px;
+}
+
 .scrollableEntries a:hover {
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .content {
@@ -67,8 +73,8 @@ ol {
     margin: auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 20px;
-    width: 60vw;
+    border-radius: 5px;
+    width: 65vw;
     height: 85%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
