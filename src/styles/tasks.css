@@ -11,8 +11,6 @@ body {
     white-space: nowrap;
     padding: 10px; /* Adjust padding if needed */
     box-sizing: border-box;
-    border: 1px solid 
-    #ccc;
 }
 
 /* Style for horizontal scrollbar */
@@ -35,7 +33,7 @@ body {
     flex: 0 0 auto;
     min-height: calc(100vh - 60px); /* Minimum height as per the design */
     width: 450px; /* Set the width as per the design */
-    margin-right: 50px; /* Set the spacing between day-containers */
+    margin-right: 20px; /* Set the spacing between day-containers */
     padding: 20px; /* Adjust padding if needed */
     background-color: #f4f4f4;
     border: 1px solid #ddd;
@@ -95,6 +93,7 @@ body {
 
 /* Task style */
 .task {
+    position: relative;
     margin-top: 0px; 
     padding: 10px;
     background-color: #f4f4f4;

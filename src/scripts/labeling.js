@@ -12,18 +12,8 @@ function createLabel(labelName) {
   }
 }
 
-// Assign an existing label to a task
-function assignLabelsToTask(taskId, labelNames) {
-  let tasks = getTasks();
-  let task = getTask(tasks, taskId);
-  if (task) {
-    task.labels = labelNames;
-    saveTasks(tasks);
-  }
-}
-
-// Change labels of a task
-function changeTaskLabels(taskId, newLabelNames) {
+// Update labels of a task
+function updateTaskLabels(taskId, newLabelNames) {
   let tasks = getTasks();
   let task = getTask(tasks, taskId);
   if (task) {
@@ -66,8 +56,7 @@ function saveTasks(tasks) {
 // Export functions
 export {
   createLabel,
-  assignLabelsToTask,
-  changeTaskLabels,
+  updateTaskLabels,
   deleteLabel,
   groupTasksByLabel
 };
