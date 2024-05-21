@@ -1,1 +1,73 @@
 /* CSS for just the entries page */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    display: flex;
+}
+
+.scrollableEntries {
+    border-right-style: solid;
+    overflow-y: scroll;
+    width: 50%;
+}
+
+#search {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 80%;
+}
+
+details > summary {
+    list-style: none;
+}
+
+.content {
+    padding: 15px;
+}
+
+.scrollableEntries li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.scrollableEntries a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+
+}
+
+ol {
+    padding-left: 10px;
+}
+
+.scrollableEntries a:hover {
+    background-color: #f7f7f7;
+}
+
+.entry-container {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.entry-content {
+    display: none;
+}
+
+.entry-container.active {
+    display: block;
+}
