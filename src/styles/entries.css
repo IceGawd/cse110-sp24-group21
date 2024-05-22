@@ -11,7 +11,7 @@ h3 {
     text-align: center;
 }
 
-.scrollableEntries {
+.scrollable-entries {
     border-right-style: solid;
     overflow-y: scroll;
     width: 25%;
@@ -39,13 +39,13 @@ details > summary {
     padding: 15px;
 }
 
-.scrollableEntries li {
+.scrollable-entries li {
     list-style: none;
     margin-bottom: 5px;
     
 }
 
-.scrollableEntries a {
+.scrollable-entries a {
     text-decoration: none;
     color: #333;
     display: block;
@@ -63,7 +63,7 @@ details {
     padding: 5px 15px 0px 15px;
 }
 
-.scrollableEntries a:hover {
+.scrollable-entries a:hover {
     background-color: #ffffff;
     border-radius: 5px;
 }
