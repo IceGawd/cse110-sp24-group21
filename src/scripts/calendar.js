@@ -138,6 +138,7 @@ function datesIntoButtons(){
 /**
  * Function to change the date header to the selected day
  */
+
 function changeDateHeader() {
 	let dateHeader = document.getElementById("curr-day");
 	let date = document.querySelector(".date-picker.selected");
@@ -158,8 +159,8 @@ function changeDateHeader() {
 		case 7:
 			dofW = "Saturday"; break;
 	}
+  
 	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
-
 }
 /**
  * Function to clear the tasks that are being displayed for a selected date
