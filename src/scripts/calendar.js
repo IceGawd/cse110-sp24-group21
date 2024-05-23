@@ -148,13 +148,29 @@ function changeDateHeader(){
 	let dateHeader = document.getElementById("curr-day");
 	let date = document.querySelector(".date-picker.selected");
 	let dofW = date.dataset['day_of_week'];
-	if(dofW == 1){ dofW = "Sunday";}
-	if(dofW == 2){ dofW = "Moday";}
-	if(dofW == 3){ dofW = "Tuesday";}
-	if(dofW == 4){ dofW = "Wednesday";}
-	if(dofW == 5){ dofW = "Thursday";}
-	if(dofW == 6){ dofW = "Friday";}
-	if(dofW == 7){ dofW = "Saturday";}
+	switch (dotW) {
+		case 1:
+			dofW = "Sunday";
+			break;
+		case 2:
+			dofW = "Moday";
+			break;
+		case 3:
+			dofW = "Tuesday";
+			break;
+		case 4:
+			dofW = "Wednesday";
+			break;
+		case 5:
+			dofW = "Thursday";
+			break;
+		case 6:
+			dofW = "Friday";
+			break;
+		case 7:
+			dofW = "Saturday";
+			break;	
+	}
 	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
 
 }
