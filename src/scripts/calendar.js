@@ -61,6 +61,40 @@ function jump() {
 	showCalendar(currentMonth, currentYear);
 }
 
+function addCell(i, j, firstDay, row, date_ref, year, month) {
+	let date = date_ref.date;
+
+	if (i === 0 && j < firstDay) {
+		cell = document.createElement("td");
+		cellText = document.createTextNode("");
+		cell.appendChild(cellText);
+		row.appendChild(cell);
+	} else if (date > daysInMonth(month, year)) {
+		return true;
+	} else {
+		cell = document.createElement("td");
+		cell.setAttribute("data-date", date);
+		cell.setAttribute("data-month", month + 1);
+		cell.setAttribute("data-year", year);
+		cell.setAttribute("data-month_name", months[month]);
+		cell.setAttribute('data-day_of_week', j + 1);
+		cell.className = "date-picker";
+		cell.innerHTML = "<span>" + date + "</span";
+		if (
+			date === today.getDate() && 
+			year === today.getFullYear() &&
+			month === today.getMonth()
+		) {
+			cell.className = "date-picker selected";
+		}
+		row.appendChild(cell);
+		date++;
+	}
+
+	date_ref.date = date;
+	return false;
+}
+
 // Function to display the calendar
 function showCalendar(month, year) {
 	let firstDay = new Date(year, month, 1).getDay();
@@ -70,36 +104,12 @@ function showCalendar(month, year) {
 	selectYear.value = year;
 	selectMonth.value = month;
 
-	let date = 1;
+	let date_ref = {"date" : 1};
 	for (let i = 0; i < 6; i++) {
 		let row = document.createElement("tr");
 		for (let j = 0; j < 7; j++) {
-			if (i === 0 && j < firstDay) {
-				cell = document.createElement("td");
-				cellText = document.createTextNode("");
-				cell.appendChild(cellText);
-				row.appendChild(cell);
-			} else if (date > daysInMonth(month, year)) {
+			if (addCell(i, j, firstDay, row, date_ref, year, month)) {
 				break;
-			} else {
-				cell = document.createElement("td");
-				cell.setAttribute("data-date", date);
-				cell.setAttribute("data-month", month + 1);
-				cell.setAttribute("data-year", year);
-				cell.setAttribute("data-month_name", months[month]);
-				cell.setAttribute('data-day_of_week', j + 1);
-				cell.className = "date-picker";
-				cell.innerHTML = "<span>" + date + "</span";
-
-				if (
-					date === today.getDate() &&
-					year === today.getFullYear() &&
-					month === today.getMonth()
-				) {
-					cell.className = "date-picker selected";
-				}
-				row.appendChild(cell);
-				date++;
 			}
 		}
 		tbl.appendChild(row);

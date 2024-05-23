@@ -56,7 +56,7 @@ async function fetchTasks() {
  * Adds the Fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
-  return
+  // return // FIXME: This return might have been an accident or meant to stop the function from running and I do not know who did this. Maybe check commit logs?
   if (!tasks) return;
   // Get all of the items currently in the cart from storage
   tasks = storage.getItems('tasklist');
