@@ -7,6 +7,7 @@
     <!-- External Files -->
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/home.css">
+    <link rel="stylesheet" href="../styles/calendar.css">
 </head>
 <body id="main-page">
     <nav>
@@ -20,6 +21,181 @@
     </nav>
 
     <main>
+        <div id="top">
+            <section id="top-left">
+                <h1>Entries</h1>
+                <div id="entries-container">
+                    <div class="entry" 
+                    style=" display: flex;
+                    align-items: center;
+                    justify-content: center;">
+                        <img src="../assets/icons/plus.svg" alt="Add Entry" id="add-entry-icon"/>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h3>Building C+++</h3> 
+                            <h3>2/13/2030</h3>
+                        </div>
+                        <h3>What I Did</h3>
+                        <p>I built a new programming language that is faster than assembly and
+                            easier to use than Python. It's called "C+++".
+                        </p>
+                        <h3>What I Learned</h3>
+                        <p>How to build a programming language from scratch.</p>
+                        <h3>Other</h3>
+                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h3>Building C+++</h3> 
+                            <h3>2/13/2030</h3>
+                        </div>
+                        <h3>What I Did</h3>
+                        <p>I built a new programming language that is faster than assembly and
+                            easier to use than Python. It's called "C+++".
+                        </p>
+                        <h3>What I Learned</h3>
+                        <p>How to build a programming language from scratch.</p>
+                        <h3>Other</h3>
+                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h3>Building C+++</h3> 
+                            <h3>2/13/2030</h3>
+                        </div>
+                        <h3>What I Did</h3>
+                        <p>I built a new programming language that is faster than assembly and
+                            easier to use than Python. It's called "C+++".
+                        </p>
+                        <h3>What I Learned</h3>
+                        <p>How to build a programming language from scratch.</p>
+                        <h3>Other</h3>
+                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h3>Building C+++</h3> 
+                            <h3>2/13/2030</h3>
+                        </div>
+                        <h3>What I Did</h3>
+                        <p>I built a new programming language that is faster than assembly and
+                            easier to use than Python. It's called "C+++".
+                        </p>
+                        <h3>What I Learned</h3>
+                        <p>How to build a programming language from scratch.</p>
+                        <h3>Other</h3>
+                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
+                    </div>
+                </div>
+            </section>
+            <section id="top-right">
+                <h1>Calendar</h1>
+                <div id="mini-calendar">
+                    <h3 id="month-and-year"></h3>
+                    <div class="button-container-calendar">
+                        <button id="previous" onclick="previous()">Prev</button>
+                        <button id="next" onclick="next()">Next</button>
+                    </div>
+                    <table class="table-calendar" id="calendar" data-lang="en">
+                        <thead id="thead-month"></thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                    <div class="footer-container-calendar">
+                    <label for="month">Jump To: </label>
+                        <!-- Dropdowns to select a specific month and year -->
+                        <select id="month" onchange="jump()">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5">Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <!-- Dropdown to select a specific year -->
+                        <select id="year" onchange="jump()"></select>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section id="bottom">
+            <ul id="list">
+                <h1>My Tasks</h1>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                </li>
+            </ul>
+        </section>               
+        <section id="left-section">
+            <div id="journal">
+                <h1>Make an Entry</h1>
+                <h3>What did you do?</h3>
+                <textarea></textarea>
+                <h3>What did you learn?</h3>
+                <textarea></textarea>
+                <h3>Future steps?</h3>
+                <textarea></textarea>
+                <h3>Tags</h3>
+            </div>
+        </section>
+        <section id="right-section">
+            <ul id="task-list">
+                <li class="task">
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon right-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 1</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description" style="display: none;">This is an example of when the dropdown is pressed and the description is shown.</p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 2</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">This is an example of when the dropdown is pressed and the description is shown.</p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 3</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">This is an example of when the dropdown is pressed and the description is shown. How about lot of text.......................................................... </p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox"> 
+                    <h3 class="task-name">Task 4</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">Not much text, but a little more than usual, and even a little more</p>
+                </li>
+            </ul>
+        </section>
     </main>
+    <script src="../scripts/calendar.js"></script>
 </body>
 </html>
