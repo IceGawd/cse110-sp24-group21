@@ -61,6 +61,26 @@ function jump() {
 	showCalendar(currentMonth, currentYear);
 }
 
+// Filled Cell Function used as a sub-function of showCalendar
+function addFilledCell(j, row, year, month) {
+	cell = document.createElement("td");
+	cell.setAttribute("data-date", date);
+	cell.setAttribute("data-month", month + 1);
+	cell.setAttribute("data-year", year);
+	cell.setAttribute("data-month_name", months[month]);
+	cell.setAttribute('data-day_of_week', j + 1);
+	cell.className = "date-picker";
+	cell.innerHTML = "<span>" + date + "</span";
+	if (
+		date === today.getDate() && 
+		year === today.getFullYear() &&
+		month === today.getMonth()
+	) {
+		cell.className = "date-picker selected";
+	}
+	row.appendChild(cell);
+}
+
 // Function to display the calendar
 function showCalendar(month, year) {
 	let firstDay = new Date(year, month, 1).getDay();
@@ -82,23 +102,7 @@ function showCalendar(month, year) {
 			} else if (date > daysInMonth(month, year)) {
 				break;
 			} else {
-				cell = document.createElement("td");
-				cell.setAttribute("data-date", date);
-				cell.setAttribute("data-month", month + 1);
-				cell.setAttribute("data-year", year);
-				cell.setAttribute("data-month_name", months[month]);
-				cell.setAttribute('data-day_of_week', j + 1);
-				cell.className = "date-picker";
-				cell.innerHTML = "<span>" + date + "</span";
-
-				if (
-					date === today.getDate() &&
-					year === today.getFullYear() &&
-					month === today.getMonth()
-				) {
-					cell.className = "date-picker selected";
-				}
-				row.appendChild(cell);
+				addFilledCell(j, row, year, month);
 				date++;
 			}
 		}
@@ -134,19 +138,29 @@ function datesIntoButtons(){
 /**
  * Function to change the date header to the selected day
  */
-function changeDateHeader(){
+
+function changeDateHeader() {
 	let dateHeader = document.getElementById("curr-day");
 	let date = document.querySelector(".date-picker.selected");
 	let dofW = date.dataset['day_of_week'];
-	if(dofW == 1){ dofW = "Sunday";}
-	if(dofW == 2){ dofW = "Moday";}
-	if(dofW == 3){ dofW = "Tuesday";}
-	if(dofW == 4){ dofW = "Wednesday";}
-	if(dofW == 5){ dofW = "Thursday";}
-	if(dofW == 6){ dofW = "Friday";}
-	if(dofW == 7){ dofW = "Saturday";}
+	switch (dotW) {
+		case 1:
+			dofW = "Sunday"; break;
+		case 2:
+			dofW = "Moday"; break;
+		case 3:
+			dofW = "Tuesday"; break;
+		case 4:
+			dofW = "Wednesday"; break;
+		case 5:
+			dofW = "Thursday"; break;
+		case 6:
+			dofW = "Friday"; break;
+		case 7:
+			dofW = "Saturday"; break;
+	}
+  
 	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
-
 }
 /**
  * Function to clear the tasks that are being displayed for a selected date

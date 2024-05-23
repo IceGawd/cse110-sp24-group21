@@ -1,10 +1,7 @@
 import { storage } from './storage.js';
 
 let tasks; // The variable we'll use to add our array of objects we fetch
-let taskURL = './assets/json/tasklist.json'; // the URL to fetch from
-const tasklistContainer = document.getElementById("task-list");   // determine the tasklist container
-const addTaskButton = document.getElementById("add-task");  // get an add task button
-const deleteTaskButton = document.getElementById("delete-task");  // get a delete task button
+let taskURL = '../assets/json/tasklist.json'; // the URL to fetch from
 
 // Bind the init() function to run once the page loads
 window.addEventListener('DOMContentLoaded', init);
@@ -23,7 +20,7 @@ async function init() {
 }
 
 /**
- * Fetches all of the products from itemsURL top and stores them
+ * Fetches all of the products from taskURL top and stores them
  * inside the global items variable. 
  * @returns {Promise} Resolves if the items are found it localStorage or if they
  *                    are fetched correctly
@@ -56,111 +53,135 @@ async function fetchTasks() {
  * Adds the Fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
-  return
+  // return // FIXME: This return might have been an accident or meant to stop the function from running and I do not know who did this. Maybe check commit logs?
   if (!tasks) return;
-  // Get all of the items currently in the cart from storage
-  tasks = storage.getItems('tasklist');
-  // Iterate over each of the items in the array
-  items.forEach(item => {
-    // Create <product-item> element and populate it with item data
-    let productItem = document.createElement('task-element');
-    productItem.data = item;
-    // If the item was in the cart already, set it to be that way
-    if (inCart.indexOf(item.id) > -1) {
-      productItem.alreadyInCart();
+  // Get all visible dates, will probably later change to be dynamic
+  const htmlDates = document.querySelectorAll('.day-container > .date');
+  let visibleDates = [];
+  htmlDates.forEach(date => {visibleDates.push(date.innerHTML) });
+
+  tasks.forEach(element => {
+    for (let i = 0; i < visibleDates.length; i++) {
+      if (element.dueDate === visibleDates[i]) {
+        // Creates an object with nothing inside
+        let taskElement = document.createElement('task-element');
+        // Creates all the content and styles of task
+        taskElement.data = element;
+        // Add task right before add-task button
+        const day = document.querySelectorAll('.day-container')[i];
+        const addButton = day.querySelector('.add-task');
+        day.insertBefore(taskElement, addButton);
+      }
     }
-    // Add the item to the webpage
-    document.querySelector('#product-list').appendChild(productItem);
   });
-  // Update the cart count in the webpage
-  document.querySelector('#cart-count').innerHTML = inCart.length;
 }
 
 /**
- * Binds the event listeners to each item for when the add to cart & remove
- * from cart buttons get pressed
+ * Binds the event listeners to task, specifically save and delete buttons
+ * Also dynamically expands/contracts textareas
+ */
+function bindTaskUpdates(task) {
+  const fields = Array.from(task.shadowRoot.querySelectorAll("textarea"));
+  fields.forEach(field => {
+    // Gives fields ability to expand/contract based on text inside
+    field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
+  })
+  task.addEventListener('saved', () => { saveTask(task) });
+  task.addEventListener('deleted', () => { deleteTask(task) });
+}
+
+/**
+ * Binds the add task button to each day
+ * Binds task events
  */
 function bindUpdates() {
-  addTaskButton.addEventListener('click', () => { addTask() });
-  // deleteTaskButton.addEventListener('deleteSelectedTasks', () => { deleteSelectedTasks() });
+  // Add button handler to each day
+  const days = Array.from(document.querySelectorAll('.day-container'));
+  days.forEach(day => {
+    day.querySelector('.add-task').addEventListener('click', () => { addTask(day) });
+  });
+  // Task handler for all tasks
+  const tasks = Array.from(document.querySelectorAll("task-element"));
+  tasks.forEach(task => { bindTaskUpdates(task); });
 }
 
-//Creates new task elements
-function createTaskElement(){
-    // storage.addItem('task', id) cart update
-    const inputTitle = document.getElementById("input-title").value;
-    const inputDate = document.getElementById("input-date").value;
-    const inputDescription = document.getElementById("input-description").value;
-    const inputTags = document.getElementById("input-tags").value;
-    let currDate = new Date();
-    try {
-      let darr = inputDate.split("-");
-      let dobj = new Date(parseInt(darr[0]),parseInt(darr[1])-1,parseInt(darr[2]));
-      let dueDate = dobj.toISOString()
-      let taskObject = {
-        id: Math.floor(Math.random() * 2000000),
-        title: inputTitle,
-        assignDate: currDate.toISOString(),
-        dueDate: dueDate,
-        description: inputDescription,
-        tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
-      };
-      console.log(taskObject);
-      return taskObject;
-    } catch (err) {
-      console.log(`Invalid Due Date`);
-      return;
-    }
+/* ************************************************************************************ */
+
+// Generates random id not found in storage
+function genId() {
+  // Retrieve tasks from storage
+  const tasks = Array.from(document.querySelectorAll("task-element"));
+  
+  // Create a set of existing IDs for fast lookup
+  const existingIds = new Set(tasks.map(task => task.data.id));
+  
+  let id;
+  // Loop until a unique ID is found
+  do {
+    id = Math.floor(Math.random() * 2000000);
+  } while (existingIds.has(id));
+  
+  return id;
 }
 
-//Adds new Notes to page
-function addTask(){
+/**
+ * Given the day html element, add a task with date and id and other fields empty
+ */
+function addTask(day) {
+  const date = day.querySelector(".date").innerHTML;
+  const inputId = genId();
 
-  const tasklist = getTasks();
-  const taskElement = createTaskElement();
-  if (!taskElement) {
-    tasklist.push(taskElement);
-  }
-  saveTasks(tasklist);
-  console.log(localStorage);
+  let taskObject = {
+    id: inputId,
+    title: "",
+    dueDate: date,
+    description: "",
+    tags: []  // might have some trouble with this method (whitespaces)
+  };
+
+  // Create element and bind events to buttons
+  let taskElement = document.createElement('task-element');
+  taskElement.data = taskObject;
+  bindTaskUpdates(taskElement);
+
+  // Add to webpage right before add button of the day
+  const addButton = day.querySelector('.add-task');
+  day.insertBefore(taskElement, addButton);
+
+  console.log(taskObject);
 }
 
-//Updates Task with new given content
-function updateTask(id, newContent) {
+/**
+ * Given the task element, save its current state
+ */
+function saveTask(task) {
+  // Get current values in fields
+  const wrapper = task.shadowRoot;
+  const inputTitle = wrapper.querySelector(".title").value;
+  const inputDate = task.parentElement.querySelector(".date").innerHTML;
+  const inputDescription = wrapper.querySelector(".description").value;
+  const inputTags = wrapper.querySelector(".tags").value;
 
-    tasks = getTasks();
-    updatedTask = getTask(tasks, id);
-    updatedTask.content = newContent;
-    saveTasks(tasks);
+  let taskObject = {
+    id: task.data.id,
+    title: inputTitle,
+    dueDate: inputDate,
+    description: inputDescription,
+    tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
+  };
+
+  storage.updateItem("tasklist", taskObject);
+  console.log(taskObject);
 }
 
-//Get all the tasks from local storage
-function getTasks() {
-    return storage.getItems('tasklist');
-}
-
-//Get a certain task based of id
-function getTask(tasks, id) {
-    return tasks.filter(task => task.id == id)[0];
-}
-
-//Saves all tasks to local storage
-function saveTasks(tasks){
-    localStorage.setItem('tasklist', JSON.stringify(tasks));
-}
-
-//Deletes a single specific task with double click
-function deleteTask(id, element){
-    const tasks = getTasks().filter(task => task.id != id);
-    saveTasks(tasks);
-    tasksContainer.removeChild(element);
-    taskCount--;
-}
-
-//deletes all tasks with crt + shift + D
-function deleteSelectedTasks(event){ 
-    for(var i = 0; i < taskCount; i++){
-        tasksContainer.removeChild(tasksContainer.lastChild);
-    }
-    saveTasks(JSON.parse("[]"));
+/**
+ * Given the task element, delete it
+ */
+function deleteTask(task) {
+  // Get the id to help remove it
+  storage.removeItem("tasklist", task.data.id);
+  // Remove from webpage
+  const day = task.parentElement;
+  day.removeChild(task);
+  console.log(storage.getItems("tasklist"));
 }
