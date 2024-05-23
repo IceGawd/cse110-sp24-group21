@@ -1,6 +1,6 @@
 /* CSS for just the home page */
 #bottom {
-    width: 100%;
+    width: 60%;
     height: 50%;
     overflow-y: scroll;
 }
@@ -63,7 +63,6 @@ main {
 /* task list */
 #list {
     display: inline-block;
-    height: 70vh;
     width: 90%;
     padding-right: 5%;
     padding-left: 5%;

@@ -122,7 +122,6 @@
                         <select id="year" onchange="jump()"></select>
                     </div>
                 </div>
-                <script src="../scripts/calendar.js"></script>
             </section>
         </div>
         <section id="bottom">
@@ -130,11 +129,43 @@
                 <h1>My Tasks</h1>
                 <li class="task">
                     <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 1</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description" style="display: none;">This is an example of when the dropdown is pressed and the description is shown.</p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
                         <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
                     </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 2</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">This is an example of when the dropdown is pressed and the description is shown.</p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox">
+                    <h3 class="task-name">Task 3</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">This is an example of when the dropdown is pressed and the description is shown. How about lot of text.......................................................... </p>
+                </li>
+                <li class="task">
+                    <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <input class="checkbox" type="checkbox"> 
+                    <h3 class="task-name">Task 4</h3>
+                    <p class="due-date">Apr 24, 2024</p>
+                    <p class="description">Not much text, but a little more than usual, and even a little more</p>
                 </li>
             </ul>
         </section>               
     </main>
+    <script src="../scripts/calendar.js"></script>
 </body>
 </html>
