@@ -5,8 +5,8 @@
 export const storage = {};
 
 /**
- * Returns an array with all of the elements currently in the cart
- * @returns {Array} An array of IDs of items that are in the cart
+ * Returns an array with all of the elements currently stored
+ * @returns {Array} An array of elements from the feature
  */
 storage.getItems = function (feature) {
   // localStorage only stores strings so you must JSON.parse() any arrays
@@ -14,37 +14,41 @@ storage.getItems = function (feature) {
 };
 
 /**
- * Adds an item to the cart and stores that cart
+ * Adds an item to the corresponding feature list
  */
-storage.addItem = function (feature, id) {
-  // Get the current cart
+storage.addItem = function (feature, object) {
+  // Get the current item list of the feature
   const currItems = storage.getItems(feature);
-  // Add the id of the new item to the cart
-  currItems.push(id);
+  // Add the new item to the list
+  currItems.push(object);
   // localStorage only stores strings so you must JSON.stringify() any arrays
   localStorage.setItem(feature, JSON.stringify(currItems));
 };
 
 /**
- * Removes an item from the cart and then stores that new cart
+ * Removes an item from storage by id
  */
 storage.removeItem = function (feature, id) {
-  // Get the current cart
+  // Get the current item list of the feature
   const currItems = storage.getItems(feature);
   // Get the index of the item to remove
-  const indexOfId = currItems.indexOf(id);
-  // Remove that index of the item to remove from the cart
+  let indexOfId = currItems.findIndex((element) => element.id == id);
+  // Remove that index of the item to remove from the list
   if (indexOfId > -1) currItems.splice(indexOfId, 1);
   // localStorage only stores strings so you must JSON.stringify() any arrays
   localStorage.setItem(feature, JSON.stringify(currItems));
 };
 
-storage.updateItem = function (feature, id) {
-    // Get the current cart
-    const currItems = storage.getItems(feature);
-    // Get the index of the item to remove
-    const indexOfId = currItems.indexOf(id);
-    // Update item somehow
-    // localStorage only stores strings so you must JSON.stringify() any arrays
-    localStorage.setItem(feature, JSON.stringify(currItems));
-  };
+/**
+ * Updates an item from the corresponding feature list
+ */
+storage.updateItem = function (feature, object) {
+  // Get the current item list of the feature
+  const currItems = storage.getItems(feature);
+  // Get the index of the item to update
+  let indexOfId = currItems.findIndex((element) => element.id == object.id);
+  // Overwrite current item in storage with new object
+  (indexOfId != -1) ? currItems[indexOfId] = object : currItems.push(object);
+  // localStorage only stores strings so you must JSON.stringify() any arrays
+  localStorage.setItem(feature, JSON.stringify(currItems));
+};
