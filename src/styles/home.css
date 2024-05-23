@@ -1,4 +1,26 @@
 /* CSS for just the home page */
+#bottom {
+    width: 100%;
+    height: 50%;
+    overflow-y: scroll;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#top {
+    width: 100%;
+    height: 50%;
+}
+
 #left-section {
     width: 70%;
     align-content: center;
@@ -17,6 +39,39 @@ main {
     height: 100%;
     display: flex;
     flex-direction: row;
+}
+
+#top-left {
+    max-width: 60%;
+    max-height: 100%;
+}
+
+#top-right {
+    width: 40%;
+    height: 100%;
+}
+
+/* CSS for the entries */
+#entries-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.entry {
+    min-width: 200px;
+    height: 300px;
+    background-color: #D9D9D9;
+    padding: 10px;
+    margin: 10px;
+    overflow-y: scroll;
+}
+
+.entry-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #right-section {
@@ -68,6 +123,11 @@ ul li {
     justify-self: end;
     font-family: Inter;
 
+}
+
+#list {
+    width: 80%;
+    margin: auto;
 }
 
 .task, .detail-container {
