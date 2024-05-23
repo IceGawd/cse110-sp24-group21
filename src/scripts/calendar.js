@@ -138,32 +138,25 @@ function datesIntoButtons(){
 /**
  * Function to change the date header to the selected day
  */
-function changeDateHeader(){
+function changeDateHeader() {
 	let dateHeader = document.getElementById("curr-day");
 	let date = document.querySelector(".date-picker.selected");
 	let dofW = date.dataset['day_of_week'];
 	switch (dotW) {
 		case 1:
-			dofW = "Sunday";
-			break;
+			dofW = "Sunday"; break;
 		case 2:
-			dofW = "Moday";
-			break;
+			dofW = "Moday"; break;
 		case 3:
-			dofW = "Tuesday";
-			break;
+			dofW = "Tuesday"; break;
 		case 4:
-			dofW = "Wednesday";
-			break;
+			dofW = "Wednesday"; break;
 		case 5:
-			dofW = "Thursday";
-			break;
+			dofW = "Thursday"; break;
 		case 6:
-			dofW = "Friday";
-			break;
+			dofW = "Friday"; break;
 		case 7:
-			dofW = "Saturday";
-			break;	
+			dofW = "Saturday"; break;
 	}
 	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
 
