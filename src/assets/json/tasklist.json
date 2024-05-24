@@ -2,14 +2,14 @@
     {
       "id": 123456,
       "title": "Example Task",
-      "dueDate": "2024/05/20",
+      "dueDate": "05/20/2024",
       "description": "Just an example task used for testing purposes",
       "tags": ["python", "logistics"]
     },
     {
       "id": 654321,
       "title": "Example Task 2",
-      "dueDate": "2024/05/22",
+      "dueDate": "05/22/2024",
       "description": "Just an example task used for testing purposes",
       "tags": ["java", "MATLAB"]
     }

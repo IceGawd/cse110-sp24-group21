@@ -1,6 +1,6 @@
 /* CSS for just the home page */
 #bottom {
-    width: 100%;
+    width: 60%;
     height: 50%;
     overflow-y: scroll;
 }
@@ -9,21 +9,10 @@ h1 {
     font-size: 24px;
 }
 
-main {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 #top {
     width: 100%;
-    height: 50%;
-}
-
-#left-section {
-    width: 70%;
-    align-content: center;
+    display: flex;
+    flex-direction: row;
 }
 
 #make-task {
@@ -35,20 +24,17 @@ main {
 }
 
 main {
-    width: 100%;
-    height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 #top-left {
     max-width: 60%;
-    max-height: 100%;
+    padding-right: 5%;
 }
 
 #top-right {
     width: 40%;
-    height: 100%;
 }
 
 /* CSS for the entries */
@@ -74,14 +60,9 @@ main {
     justify-content: space-between;
 }
 
-#right-section {
-    width: 30%;
-}
-
 /* task list */
 #list {
     display: inline-block;
-    height: 70vh;
     width: 90%;
     padding-right: 5%;
     padding-left: 5%;
