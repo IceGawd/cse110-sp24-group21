@@ -11,14 +11,14 @@ tasks.json
     {
       "id": 123456,
       "title": "Example Task",
-      "assignDate": "2024-05-18",
+      "assignDate": "05/18/2024",
       "description": "Just an example task used for testing purposes",
       "tags": ["python", "logistics"]
     },
     {
       "id": 654321,
       "title": "Example Task 2",
-      "assignDate": "2024-05-12",
+      "assignDate": "05/20/2024",
       "description": "Just an example task used for testing purposes",
       "tags": ["java", "MATLAB"]
     }
