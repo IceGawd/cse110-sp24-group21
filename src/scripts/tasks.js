@@ -53,6 +53,7 @@ async function fetchTasks() {
  * Adds the Fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
+  // return // FIXME: This return might have been an accident or meant to stop the function from running and I do not know who did this. Maybe check commit logs?
   if (!tasks) return;
   // Get all visible dates, will probably later change to be dynamic
   const htmlDates = document.querySelectorAll('.day-container > .date');

@@ -122,7 +122,6 @@
                         <select id="year" onchange="jump()"></select>
                     </div>
                 </div>
-                <script src="../scripts/calendar.js"></script>
             </section>
         </div>
         <section id="bottom">
@@ -130,6 +129,27 @@
                 <h1>My Tasks</h1>
                 <li class="task">
                     <button class="dropdown-btn" onclick="toggleIcon(this)">
+                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                </li>
+            </ul>
+        </section>               
+        <section id="left-section">
+            <div id="journal">
+                <h1>Make an Entry</h1>
+                <h3>What did you do?</h3>
+                <textarea></textarea>
+                <h3>What did you learn?</h3>
+                <textarea></textarea>
+                <h3>Future steps?</h3>
+                <textarea></textarea>
+                <h3>Tags</h3>
+            </div>
+        </section>
+        <section id="right-section">
+            <ul id="task-list">
+                <li class="task">
+                    <button class="dropdown-btn">
                         <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon right-icon">
                     </button>
                     <input class="checkbox" type="checkbox">
@@ -141,6 +161,9 @@
                     <button class="dropdown-btn" onclick="toggleIcon(this)">
                         <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
                     </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
                     <input class="checkbox" type="checkbox">
                     <h3 class="task-name">Task 2</h3>
                     <p class="due-date">Apr 24, 2024</p>
@@ -149,6 +172,9 @@
                 <li class="task">
                     <button class="dropdown-btn" onclick="toggleIcon(this)">
                         <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
                     </button>
                     <input class="checkbox" type="checkbox">
                     <h3 class="task-name">Task 3</h3>
@@ -159,6 +185,9 @@
                     <button class="dropdown-btn" onclick="toggleIcon(this)">
                         <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
                     </button>
+                    <button class="dropdown-btn">
+                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
+                    </button>
                     <input class="checkbox" type="checkbox"> 
                     <h3 class="task-name">Task 4</h3>
                     <p class="due-date">Apr 24, 2024</p>
@@ -167,5 +196,6 @@
             </ul>
         </section>
     </main>
+    <script src="../scripts/calendar.js"></script>
 </body>
 </html>
