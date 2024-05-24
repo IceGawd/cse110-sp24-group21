@@ -2,6 +2,7 @@ import { storage } from './storage.js';
 
 let tasks; // The variable we'll use to add our array of objects we fetch
 let taskURL = '../assets/json/tasklist.json'; // the URL to fetch from
+let currDate = new Date();
 
 // Bind the init() function to run once the page loads
 window.addEventListener('DOMContentLoaded', init);
@@ -15,7 +16,7 @@ async function init() {
     console.log(`Error fetch tasks: ${err}`);
     return; // Return if fetch fails
   }
-  populatePage(); // Add tasks elements to page with fetched data
+  setWeek(currDate);
   bindUpdates(); // Add the event listeners to those elements
 }
 
@@ -53,40 +54,22 @@ async function fetchTasks() {
  * Adds the Fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
+  tasks = storage.getItems('tasklist');
   if (!tasks) return;
+
   // Get all visible dates, will probably later change to be dynamic
-  const htmlDates = document.querySelectorAll('.day-container > .date');
+  const htmlDates = document.querySelectorAll('.date');
   let visibleDates = [];
   htmlDates.forEach(date => {visibleDates.push(date.innerHTML) });
 
   tasks.forEach(element => {
-    for (let i = 0; i < visibleDates.length; i++) {
+    for (let i = 0; i < 7; i++) {
       if (element.dueDate === visibleDates[i]) {
-        // Creates an object with nothing inside
-        let taskElement = document.createElement('task-element');
-        // Creates all the content and styles of task
-        taskElement.data = element;
-        // Add task right before add-task button
         const day = document.querySelectorAll('.day-container')[i];
-        const addButton = day.querySelector('.add-task');
-        day.insertBefore(taskElement, addButton);
+        createTask(day, element);
       }
     }
   });
-}
-
-/**
- * Binds the event listeners to task, specifically save and delete buttons
- * Also dynamically expands/contracts textareas
- */
-function bindTaskUpdates(task) {
-  const fields = Array.from(task.shadowRoot.querySelectorAll("textarea"));
-  fields.forEach(field => {
-    // Gives fields ability to expand/contract based on text inside
-    field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
-  })
-  task.addEventListener('saved', () => { saveTask(task) });
-  task.addEventListener('deleted', () => { deleteTask(task) });
 }
 
 /**
@@ -94,41 +77,63 @@ function bindTaskUpdates(task) {
  * Binds task events
  */
 function bindUpdates() {
+  const htmlDate = document.querySelector('.date');
+  currDate = new Date(htmlDate.innerHTML);
+  document.getElementById('next-week').addEventListener('click', () => { changeWeek(7) });
+  document.getElementById('prev-week').addEventListener('click', () => { changeWeek(-7) });
+  const calendarSelect = document.getElementById('calendar-select');
+  calendarSelect.addEventListener('change', () => {
+    currDate = new Date(calendarSelect.value);
+    if (!isNaN(currDate)) {
+      setWeek(currDate);
+    }
+  })
   // Add button handler to each day
   const days = Array.from(document.querySelectorAll('.day-container'));
   days.forEach(day => {
-    day.querySelector('.add-task').addEventListener('click', () => { addTask(day) });
+    day.querySelector('.add-task').addEventListener('click', () => { newTask(day) });
   });
-  // Task handler for all tasks
-  const tasks = Array.from(document.querySelectorAll("task-element"));
-  tasks.forEach(task => { bindTaskUpdates(task); });
 }
 
 /* ************************************************************************************ */
 
-// Generates random id not found in storage
-function genId() {
-  // Retrieve tasks from storage
-  const tasks = Array.from(document.querySelectorAll("task-element"));
-  
-  // Create a set of existing IDs for fast lookup
-  const existingIds = new Set(tasks.map(task => task.data.id));
-  
-  let id;
-  // Loop until a unique ID is found
-  do {
-    id = Math.floor(Math.random() * 2000000);
-  } while (existingIds.has(id));
-  
-  return id;
+/**
+ * Creates task-element given data
+ * Binds its save and delete buttons
+ * Displays on webpage
+ */
+function createTask(day, data) {
+  // Creates all the content and styles of task
+  let taskElement = document.createElement('task-element');
+  taskElement.data = data;
+
+  // Binds updates to task
+  const fields = Array.from(taskElement.shadowRoot.querySelectorAll("textarea"));
+  fields.forEach(field => {
+    // Gives fields ability to expand/contract based on text inside
+    field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; } );
+  })
+  taskElement.addEventListener('saved', () => { saveTask(taskElement) });
+  taskElement.addEventListener('deleted', () => { deleteTask(taskElement) });
+
+  // Add to webpage right before add button of the day
+  const addButton = day.querySelector('.add-task');
+  day.insertBefore(taskElement, addButton);
 }
 
 /**
  * Given the day html element, add a task with date and id and other fields empty
  */
-function addTask(day) {
+function newTask(day) {
+  // Generate ID
+  const taskElements = Array.from(document.querySelectorAll("task-element"));
+  const existingIds = new Set(taskElements.map(element => element.data.id));
+  let inputId;
+  do {
+    inputId = Math.floor(Math.random() * 2000000);
+  } while (existingIds.has(inputId));
+
   const date = day.querySelector(".date").innerHTML;
-  const inputId = genId();
 
   let taskObject = {
     id: inputId,
@@ -137,16 +142,7 @@ function addTask(day) {
     description: "",
     tags: []  // might have some trouble with this method (whitespaces)
   };
-
-  // Create element and bind events to buttons
-  let taskElement = document.createElement('task-element');
-  taskElement.data = taskObject;
-  bindTaskUpdates(taskElement);
-
-  // Add to webpage right before add button of the day
-  const addButton = day.querySelector('.add-task');
-  day.insertBefore(taskElement, addButton);
-
+  createTask(day, taskObject);
   console.log(taskObject);
 }
 
@@ -179,8 +175,43 @@ function saveTask(task) {
 function deleteTask(task) {
   // Get the id to help remove it
   storage.removeItem("tasklist", task.data.id);
+  console.log(task);
   // Remove from webpage
   const day = task.parentElement;
   day.removeChild(task);
   console.log(storage.getItems("tasklist"));
+}
+
+/* ************************************************************************************ */
+
+/**
+ * Given a date, set the dates of all the days containers from Monday to Sunday
+ * @param {Date} date 
+ */
+function setWeek(date) {
+  // Compute next date
+  const htmlDates = Array.from(document.querySelectorAll('.date'));
+  const dayOfWeek = date.getDay();
+  const monday = new Date(date);
+  monday.setDate(date.getDate() - (dayOfWeek - 1));
+  for (let i = 0; i < 7; i++) {
+    const weekDate = new Date(monday);
+    weekDate.setDate(monday.getDate() + i);
+    // Formatting string
+    let options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    htmlDates[i].innerHTML = weekDate.toLocaleDateString("en", options);
+  }
+
+  // Remove old task-elements from page
+  let oldTasks = document.querySelectorAll('task-element');
+  oldTasks.forEach(t => {
+    t.parentNode.removeChild(t);
+  });
+
+  populatePage();
+}
+
+function changeWeek(days) {
+  currDate.setDate(currDate.getDate() + days);
+  setWeek(currDate);
 }
