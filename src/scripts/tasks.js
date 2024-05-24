@@ -79,14 +79,8 @@ function populatePage() {
 function bindUpdates() {
   const htmlDate = document.querySelector('.date');
   currDate = new Date(htmlDate.innerHTML);
-  document.getElementById('next-week').addEventListener('click', () => {
-    currDate.setDate(currDate.getDate() + 7);
-    setWeek(currDate);
-  });
-  document.getElementById('prev-week').addEventListener('click', () => {
-    currDate.setDate(currDate.getDate() - 7);
-    setWeek(currDate);
-  });
+  document.getElementById('next-week').addEventListener('click', () => { changeWeek(7) });
+  document.getElementById('prev-week').addEventListener('click', () => { changeWeek(-7) });
   const calendarSelect = document.getElementById('calendar-select');
   calendarSelect.addEventListener('change', () => {
     currDate = new Date(calendarSelect.value);
@@ -215,4 +209,9 @@ function setWeek(date) {
   });
 
   populatePage();
+}
+
+function changeWeek(days) {
+  currDate.setDate(currDate.getDate() + days);
+  setWeek(currDate);
 }
