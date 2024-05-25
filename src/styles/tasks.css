@@ -94,6 +94,7 @@ body {
 /* Task style */
 .task {
     position: relative;
+    flex: 0 0 auto;
     margin-top: 0px; 
     padding: 10px;
     background-color: #f4f4f4;
@@ -101,30 +102,48 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-}
-
-/* Task title style */
-.title {
+    font-family: sans-serif;
+  }
+  
+  /* Task textarea style */
+  textarea {
     border: 1px solid #ddd;
+    padding: 0.3rem;
+    font-family: inherit;
+    resize: none;
+  }
+  
+  /* Task title style */
+  .title {
     border-radius: 10px 10px 0 0;
-    resize: none;
-}
-
-/* Task description style */
-.description {
-    border: 1px solid #ddd;
-    resize: none;
-}
-
-/* Task tags style */
-.tags {
-    border: 1px solid #ddd;
+  }
+  
+  /* Task tags style */
+  .tags {
     border-radius: 0 0 10px 10px;
-    resize: none;
-}
-
-/* Task buttons style */
-.task-buttons {
+  }
+  
+  /* Time elements style */
+  .time-div {
+    border: 1px solid #ddd;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* More time element style */
+  input {
+    font-size: 0.8rem;
+    max-width: 5.6rem;
+    margin: 0.25rem;
+    font-family: inherit;
+  }
+  
+  /* Task buttons style */
+  .task-buttons {
     position: absolute;
     bottom: 15px;
     right: 20px; 
@@ -133,9 +152,9 @@ body {
     margin-top: auto;
     margin-left: 10px;
     justify-content: flex-end;
-}
-
-.task-buttons > button {
+  }
+  
+  .task-buttons > button {
     background-position: center;
     background-color: white; 
     height: 20px;
@@ -144,22 +163,22 @@ body {
     border-radius: 3px;
     cursor: pointer;
     transition: background 0.5s;
-}
-
-.save-task {
+  }
+  
+  .save-task {
     background-image: url(../assets/icons/save.svg);
     background-size: 20px 20px;
-}
-
-.save-task:hover {
+  }
+  
+  .save-task:hover {
     background-color: #d3d3d3;
-}
-
-.delete-task {
+  }
+  
+  .delete-task {
     background-image: url(../assets/icons/delete.svg);
     background-size: 35px 35px;
-}
-
-.delete-task:hover {
+  }
+  
+  .delete-task:hover {
     background-color: #d3d3d3;
-}
+  }

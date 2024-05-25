@@ -28,7 +28,7 @@ async function init() {
  */
 async function fetchTasks() {
   return new Promise((resolve, reject) => {
-    let tasklist = localStorage.getItem('tasklist')
+    let tasklist = localStorage.getItem('tasklist');
     if (tasklist) {
       tasks = JSON.parse(tasklist);
       resolve();
@@ -64,7 +64,7 @@ function populatePage() {
 
   tasks.forEach(element => {
     for (let i = 0; i < 7; i++) {
-      if (element.dueDate === visibleDates[i]) {
+      if (element.date === visibleDates[i]) {
         const day = document.querySelectorAll('.day-container')[i];
         createTask(day, element);
       }
@@ -138,7 +138,9 @@ function newTask(day) {
   let taskObject = {
     id: inputId,
     title: "",
-    dueDate: date,
+    date: date,
+    startTime: "00:00",
+    endTime: "23:59",
     description: "",
     tags: []  // might have some trouble with this method (whitespaces)
   };
@@ -155,12 +157,17 @@ function saveTask(task) {
   const inputTitle = wrapper.querySelector(".title").value;
   const inputDate = task.parentElement.querySelector(".date").innerHTML;
   const inputDescription = wrapper.querySelector(".description").value;
+  const inputStartTime = wrapper.querySelector(".start-time").value;
+  const inputEndTime = wrapper.querySelector(".end-time").value;
+  const allDayBox = wrapper.querySelector(".all-day").checked;
   const inputTags = wrapper.querySelector(".tags").value;
 
   let taskObject = {
     id: task.data.id,
     title: inputTitle,
-    dueDate: inputDate,
+    date: inputDate,
+    startTime: allDayBox ? "00:00" : inputStartTime,
+    endTime: allDayBox ? "23:59" : inputEndTime,
     description: inputDescription,
     tags: ((inputTags == '') ? [] : inputTags.split(' '))   // might have some trouble with this method (whitespaces)
   };
