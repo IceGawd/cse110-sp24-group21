@@ -1,14 +1,26 @@
-name: Testing # name of the test
+name: CI/CD Pipeline
 
-on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+on: [push, pull_request] 
 jobs: # the things being executed
-  tests: # the name of your status check, will become important when you do branch protection
+  build:  # the name of your status check
+    name: Lint Code Base
+    runs-on: ubuntu-latest  # which device on Github's server that you are running the Actions on
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_HTML: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  test: # the name of your status check, will become important when you do branch protection
     runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
     steps:
       - uses: actions/checkout@v4 # using version 4 of Actions
@@ -18,3 +30,9 @@ jobs: # the things being executed
         run: npm test:unit # unit tests
       - name: E2E Test
         run: npm test:e2e # e2e tests
+  generate-docs:
+    runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
+    steps:
+      - uses: actions/checkout@v4 # using version 4 of Actions
+      - name: Generate JSDocs
+        run: npm run docs # generate JSDocs
