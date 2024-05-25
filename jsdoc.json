@@ -8,6 +8,6 @@
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "readme": "./docs/backend_documentation.md"
+    "readme": "./docs/backend-documentation.md"
   }
 }

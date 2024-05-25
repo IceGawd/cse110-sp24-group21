@@ -46,4 +46,4 @@ jobs: # the things being executed
           recurse: true
           output_dir: ./docs
           config_file: jsdoc.json
-          front_page: ./docs/backend_documentation.md
+          front_page: ./docs/backend-documentation.md
