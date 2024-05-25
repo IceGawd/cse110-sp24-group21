@@ -178,6 +178,14 @@ class MyNavbar extends HTMLElement {
         if(window.innerWidth < 800) return;
         this.classList.toggle('minimized');
         localStorage.setItem('navbarMinimized', this.classList.contains('minimized'));
+        this.updateMainWidth();
+    }
+
+
+    /**
+     * Updates the width of the main element based on the presence of the 'minimized' class.
+     */
+    updateMainWidth() {
         if(this.classList.contains('minimized')) {
             document.querySelector('main').style.width = `calc(100vw - 100px)`;
         } else {
@@ -185,16 +193,23 @@ class MyNavbar extends HTMLElement {
         }
     }
 
+    /**
+     * Handles the resize event of the window.
+     * If the window width is less than 800 pixels, it adds the 'minimized' class to the element,
+     * sets the width of the 'main' element to 'calc(100vw - 100px)', and updates the display state.
+     * If the window width is greater than or equal to 800 pixels, it removes the 'minimized' class from the element,
+     * sets the width of the 'main' element to '80vw', and updates the display state if the 'navbarMinimized' flag is not set.
+     */
     handleResize() {
         if (window.innerWidth < 800) {
             this.classList.add('minimized');
-            document.querySelector('main').style.width = `calc(100vw - 100px)`;
+            this.updateMainWidth();
             this.updateDisplayState(true);
         } 
         else {
             if (localStorage.getItem('navbarMinimized') !== 'true') {
                 this.classList.remove('minimized');
-                document.querySelector('main').style.width = `80vw`;
+                this.updateMainWidth();
                 this.updateDisplayState(false);
             }
         }
