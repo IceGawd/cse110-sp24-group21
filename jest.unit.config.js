@@ -1,4 +1,4 @@
 module.exports = {
   testEnvironment: 'node',
-  testRegex: '(/__tests__/unit/.*|(\\.|/)(e2e))\\.jsx?$',
+  testRegex: '(/__tests__/unit/.*|(\\.|/)(unit))\\.jsx?$',
 };
