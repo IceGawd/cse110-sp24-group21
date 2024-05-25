@@ -20,19 +20,25 @@ jobs: # the things being executed
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_HTML: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test: # the name of your status check, will become important when you do branch protection
+    name: Test Code Base
     runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
     steps:
       - uses: actions/checkout@v4 # using version 4 of Actions
       - name: Install Dependencies
         run: npm install
       - name: Unit Test
-        run: npm test:unit # unit tests
+        run: npm run test:unit # unit tests
       - name: E2E Test
-        run: npm test:e2e # e2e tests
+        run: npm run test:e2e # e2e tests
+
   generate-docs:
+    name: Generate JSDocs
     runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
     steps:
       - uses: actions/checkout@v4 # using version 4 of Actions
+      - name: Install Dependencies
+        run: npm install -g jsdoc
       - name: Generate JSDocs
         run: npm run docs # generate JSDocs
