@@ -95,8 +95,8 @@ describe('Basic user flow for Website', () => {
     }, 10000);
   
     // Check to make sure that after you reload the page it remembers all of the items in your cart
-    it('Checking number of items in cart on screen after reload', async () => {
-      console.log('Checking number of items in cart on screen after reload...');
+    it('Checking number of items in cart on screen after adding to cart and reload', async () => {
+      console.log('Checking number of items in cart on screen after adding to cart and reload...');
       // TODO - Step 4
       // Reload the page, then select all of the <product-item> elements, and check every
       // element to make sure that all of their buttons say "Remove from Cart".
@@ -145,8 +145,8 @@ describe('Basic user flow for Website', () => {
   
     // Checking to make sure that it remembers us removing everything from the cart
     // after we refresh the page
-    it('Checking number of items in cart on screen after reload', async () => {
-      console.log('Checking number of items in cart on screen after reload...');
+    it('Checking number of items in cart on screen after removing from cart and reload', async () => {
+      console.log('Checking number of items in cart on screen after removing from cart and reload...');
       // TODO - Step 7
       // Reload the page once more, then go through each <product-item> to make sure that it has remembered nothing
       // is in the cart - do this by checking the text on the buttons so that they should say "Add to Cart".

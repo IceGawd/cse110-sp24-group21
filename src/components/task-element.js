@@ -121,18 +121,16 @@ class TaskElement extends HTMLElement {
     startLabel.innerHTML = 'Start Time:';
     const startEl = document.createElement('input');
     startEl.classList.add('start-time');
-    startEl.type = 'time';
-    startEl.value = startTime;
+    startEl.type = 'time'; startEl.value = startTime;
     startLabel.append(startEl);
 
     const endLabel = document.createElement('label');
     endLabel.innerHTML = 'End Time:';
     const endEl = document.createElement('input');
     endEl.classList.add('end-time');
-    endEl.type = 'time';
-    endEl.value = endTime;
+    endEl.type = 'time'; endEl.value = endTime;
     endLabel.append(endEl);
-
+    
     const allDayLabel = document.createElement('label');
     allDayLabel.innerHTML = 'All Day';
     const allDayEl = document.createElement('input');
