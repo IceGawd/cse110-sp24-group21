@@ -37,8 +37,13 @@ jobs: # the things being executed
     name: Generate JSDocs
     runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
     steps:
-      - uses: actions/checkout@v4 # using version 4 of Actions
-      - name: Install Dependencies
-        run: npm install -g jsdoc
+      - name: Checkout Code
+        uses: actions/checkout@v4 # using version 4 of Actions
       - name: Generate JSDocs
-        run: npm run docs # generate JSDocs
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./src
+          recurse: true
+          output_dir: ./docs
+          config_file: jsdoc.json
+          front_page: ./docs/backend_documentation.md

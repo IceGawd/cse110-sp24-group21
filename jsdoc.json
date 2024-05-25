@@ -7,6 +7,7 @@
   },
   "opts": {
     "destination": "./docs",
-    "recurse": true
+    "recurse": true,
+    "readme": "./docs/backend_documentation.md"
   }
 }
