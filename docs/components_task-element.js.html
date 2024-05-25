@@ -1,54 +1,64 @@
-// task-element.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/task-element.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/task-element.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// task-element.js
 const style= `
 /* Task style */
 .task {
   position: relative;
   flex: 0 0 auto;
-  margin-top: 0rem; 
-  padding: 0.5rem;
+  margin-top: 0px; 
+  padding: 10px;
   background-color: #f4f4f4;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
-}
-
-/* Task textarea style */
-textarea {
-  border: 1px solid #ddd;
-  padding: 0.3rem;
-  font-family: inherit;
-  resize: none;
 }
 
 /* Task title style */
 .title {
+  border: 1px solid #ddd;
   border-radius: 10px 10px 0 0;
+  resize: none;
+}
+
+/* Task description style */
+.description {
+  border: 1px solid #ddd;
+  resize: none;
 }
 
 /* Task tags style */
 .tags {
-  border-radius: 0 0 10px 10px;
-}
-
-/* Time elements style */
-.time-div {
   border: 1px solid #ddd;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  font-size: 0.8rem;
-  justify-content: center;
-  align-items: center;
-}
-
-/* More time element style */
-input {
-  font-size: 0.8rem;
-  max-width: 5.6rem;
-  margin: 0.25rem;
-  font-family: inherit;
+  border-radius: 0 0 10px 10px;
+  resize: none;
 }
 
 /* Task buttons style */
@@ -112,40 +122,6 @@ class TaskElement extends HTMLElement {
     return el;
   }
 
-  // Create time div
-  createTimeDiv(startTime, endTime) {
-    const timeDiv = document.createElement('div');
-    timeDiv.classList.add('time-div');
-
-    const startLabel = document.createElement('label');
-    startLabel.innerHTML = 'Start Time:';
-    const startEl = document.createElement('input');
-    startEl.classList.add('start-time');
-    startEl.type = 'time';
-    startEl.value = startTime;
-    startLabel.append(startEl);
-
-    const endLabel = document.createElement('label');
-    endLabel.innerHTML = 'End Time:';
-    const endEl = document.createElement('input');
-    endEl.classList.add('end-time');
-    endEl.type = 'time';
-    endEl.value = endTime;
-    endLabel.append(endEl);
-
-    const allDayLabel = document.createElement('label');
-    allDayLabel.innerHTML = 'All Day';
-    const allDayEl = document.createElement('input');
-    allDayEl.classList.add('all-day');
-    allDayEl.type = 'checkbox';
-    if ((startTime === "00:00") && (endTime === "23:59")) { allDayEl.checked = startEl.disabled = endEl.disabled = true; }
-    else { allDayEl.checked = startEl.disabled = endEl.disabled = false; }
-    allDayEl.addEventListener('change', () => { startEl.disabled = endEl.disabled = allDayEl.checked });
-    allDayLabel.append(allDayEl);
-    timeDiv.append(startLabel, endLabel, allDayLabel);
-    return timeDiv;
-  }
-
   // Create tag text by taking tags from arrays and adding spaces in between each tag
   createTags(arr) {
     const tags = document.createElement('textarea');
@@ -195,12 +171,11 @@ class TaskElement extends HTMLElement {
     // Create fields and buttons inside wrapper
     const title = this.createTextarea(data.title, "Task Title", 'title');
     const description = this.createTextarea(data.description, "Task Description", 'description');
-    const time = this.createTimeDiv(data.startTime, data.endTime);
     const tags = this.createTags(data.tags);
     const buttons = this.createButtons();
 
     // Add all of the above elements to the wrapper
-    wrapper.append(title, description, time, tags, buttons);
+    wrapper.append(title, description, tags, buttons);
 
     // Append the wrapper and the styles to the Shadow DOM
     this.shadowRoot.append(styles, wrapper);
@@ -212,4 +187,26 @@ class TaskElement extends HTMLElement {
 
 }
 
-customElements.define('task-element', TaskElement);
+customElements.define('task-element', TaskElement);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#setWeek">setWeek</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat May 25 2024 09:19:39 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

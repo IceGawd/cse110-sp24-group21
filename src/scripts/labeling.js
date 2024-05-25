@@ -54,7 +54,7 @@ function saveTasks(tasks) {
 }
 
 // Export functions
-export {
+module.exports = {
   createLabel,
   updateTaskLabels,
   deleteLabel,
