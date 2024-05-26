@@ -21,8 +21,8 @@ function populatePage(){
     }
     let entryList = document.getElementsByClassName('entry-list')[0];
     entryList.innerHTML = '';
-    //hopefully gets the entries in order by date (most recent)
-    let dates = Object.keys(entries).sort((a, b) => (a==b)? 0 : (a > b)? -1 : 1);
+    //hopefully gets the entries in order by date (least recent, so each entry is prepended)
+    let dates = Object.keys(entries).sort();
     //adding each entry on the sidebar, and adding listeners
     for(let i = 0; i<dates.length; ++i){
         dispEntry(dates[i]);
@@ -65,7 +65,7 @@ function setFocus(id){
 
 /**
  * Creates entry for date if it doesn't already exist or modifies existing entry, saves changes to localStorage
- * TODO: Also needs to modify the sidebar
+ * TODO: Also needs to modify the sidebar (done, needs to be tested)
  * @param {string} date - YYYY-MM-DD string that serves as entry ID as well
  * @returns nothing
  */
@@ -80,33 +80,39 @@ function setEntry(date){
         entry: "",
         tags: []
     };
+    //adding an entry for a new date
     if(!(date in entries)){
         entries[date] = entry;
+        localStorage.setItem('entries', JSON.stringify(entries));
         dispEntry(date);
         return;
     }
+    //modifying existing content for the date:
     entries[date] = entry;
     localStorage.setItem('entries', JSON.stringify(entries));
+    let elem = document.getElementById("#" + date);
+    elem = elem.querySelector('a>details');
+    elem.querySelector('summary>b').innerHTML = entry.title;
+    elem.querySelector('p').innerHTML = md2HTML(entry.entry);
 }
 
 
 /**
- * Deletes the sidebar element and storage object corresponding 
+ * Deletes the sidebar element and storage object corresponding to the entry for date
  * @param {string} date 
  * @returns nothing
  */
 function deleteEntry(date){
     if(!(date in localStorage.entries))
         return;
-    let entry = document.getElementById(date);
-    entry.parentNode.removeChild(entry);
+    document.getElementById(date).remove();
     delete entries[date];
     localStorage.setItem('entries', JSON.stringify(entries));
 }
 
 /**
  * Adds entries to the sidebar
- * TODO: add entries according to chronological order, not just appending to the end 
+ * TODO: add entries according to chronological order, not just appending to the end (done, needs to be tested)
  * @param {string} date - YYYY-MM-DD string representing date of the entry
  * @returns nothing
  */
@@ -114,10 +120,23 @@ function dispEntry(date){
     let entry = entries[date];
     let entryList = document.getElementsByClassName('entry-list')[0];
 
-    //creating the dropdown/expandable element for the sidebar list
+    //creating the list item, then putting it in the correct place 
     let item = document.createElement('li');
-    entryList.append(item);
-    //setting the list item id to the entry id
+    let items = entryList.children;
+    //if is most recent (date greater than top id), add at the top
+    if(date > items[0].id)
+        entryList.prepend(item);
+    //otherwise, add after last element with id greater than date.
+    else{
+        for(let i = 1; i<items.length; ++i){
+            if(items[i].id < date){
+                items[i-1].after(item);
+                break;
+            }
+        }
+    }
+
+    //setting up the list item/link/dropdown
     item.id = date;
     item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
