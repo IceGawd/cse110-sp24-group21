@@ -6,47 +6,46 @@ body {
 /* Styles for the button container */
 .button-container {
   display: flex;
-  justify-content: flex-start; /* Align items to the start, close to each other */
+  justify-content: flex-start; /* Align items to the start */
   align-items: center;
   padding: 3px;
-  background-color: #f0f0f0; /* Adjust as needed */
+  background-color: #f0f0f0; 
   border-bottom: 1px solid #ddd;
-  gap: 10px; /* Add space between buttons */
+  gap: 10px; /* Space between buttons */
 }
 
-/* Style individual buttons and input */
+/* Style buttons and input */
 .button-container button, .button-container input {
   padding: 6px 14px;  /* Increased padding for larger button size */
-  font-size: 1.1rem;  /* Increased font size for better readability */
+  font-size: 1.1rem;  /* Increased font size */
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Adds subtle shadow for depth */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds shadow */
 }
 
-/* Specific style for the date input to ensure consistent appearance */
 .button-container #calendar-select {
   width: auto; /* Auto width to accommodate content and padding */
-  min-width: 200px; /* Ensures a minimum width */
+  min-width: 200px; /* Minimum width */
 }
 
-/* Hover effect for buttons and input */
+/* Hover effect for buttons */
 .button-container button:hover, .button-container input:hover {
   background-color: #e0e0e0;
 }
 
-/* Ensure the scroll container takes up the remaining height and always shows the scrollbar */
+/* Ensure the scroll container takes up the remaining height */
 .scroll-container {
   display: flex;
   min-height: 0; /* Allow it to shrink */
   overflow-x: auto;
   overflow-y: hidden; /* Hide vertical overflow */
   white-space: nowrap;
-  padding: 10px; /* Adjust padding if needed */
+  padding: 10px; /* Adjust padding */
   box-sizing: border-box;
   flex-grow: 1; /* Allow it to grow to take up available space */
-  position: relative; /* Ensure relative positioning for the mask */
+  position: relative; 
   height: calc(100% - 60px); /* Adjust based on button container height */
 }
 
@@ -83,7 +82,7 @@ body {
 
 /* Custom scrollbar styles for day containers */
 .day-container::-webkit-scrollbar {
-  width: 6px;  /* Thinner scrollbar */
+  width: 6px;  
 }
 
 .day-container::-webkit-scrollbar-track {
