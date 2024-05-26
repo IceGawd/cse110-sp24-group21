@@ -1,184 +1,236 @@
 /* CSS for just the tasks page */
 body {
-    font-family: 'Radio Canada', sans-serif;
+  font-family: 'Radio Canada', sans-serif;
 }
 
+/* Styles for the button container */
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start, close to each other */
+  align-items: center;
+  padding: 3px;
+  background-color: #f0f0f0; /* Adjust as needed */
+  border-bottom: 1px solid #ddd;
+  gap: 10px; /* Add space between buttons */
+}
+
+/* Style individual buttons and input */
+.button-container button, .button-container input {
+  padding: 6px 14px;  /* Increased padding for larger button size */
+  font-size: 1.1rem;  /* Increased font size for better readability */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Adds subtle shadow for depth */
+}
+
+/* Specific style for the date input to ensure consistent appearance */
+.button-container #calendar-select {
+  width: auto; /* Auto width to accommodate content and padding */
+  min-width: 200px; /* Ensures a minimum width */
+}
+
+/* Hover effect for buttons and input */
+.button-container button:hover, .button-container input:hover {
+  background-color: #e0e0e0;
+}
+
+/* Ensure the scroll container takes up the remaining height and always shows the scrollbar */
 .scroll-container {
-    display: flex;
-    min-height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden; /* Hide vertical overflow */
-    white-space: nowrap;
-    padding: 10px; /* Adjust padding if needed */
-    box-sizing: border-box;
+  display: flex;
+  min-height: 0; /* Allow it to shrink */
+  overflow-x: auto;
+  overflow-y: hidden; /* Hide vertical overflow */
+  white-space: nowrap;
+  padding: 10px; /* Adjust padding if needed */
+  box-sizing: border-box;
+  flex-grow: 1; /* Allow it to grow to take up available space */
+  position: relative; /* Ensure relative positioning for the mask */
+  height: calc(100% - 60px); /* Adjust based on button container height */
 }
 
 /* Style for horizontal scrollbar */
 .scroll-container::-webkit-scrollbar {
-    height: 12px; /* Set the height of the scrollbar */
+  height: 12px; /* Set the height of the scrollbar */
 }
 
-
 .scroll-container::-webkit-scrollbar-thumb {
-    background: #555; /* Set the color */
-    border-radius: 6px; /* Rounded corners */
+  background: #555; 
+  border-radius: 6px; /* Rounded corners */
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #777; /* Change color on hover */
+  background: #777; /* Change color on hover */
 }
 
-
 .day-container {
-    flex: 0 0 auto;
-    min-height: calc(100vh - 60px); /* Minimum height as per the design */
-    width: 450px; /* Set the width as per the design */
-    margin-right: 20px; /* Set the spacing between day-containers */
-    padding: 20px; /* Adjust padding if needed */
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 15px; /* Add rounded edges */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    position: relative; /* Allows absolute positioning if needed */
-    text-align: left; /* Align text to the left */
-    overflow: hidden; /* Ensure overflow is hidden */
+  flex: 0 0 auto;
+  min-height: calc(100vh - 120px); /* Adjust height based on header and button container */
+  width: 450px; /* Set the width as per the design */
+  margin-right: 20px; /* Set the spacing between day-containers */
+  padding: 20px; /* Adjust padding if needed */
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 15px; /* Add rounded edges */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Allows absolute positioning if needed */
+  text-align: left; /* Align text to the left */
+  overflow-y: auto; /* Allow vertical scrolling within day container */
+}
+
+/* Custom scrollbar styles for day containers */
+.day-container::-webkit-scrollbar {
+  width: 6px;  /* Thinner scrollbar */
+}
+
+.day-container::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* Optional: scrollbar track color */
+}
+
+.day-container::-webkit-scrollbar-thumb {
+  background: #888;  /* Scrollbar handle color */
+}
+
+.day-container::-webkit-scrollbar-thumb:hover {
+  background: #555;  /* Scrollbar handle hover color */
 }
 
 /* Styles for the date */
 .day-container .date {
-    font-size: 1.5rem; 
-    font-weight: bold; 
-    font-family: 'Radio Canada', sans-serif; 
-    color: #000000; 
-    margin-bottom: 0; 
-    line-height: 1; 
+  font-size: 1.5rem; 
+  font-weight: bold; 
+  font-family: 'Radio Canada', sans-serif; 
+  color: #000000; 
+  margin-bottom: 0; 
+  line-height: 1; 
 }
 
 /* Styles for the day of the week */
 .day-container .day-of-week {
-    font-size: 1.1rem; 
-    font-family: 'Radio Canada', sans-serif; 
-    color: #000000; 
-    margin-top: 0px; 
-    margin-bottom: 10px; 
+  font-size: 1.1rem; 
+  font-family: 'Radio Canada', sans-serif; 
+  color: #000000; 
+  margin-top: 0px; 
+  margin-bottom: 10px; 
 }
 
 /* Other elements inside daily container */
 .add-task {
-    background: none; 
-    border: none; 
-    color: #827F7F;
-    font-size: 1.2rem; 
-    display: flex; 
-    align-items: center; 
-    cursor: pointer; 
-    font-family: 'Radio Canada', sans-serif;
-    margin-top: 0px; 
+  background: none; 
+  border: none; 
+  color: #827F7F;
+  font-size: 1.2rem; 
+  display: flex; 
+  align-items: center; 
+  cursor: pointer; 
+  font-family: 'Radio Canada', sans-serif;
+  margin-top: 0px; 
 }
 
 /* Plus icon styles */
 .add-task::before {
-    content: '+'; 
-    color: #ff0000; 
-    font-size: 1.4rem; 
-    margin-right: 10px; 
+  content: '+'; 
+  color: #ff0000; 
+  font-size: 1.4rem; 
+  margin-right: 10px; 
 }
 
 /* add hover effects */
 .add-task:hover {
-    text-decoration: underline; 
+  text-decoration: underline; 
 }
 
 /* Task style */
 .task {
-    position: relative;
-    flex: 0 0 auto;
-    margin-top: 0px; 
-    padding: 10px;
-    background-color: #f4f4f4;
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
-  }
-  
-  /* Task textarea style */
-  textarea {
-    border: 1px solid #ddd;
-    padding: 0.3rem;
-    font-family: inherit;
-    resize: none;
-  }
-  
-  /* Task title style */
-  .title {
-    border-radius: 10px 10px 0 0;
-  }
-  
-  /* Task tags style */
-  .tags {
-    border-radius: 0 0 10px 10px;
-  }
-  
-  /* Time elements style */
-  .time-div {
-    border: 1px solid #ddd;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    font-size: 0.8rem;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* More time element style */
-  input {
-    font-size: 0.8rem;
-    max-width: 5.6rem;
-    margin: 0.25rem;
-    font-family: inherit;
-  }
-  
-  /* Task buttons style */
-  .task-buttons {
-    position: absolute;
-    bottom: 15px;
-    right: 20px; 
-    display: flex;
-    flex-direction: row;
-    margin-top: auto;
-    margin-left: 10px;
-    justify-content: flex-end;
-  }
-  
-  .task-buttons > button {
-    background-position: center;
-    background-color: white; 
-    height: 20px;
-    width: 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.5s;
-  }
-  
-  .save-task {
-    background-image: url(../assets/icons/save.svg);
-    background-size: 20px 20px;
-  }
-  
-  .save-task:hover {
-    background-color: #d3d3d3;
-  }
-  
-  .delete-task {
-    background-image: url(../assets/icons/delete.svg);
-    background-size: 35px 35px;
-  }
-  
-  .delete-task:hover {
-    background-color: #d3d3d3;
-  }
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: 0px; 
+  padding: 0.1rem;
+  background-color: #f4f4f4;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+/* Task textarea style */
+textarea {
+  border: 1px solid #ddd;
+  padding: 0.3rem;
+  font-family: inherit;
+  resize: none;
+}
+
+/* Task title style */
+.title {
+  border-radius: 10px 10px 0 0;
+}
+
+/* Task tags style */
+.tags {
+  border-radius: 0 0 10px 10px;
+}
+
+/* Time elements style */
+.time-div {
+  border: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* More time element style */
+input {
+  font-size: 0.8rem;
+  max-width: 5.6rem;
+  margin: 0.25rem;
+  font-family: inherit;
+}
+
+/* Task buttons style */
+.task-buttons {
+  position: absolute;
+  bottom: 15px;
+  right: 20px; 
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+  margin-left: 10px;
+  justify-content: flex-end;
+}
+
+.task-buttons > button {
+  background-position: center;
+  background-color: white; 
+  height: 20px;
+  width: 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.save-task {
+  background-image: url(../assets/icons/save.svg);
+  background-size: 20px 20px;
+}
+
+.save-task:hover {
+  background-color: #d3d3d3;
+}
+
+.delete-task {
+  background-image: url(../assets/icons/delete.svg);
+  background-size: 35px 35px;
+}
+
+.delete-task:hover {
+  background-color: #d3d3d3;
+}
