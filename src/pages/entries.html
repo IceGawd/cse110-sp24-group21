@@ -7,6 +7,8 @@
     <!-- External Files -->
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/entries.css">
+    <script src="../scripts/storage.js" type="module"></script>
+    <script src="../scripts/entries.js" type="module"></script>
 </head>
 <body id="main-page">
     <nav>
@@ -22,7 +24,7 @@
         <div class="scrollable-entries">
             <input type="text" id="search" placeholder="Search...">
             <ol class="entry-list">
-                <li><a href="#"><details open>
+                <li><a href="#"><details open="true">
                     <summary><b>Creating search bar</b></summary>
                     <p>This is my first entry. This is a test. blah blah blah blah</p>
                     <h6>May 20, 2024</h6>
@@ -63,63 +65,21 @@
         </div>
         
         <div class="content">
-            <div class="entry-container">
-                <h3>May 20, 2024</h3>
-                This is my entry for today. blah This is my entry for today. blah This is my entry for today. blah 
-                This is my entry for today. blah This is my entry for today. blah This is my entry for today. blah 
-                This is my entry for today. blah 
-                This is my entry for today. blah This is my entry for today. blah This is my entry for today. blah 
-                This is my entry for today. blah This is my entry for today. blah This is my entry for today. blah 
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br>
-                <h1>blah</h1>
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br>
-                <h1>blah</h1>
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br>
-                <h1>blah</h1>
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br> 
-                blah
-                <br>
-                blah
-                <br>
-                <h1>blah</h1>
-
-            </div>
+            <article class="entry-container">
+                <header>
+                    <h2 id="title">Title</h2>
+                    <h6 id="date">date</h6>
+                    <button id="editEntry">edit</button>
+                    <button id="newEntry">new</button>
+                </header>
+                <div id="entry">
+                    <p>entry text or something idk</p>
+                </div>
+                <footer>
+                    <span id="label0">label1</span>
+                    <span id="label2">label2</span>
+                </footer>
+            </article>
             <!--Entries will also be dynamically loaded-->
         </div>
     </main>
