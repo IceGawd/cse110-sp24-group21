@@ -142,45 +142,41 @@ class TaskElement extends HTMLElement {
 
   set data(data) {
     this.json = data;
-
     const styles = document.createElement('style');
     styles.innerHTML = style;
-
     const wrapper = document.createElement('div');
     wrapper.classList.add('task');
-
     const title = this.createTextarea(data.title, "Task Title", 'title');
     const description = this.createTextarea(data.description, "Task Description", 'description');
     const tags = this.createTags(data.tags);
     const priorityDropdown = this.createPriorityDropdown(data.priority);
     const buttons = this.createButtons();
 
-    priorityDropdown.addEventListener('change', () => {
-      this.json.priority = priorityDropdown.value;
-      this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
-      this.saveToLocalStorage();
-    });
-
-    title.addEventListener('input', () => { 
-      this.json.title = title.value;
-      this.saveToLocalStorage();
-    });
-    description.addEventListener('input', () => { 
-      this.json.description = description.value;
-      this.saveToLocalStorage();
-    });
-    tags.addEventListener('input', () => { 
-      this.json.tags = tags.value.split(' ');
-      this.saveToLocalStorage();
-    });
+    this.addSaveEventListener(title, 'title');
+    this.addSaveEventListener(description, 'description');
+    this.addSaveEventListener(tags, 'tags');
+    this.addSaveEventListener(priorityDropdown, 'priority');
 
     wrapper.append(title, description, tags, priorityDropdown, buttons);
-
     this.shadowRoot.append(styles, wrapper);
   }
 
   get data() {
     return this.json;
+  }
+
+  addSaveEventListener(element, field) {
+    element.addEventListener('input', () => {
+      if (field === 'tags') {
+        this.json.tags = element.value.split(' ');
+      } else if (field === 'priority') {
+        this.json.priority = element.value;
+        this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
+      } else {
+        this.json[field] = element.value;
+      }
+      this.saveToLocalStorage();
+    });
   }
 
   saveToLocalStorage() {
