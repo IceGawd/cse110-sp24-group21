@@ -111,32 +111,14 @@ function deleteEntry(date){
 }
 
 /**
- * Adds entries to the sidebar
- * TODO: add entries according to chronological order, not just appending to the end (done, needs to be tested)
- * @param {string} date - YYYY-MM-DD string representing date of the entry
- * @returns nothing
+ * Populates the list element with the entry data
+ * @param {li, string} - A li (HTML list) object and a YYYY-MM-DD string representing date of the entry
+ * @returns nothing (list element gets populated as it is passed by reference)
  */
-function dispEntry(date){
+function entryItemSetup(item, date) {
     let entry = entries[date];
-    let entryList = document.getElementsByClassName('entry-list')[0];
 
-    //creating the list item, then putting it in the correct place 
-    let item = document.createElement('li');
-    let items = entryList.children;
-    //if is most recent (date greater than top id), add at the top
-    if(date > items[0].id)
-        entryList.prepend(item);
-    //otherwise, add after last element with id greater than date.
-    else{
-        for(let i = 1; i<items.length; ++i){
-            if(items[i].id < date){
-                items[i-1].after(item);
-                break;
-            }
-        }
-    }
-
-    //setting up the list item/link/dropdown
+    // Set basic properties to the element
     item.id = date;
     item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
@@ -154,6 +136,36 @@ function dispEntry(date){
     let d = document.createElement('h6');
     d.innerHTML = getDate(date);
     item.append(d);
+}
+
+
+/**
+ * Adds entries to the sidebar
+ * TODO: add entries according to chronological order, not just appending to the end (done, needs to be tested)
+ * @param {string} date - YYYY-MM-DD string representing date of the entry
+ * @returns nothing
+ */
+function dispEntry(date){
+    let entryList = document.getElementsByClassName('entry-list')[0];
+
+    //creating the list item, then putting it in the correct place 
+    let item = document.createElement('li');
+    let items = entryList.children;
+    //if is most recent (date greater than top id), add at the top
+    if (date > items[0].id)
+        entryList.prepend(item);
+    //otherwise, add after last element with id greater than date.
+    else {
+        for (let i = 1; i<items.length; ++i){
+            if (items[i].id < date){
+                items[i-1].after(item);
+                break;
+            }
+        }
+    }
+
+    //setting up the list item/link/dropdown
+    entryItemSetup(item, date);    
 }
 
 /**
