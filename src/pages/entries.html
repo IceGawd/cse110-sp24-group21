@@ -7,17 +7,10 @@
     <!-- External Files -->
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/entries.css">
+    <script src="../components/navbar.js" type="module"></script>
 </head>
 <body id="main-page">
-    <nav>
-        <ul id="sidebar">
-            <img src="../assets/icons/journal.svg" alt="Journal Icon" id="journal-icon"/>
-            <a class="navlink" href="./home.html">Home</a>
-            <a class="navlink" href="./calendar.html">Calendar</a>
-            <a class="navlink" href="./tasks.html">Tasks</a>
-            <a class="navlink" href="./entries.html">Entries</a>
-        </ul>
-    </nav>
+    <my-navbar></my-navbar>
     <main>
         <div class="scrollable-entries">
             <input type="text" id="search" placeholder="Search...">
