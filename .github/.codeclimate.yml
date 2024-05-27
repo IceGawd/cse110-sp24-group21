@@ -1,4 +1,6 @@
 version: "2"         # required to adjust maintainability checks
+exclude_patterns:
+  - "__tests__/"
 checks:
   argument-count:
     config:
