@@ -24,10 +24,29 @@ tasks.json
     }
 ]
 ```
+
+`localStorage.entries`:
+```
+{
+  "YYYY-MM-DD": {
+    "title": "Title or something",
+    "entry": "Entry text. Probably in markdown format?",
+    "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+  },
+  "YYYY-MM-DD": {
+    "title": "Title or something",
+    "entry": "Entry text. Probably in markdown format?",
+    "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+  }
+}
+```
+
+entry blurbs (for sidebar) will be ~45 characters long
+
 ## **Functions**
 Documentation of all functions used in the backend \
 **Detail the function name, input parameters, return type (optional), and function logic (briefly in bullet points should do)
-
+git p
 **Examples:**
 - display(taskData) →takes in a JSON element (task list), and updates the HTML accordingly
   - Changes header title, and then adds the tasks individually 
