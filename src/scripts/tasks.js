@@ -161,10 +161,10 @@ function sortTasks(day) {
   tasks.forEach(task => day.insertBefore(task, day.querySelector('.add-task')));
 }
 
-/**
- * Given the task element, save its current state
- */
-function saveTask(task) {
+/** 
+ * Creates a save-able object from the HTML task element
+*/
+function getTaskObjectFromTask(task) {
   // Get current values in fields
   const wrapper = task.shadowRoot;
   const inputTitle = wrapper.querySelector(".title").value;
@@ -176,6 +176,7 @@ function saveTask(task) {
   const inputTags = wrapper.querySelector(".tags").value;
   const inputPriority = task.querySelector('.priority-dropdown').value;
 
+  // Create object from task information
   let taskObject = {
     id: task.data.id,
     title: inputTitle,
@@ -186,6 +187,16 @@ function saveTask(task) {
     tags: ((inputTags == '') ? [] : inputTags.split(' ')),
     priority: inputPriority
   };
+
+  return taskObject;
+}
+
+/**
+ * Given the task element, save its current state
+ */
+function saveTask(task) {
+  // Get the object of the task
+  let taskObject = getTaskObjectFromTask(task);
 
   // Update task in the list
   const taskIndex = tasks.findIndex(t => t.id === taskObject.id);

@@ -14,7 +14,7 @@ describe('Basic user flow for Website', () => {
       // Expect there that array from earlier to be of length 20, meaning 20 <product-item> elements where found
       expect(numProducts).toBe(20);
     });
-  
+    
     // Check to make sure that all 20 <product-item> elements have data in them
     it('Make sure <product-item> elements are populated', async () => {
       console.log('Checking to make sure <product-item> elements are populated...');
