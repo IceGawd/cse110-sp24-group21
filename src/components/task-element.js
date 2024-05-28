@@ -212,7 +212,7 @@ class TaskElement extends HTMLElement {
     this.addSaveEventListener(tags, 'tags');
     this.addSaveEventListener(priorityDropdown, 'priority');
 
-    wrapper.append(title, description, tags, priorityDropdown, buttons);
+    wrapper.append(title, description, time, tags, priorityDropdown, buttons);
     this.shadowRoot.append(styles, wrapper);
   }
 

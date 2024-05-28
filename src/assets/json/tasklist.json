@@ -6,7 +6,8 @@
       "startTime": "08:00",
       "endTime": "09:59",
       "description": "Just an example task used for testing purposes",
-      "tags": ["python", "logistics"]
+      "tags": ["python", "logistics"],
+      "priority": "low"
     },
     {
       "id": 654321,
@@ -15,6 +16,7 @@
       "startTime": "10:00",
       "endTime": "12:00",
       "description": "Just an example task used for testing purposes",
-      "tags": ["java", "MATLAB"]
+      "tags": ["java", "MATLAB"],
+      "priority": "high"
     }
 ]
