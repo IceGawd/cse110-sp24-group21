@@ -110,7 +110,7 @@ function createTask(day, data) {
     // Gives fields ability to expand/contract based on text inside
     field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; });
     // Add event listener to save changes on input
-    field.addEventListener('input', () => { saveTask(taskElement); });
+    // field.addEventListener('input', () => { saveTask(taskElement); });
   });
   taskElement.addEventListener('saved', () => { saveTask(taskElement); });
   taskElement.addEventListener('deleted', () => { deleteTask(taskElement); });
@@ -127,7 +127,7 @@ function createTask(day, data) {
 /**
  * Sets the priority of the task
  */
-function setPriority(taskElement) {
+/*function setPriority(taskElement) {
   const priorities = ['low', 'medium', 'high'];
   let currentPriority = taskElement.querySelector('.priority-dropdown').value;
   let newPriorityIndex = (priorities.indexOf(currentPriority) + 1) % priorities.length;
@@ -148,7 +148,7 @@ function setPriority(taskElement) {
     tags: []  // might have some trouble with this method (whitespaces)
   };
   createTask(day, taskObject);
-  console.log(taskObject);
+  console.log(taskObject);*/
 /**
  * Sorts tasks by priority within the specified day container
  */
@@ -174,7 +174,7 @@ function getTaskObjectFromTask(task) {
   const inputEndTime = wrapper.querySelector(".end-time").value;
   const allDayBox = wrapper.querySelector(".all-day").checked;
   const inputTags = wrapper.querySelector(".tags").value;
-  const inputPriority = task.querySelector('.priority-dropdown').value;
+  const inputPriority = wrapper.querySelector('.priority-dropdown').value;
 
   // Create object from task information
   let taskObject = {
@@ -246,7 +246,9 @@ function newTask(day) {
   let taskObject = {
     id: inputId,
     title: "",
-    dueDate: date,
+    date: date,
+    startTime: "00:00",
+    endTime: "23:59",
     description: "",
     tags: [],
     priority: 'low'
