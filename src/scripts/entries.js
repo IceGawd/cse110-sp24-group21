@@ -112,7 +112,8 @@ function deleteEntry(date){
 
 /**
  * Populates the list element with the entry data
- * @param {li, string} - A li (HTML list) object and a YYYY-MM-DD string representing date of the entry
+ * @param {li} item - A li (HTML list) object to be populated with entry data
+ * @param {String} date - A YYYY-MM-DD string representing date of the entry
  * @returns nothing (list element gets populated as it is passed by reference)
  */
 function entryItemSetup(item, date) {
