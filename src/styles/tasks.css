@@ -82,11 +82,11 @@ body {
 
 /* Custom scrollbar styles for day containers */
 .day-container::-webkit-scrollbar {
-  width: 6px;  
+  width: 7px;  
 }
 
 .day-container::-webkit-scrollbar-track {
-  background: #f1f1f1;  /* Optional: scrollbar track color */
+  background: #f1f1f1;  
 }
 
 .day-container::-webkit-scrollbar-thumb {
