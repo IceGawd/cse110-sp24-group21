@@ -1,6 +1,13 @@
 name: CI/CD Pipeline
 
-on: [push, pull_request] 
+on:
+  push:
+    branches:
+      - main
+      - test-branch
+  pull_request:
+    branches:
+      - main
 jobs: # the things being executed
   build:  # the name of your status check
     name: Lint Code Base
@@ -29,10 +36,22 @@ jobs: # the things being executed
       - uses: actions/checkout@v4 # using version 4 of Actions
       - name: Install Dependencies
         run: npm install
+      - name: Fetch Code Climate Test Reporter Binary     # Code Climate before tests
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-windows-amd64> ./cc-test-reporter
+      - name: Make Test Reporter Executable
+        run: chmod +x ./cc-test-reporter
+      - name: Run Code Climate Before Build
+        run: ./cc-test-reporter before-build
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       - name: Unit Test
         run: npm run test:unit # unit tests
       - name: E2E Test
         run: npm run test:e2e # e2e tests
+       - name: Run Code Climate After Build                # Code Climate after tests
+        run: ./cc-test-reporter after-build --exit-code $?
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
   generate-docs:
     name: Generate JSDocs
