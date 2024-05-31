@@ -48,7 +48,7 @@ jobs: # the things being executed
       - name: E2E Test
         run: npm run test:e2e # e2e tests
       - name: Run Code Climate After Build
-        run: ./cc-test-reporter after-build --exit-code $?
+        run: ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
