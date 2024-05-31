@@ -58,7 +58,7 @@ jobs: # the things being executed
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: npm run coverage
+          coverageCommand: npm run coverage --coverage
 
   generate-docs:
     name: Generate JSDocs
