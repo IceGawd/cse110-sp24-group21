@@ -8,18 +8,16 @@ on:
   pull_request:
     branches:
       - main
+
 jobs: # the things being executed
   build:  # the name of your status check
     name: Lint Code Base
     runs-on: ubuntu-latest  # which device on Github's server that you are running the Actions on
-
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
@@ -33,11 +31,12 @@ jobs: # the things being executed
     name: Test Code Base
     runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
     steps:
-      - uses: actions/checkout@v4 # using version 4 of Actions
+      - name: Checkout Code
+        uses: actions/checkout@v4 # using version 4 of Actions
       - name: Install Dependencies
         run: npm install
-      - name: Fetch Code Climate Test Reporter Binary     # Code Climate before tests
-        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-windows-amd64> ./cc-test-reporter
+      - name: Fetch Code Climate Test Reporter Binary
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - name: Make Test Reporter Executable
         run: chmod +x ./cc-test-reporter
       - name: Run Code Climate Before Build
@@ -48,7 +47,7 @@ jobs: # the things being executed
         run: npm run test:unit # unit tests
       - name: E2E Test
         run: npm run test:e2e # e2e tests
-       - name: Run Code Climate After Build                # Code Climate after tests
+      - name: Run Code Climate After Build
         run: ./cc-test-reporter after-build --exit-code $?
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
