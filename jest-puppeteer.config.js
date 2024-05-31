@@ -4,5 +4,8 @@ module.exports = {
     slowMo: 25,
     args: ["--start-maximized"],
     defaultViewport: null
-  }
+  },
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['html', 'text', 'lcov'],
 }
