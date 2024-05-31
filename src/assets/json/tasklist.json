@@ -2,15 +2,21 @@
     {
       "id": 123456,
       "title": "Example Task",
-      "dueDate": "05/20/2024",
+      "date": "05/20/2024",
+      "startTime": "08:00",
+      "endTime": "09:59",
       "description": "Just an example task used for testing purposes",
-      "tags": ["python", "logistics"]
+      "tags": ["python", "logistics"],
+      "priority": "low"
     },
     {
       "id": 654321,
       "title": "Example Task 2",
-      "dueDate": "05/22/2024",
+      "date": "05/22/2024",
+      "startTime": "10:00",
+      "endTime": "12:00",
       "description": "Just an example task used for testing purposes",
-      "tags": ["java", "MATLAB"]
+      "tags": ["java", "MATLAB"],
+      "priority": "high"
     }
 ]

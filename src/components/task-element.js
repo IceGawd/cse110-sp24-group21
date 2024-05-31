@@ -1,36 +1,54 @@
 // task-element.js
-const style= `
+const style = `
 /* Task style */
 .task {
   position: relative;
   flex: 0 0 auto;
-  margin-top: 0px; 
-  padding: 10px;
+  margin-top: 0rem; 
+  padding: 0.5rem;
   background-color: #f4f4f4;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
+}
+
+/* Task textarea style */
+textarea {
+  border: 1px solid #ddd;
+  padding: 0.3rem;
+  font-family: inherit;
+  resize: none;
 }
 
 /* Task title style */
 .title {
-  border: 1px solid #ddd;
   border-radius: 10px 10px 0 0;
-  resize: none;
-}
-
-/* Task description style */
-.description {
-  border: 1px solid #ddd;
-  resize: none;
 }
 
 /* Task tags style */
 .tags {
-  border: 1px solid #ddd;
   border-radius: 0 0 10px 10px;
-  resize: none;
+}
+
+/* Time elements style */
+.time-div {
+  border: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* More time element style */
+input {
+  font-size: 0.8rem;
+  max-width: 5.6rem;
+  margin: 0.25rem;
+  font-family: inherit;
 }
 
 /* Task buttons style */
@@ -73,49 +91,101 @@ const style= `
 .delete-task:hover {
   background-color: #d3d3d3;
 }
+
+/* Priority dropdown style */
+.priority-dropdown {
+  margin-top: 10px;
+  width: 12.5%; /* Adjusted width to 1/8th of its current width */
+  border-radius: 15px;
+  border: 1px solid #827F7F; /* Set border color */
+  outline: none;
+}
 `;
-
-
+/**
+ * @class TaskElement
+ * @classdesc Custom element for a task
+ */
 class TaskElement extends HTMLElement {
   constructor() {
-    super(); // inherets everything from HTMLElement
-    this.attachShadow({ mode: 'open' }); // Creates the Shadow DOM
+    super();
+    this.attachShadow({ mode: 'open' });
   }
 
-  // Create textarea with inner text and placeholder text
   createTextarea(text, placeholderText, className) {
     const el = document.createElement('textarea');
     el.classList.add(className);
-    el.innerHTML = text;
-    el.placeholder = placeholderText
+    el.value = text;
+    el.placeholder = placeholderText;
     return el;
+  }
+
+  // Create time div
+  createTimeDiv(startTime, endTime) {
+    const timeDiv = document.createElement('div');
+    timeDiv.classList.add('time-div');
+
+    const startLabel = document.createElement('label');
+    startLabel.innerHTML = 'Start Time:';
+    const startEl = document.createElement('input');
+    startEl.classList.add('start-time');
+    startEl.type = 'time'; startEl.value = startTime;
+    startLabel.append(startEl);
+
+    const endLabel = document.createElement('label');
+    endLabel.innerHTML = 'End Time:';
+    const endEl = document.createElement('input');
+    endEl.classList.add('end-time');
+    endEl.type = 'time'; endEl.value = endTime;
+    endLabel.append(endEl);
+    
+    const allDayLabel = document.createElement('label');
+    allDayLabel.innerHTML = 'All Day';
+    const allDayEl = document.createElement('input');
+    allDayEl.classList.add('all-day');
+    allDayEl.type = 'checkbox';
+    if ((startTime === "00:00") && (endTime === "23:59")) { allDayEl.checked = startEl.disabled = endEl.disabled = true; }
+    else { allDayEl.checked = startEl.disabled = endEl.disabled = false; }
+    allDayEl.addEventListener('change', () => { startEl.disabled = endEl.disabled = allDayEl.checked });
+    allDayLabel.append(allDayEl);
+    timeDiv.append(startLabel, endLabel, allDayLabel);
+    return timeDiv;
   }
 
   // Create tag text by taking tags from arrays and adding spaces in between each tag
   createTags(arr) {
     const tags = document.createElement('textarea');
     tags.classList.add('tags');
-    let tag_content = '';
-    for (let t in arr) {
-      tag_content += arr[t];
-      tag_content += ' ';
-    }
-    tags.innerHTML = tag_content.trim();
-    tags.placeholder = "Task Tags"
-    return tags
+    tags.value = arr.join(' ');
+    tags.placeholder = "Task Tags";
+    return tags;
   }
-  
-  // Creates save and delete buttons and binds them to special events
+
+  createPriorityDropdown(priority) {
+    const dropdown = document.createElement('select');
+    dropdown.classList.add('priority-dropdown');
+    const priorities = ['low', 'medium', 'high'];
+    priorities.forEach(level => {
+      const option = document.createElement('option');
+      option.value = level;
+      option.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+      if (level === priority) {
+        option.selected = true;
+      }
+      dropdown.appendChild(option);
+    });
+    return dropdown;
+  }
+
   createButtons() {
     const buttonWrapper = document.createElement('div');
     buttonWrapper.classList.add('task-buttons');
 
-    const savedEvent = new Event('saved', {bubbles: true, composed: true});
+    const savedEvent = new Event('saved', { bubbles: true, composed: true });
     const saveButton = document.createElement('button');
     saveButton.addEventListener('click', () => { this.dispatchEvent(savedEvent); });
     saveButton.classList.add('save-task');
 
-    const deletedEvent = new Event('deleted', {bubbles: true, composed: true});
+    const deletedEvent = new Event('deleted', { bubbles: true, composed: true });
     const deleteButton = document.createElement('button');
     deleteButton.addEventListener('click', () => { this.dispatchEvent(deletedEvent); });
     deleteButton.classList.add('delete-task');
@@ -124,29 +194,25 @@ class TaskElement extends HTMLElement {
     return buttonWrapper;
   }
 
-  // Populates element when data is set
   set data(data) {
-    // Store the data passed in for later
     this.json = data;
-
-    // Get styles from hard coded styles, needed bc of the shadow DOM
     const styles = document.createElement('style');
     styles.innerHTML = style;
-
-    // Create the task wrapper for the fields to nest inside
     const wrapper = document.createElement('div');
     wrapper.classList.add('task');
-
-    // Create fields and buttons inside wrapper
     const title = this.createTextarea(data.title, "Task Title", 'title');
     const description = this.createTextarea(data.description, "Task Description", 'description');
+    const time = this.createTimeDiv(data.startTime, data.endTime);
     const tags = this.createTags(data.tags);
+    const priorityDropdown = this.createPriorityDropdown(data.priority);
     const buttons = this.createButtons();
 
-    // Add all of the above elements to the wrapper
-    wrapper.append(title, description, tags, buttons);
+    this.addSaveEventListener(title, 'title');
+    this.addSaveEventListener(description, 'description');
+    this.addSaveEventListener(tags, 'tags');
+    this.addSaveEventListener(priorityDropdown, 'priority');
 
-    // Append the wrapper and the styles to the Shadow DOM
+    wrapper.append(title, description, time, tags, priorityDropdown, buttons);
     this.shadowRoot.append(styles, wrapper);
   }
 
@@ -154,6 +220,30 @@ class TaskElement extends HTMLElement {
     return this.json;
   }
 
+  addSaveEventListener(element, field) {
+    element.addEventListener('input', () => {
+      if (field === 'tags') {
+        this.json.tags = element.value.split(' ');
+      } else if (field === 'priority') {
+        this.json.priority = element.value;
+        this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
+      } else {
+        this.json[field] = element.value;
+      }
+      this.saveToLocalStorage();
+    });
+  }
+
+  saveToLocalStorage() {
+    const tasks = JSON.parse(localStorage.getItem('tasklist')) || [];
+    const taskIndex = tasks.findIndex(t => t.id === this.json.id);
+    if (taskIndex >= 0) {
+      tasks[taskIndex] = this.json;
+    } else {
+      tasks.push(this.json);
+    }
+    localStorage.setItem('tasklist', JSON.stringify(tasks));
+  }
 }
 
 customElements.define('task-element', TaskElement);
