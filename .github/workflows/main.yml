@@ -50,7 +50,7 @@ jobs: # the things being executed
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '12'
+          node-version: '18'
       - name: Install Dependencies
         run: npm install
       - name: Upload Coverage to Code Climate
