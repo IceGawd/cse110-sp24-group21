@@ -67,7 +67,7 @@ jobs: # the things being executed
       - name: Run Code Climate After Build
         run: ./cc-test-reporter after-build --exit-code $?
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
   generate-docs:
     name: Generate JSDocs
