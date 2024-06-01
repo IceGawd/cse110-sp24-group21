@@ -2,6 +2,6 @@ module.exports = {
   testEnvironment: 'node',
   testRegex: '(/__tests__/unit/.*|(\\.|/)(unit))\\.jsx?$',
   collectCoverage: true,
-  coverageDirectory: 'unit-coverage',
+  coverageDirectory: 'coverage/unit',
   coverageReporters: ['html', 'text', 'lcov'],
 };
