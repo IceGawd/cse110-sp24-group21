@@ -62,7 +62,7 @@ jobs: # the things being executed
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       - name: Run Unit Tests with Coverage
         run: npm run coverage:unit
-      - name: Run E2E Tests with Coverage
+      - name: Run E2E Tests
         run: npm run test:e2e
       - name: Run Code Climate After Build
         run: ./cc-test-reporter after-build --exit-code $?
