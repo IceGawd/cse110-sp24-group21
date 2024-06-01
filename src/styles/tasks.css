@@ -16,7 +16,7 @@ body {
 
 /* Style buttons and input */
 .button-container button, .button-container input {
-  padding: 6px 14px;  /* Increased padding for larger button size */
+  padding: 6px 14px;  /* Larger button size */
   font-size: 1.1rem;  /* Increased font size */
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -26,8 +26,8 @@ body {
 }
 
 .button-container #calendar-select {
-  width: auto; /* Auto width to accommodate content and padding */
-  min-width: 200px; /* Minimum width */
+  width: auto; 
+  min-width: 200px; /* Minimum */
 }
 
 /* Hover effect for buttons */
@@ -42,16 +42,16 @@ body {
   overflow-x: auto;
   overflow-y: hidden; /* Hide vertical overflow */
   white-space: nowrap;
-  padding: 10px; /* Adjust padding */
+  padding: 10px; 
   box-sizing: border-box;
-  flex-grow: 1; /* Allow it to grow to take up available space */
+  flex-grow: 1; 
   position: relative; 
   height: calc(100% - 60px); /* Adjust based on button container height */
 }
 
 /* Style for horizontal scrollbar */
 .scroll-container::-webkit-scrollbar {
-  height: 12px; /* Set the height of the scrollbar */
+  height: 12px; /* Set height of the scrollbar */
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
@@ -65,19 +65,19 @@ body {
 
 .day-container {
   flex: 0 0 auto;
-  min-height: calc(100vh - 120px); /* Adjust height based on header and button container */
-  width: 450px; /* Set the width as per the design */
-  margin-right: 20px; /* Set the spacing between day-containers */
-  padding: 20px; /* Adjust padding if needed */
+  min-height: calc(100vh - 120px); 
+  width: 450px; /* Set the width */
+  margin-right: 20px; /* Spacing between day-containers */
+  padding: 20px; 
   background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 15px; /* Add rounded edges */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  position: relative; /* Allows absolute positioning if needed */
-  text-align: left; /* Align text to the left */
-  overflow-y: auto; /* Allow vertical scrolling within day container */
+  position: relative; 
+  text-align: left; 
+  overflow-y: auto; /* Vertical scrolling within day container */
 }
 
 /* Custom scrollbar styles for day containers */
