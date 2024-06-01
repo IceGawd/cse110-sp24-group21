@@ -4,32 +4,117 @@ body {
 
 main {
     display: flex;
+	justify-content:left;
+	width: auto;
 }
 
-.wrapper {
-	max-width: 1100px;
-	margin: 15px auto;
+.container {
+	display: flex;
 }
 
 /* Calendar container */
 .left-container {
+	min-width: 20vw;
     background-color: white;
 	background: #ffffff;
 	padding: 15px;
 	width: 0.3w;
 	margin: 0 auto;
-	overflow: auto;
+	overflow-y: hidden;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	display: inline-block;
+	/* display: inline-block; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
     height: 100%;
+	align-items: center;
+}
+
+#create-calendar-task {
+	background-color: lightgray;
+	border: none;
+	padding: 15px 32px;
+	font-size: larger;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 5%;
+	margin: 5% 0% 10% 0%;
+}
+
+#create-calendar-task:hover {
+	background-color: darkgray;
 }
 
 .right-container {
-    padding: 15px;
+	min-width: 50vw;
+    padding-left: 10px;
+	overflow-x: auto;
+}
+
+.day-header {
+	font-size: larger;
+	font-weight: bold;
+	text-align: center;
+}
+
+.time {
+	font-size: large;
+	font-weight: 500;
+	vertical-align: top;
+	text-align: center;
+	height: 40px;
+}
+
+.hour {
+	border-top: solid 0.5px black;
+}
+
+/* table, tr, th, td {
+	border: 0.5px solid black;
+} */
+
+table {
+	border-collapse: collapse;
+}
+
+.day-detail h2 {
+	text-align: center;
+}
+
+#weekday-header th {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.day-detail {
+	min-width: 8vw;
+}
+
+.weekly-container {
+	padding-top: 2%;
+	overflow-y: auto;
+}
+
+
+/* Test task coloring */
+.test-task {
+	border-radius: 5%;
+	background-color: red;
+	text-align: center;
+	color: white;
+}
+
+.task-2 {
+	border-radius: 5%;
+	background-color: green;
+	text-align: center;
+	color: white;
 }
 
 .left-container h3 {
-    padding-top: 10px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -118,19 +203,6 @@ main {
 }
 
 .hourly-schedule {
+	margin-top: 5%;
     max-height: 80vh;
-    overflow-y: auto;
-    margin: 15px;
-    padding-left: 15px;
-}
-
-.event {
-    width: 60vw;
-    padding-bottom: 15px;
-}
-
-#hours li {
-    list-style: none;
-    text-align: left;
-    margin-bottom: 15px;
 }

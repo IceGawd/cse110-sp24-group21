@@ -12,124 +12,379 @@
 <body id="main-page">
     <my-navbar></my-navbar>
     <main>
-        <div class="left-container">
-            <div id="mini-calendar">
-                <h3 id="month-and-year"></h3>
-                <div class="button-container-calendar">
-                    <button id="previous" onclick="previous()">Prev</button>
-                    <button id="next" onclick="next()">Next</button>
+        <div class="container">
+            <div class="left-container">
+                <div id="calendar-create-task">
+                    <button id="create-calendar-task">Create Task</button>
                 </div>
-                <table class="table-calendar" id="calendar" data-lang="en">
-                    <thead id="thead-month"></thead>
-                    <tbody id="calendar-body"></tbody>
-                </table>
-                <div class="footer-container-calendar">
-                <label for="month">Jump To: </label>
-                    <!-- Dropdowns to select a specific month and year -->
-                    <select id="month" onchange="jump()">
-                        <option value="0">Jan</option>
-                        <option value="1">Feb</option>
-                        <option value="2">Mar</option>
-                        <option value="3">Apr</option>
-                        <option value="4">May</option>
-                        <option value="5">Jun</option>
-                        <option value="6">Jul</option>
-                        <option value="7">Aug</option>
-                        <option value="8">Sep</option>
-                        <option value="9">Oct</option>
-                        <option value="10">Nov</option>
-                        <option value="11">Dec</option>
-                    </select>
-                    <!-- Dropdown to select a specific year -->
-                    <select id="year" onchange="jump()"></select>
+                <div id="mini-calendar">
+                    <h3 id="month-and-year"></h3>
+                    <div class="button-container-calendar">
+                        <button id="previous" onclick="previous()">Prev</button>
+                        <button id="next" onclick="next()">Next</button>
+                    </div>
+                    <table class="table-calendar" id="calendar" data-lang="en">
+                        <thead id="thead-month"></thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                    <div class="footer-container-calendar">
+                    <label for="month">Jump To: </label>
+                        <!-- Dropdowns to select a specific month and year -->
+                        <select id="month" onchange="jump()">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5">Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <!-- Dropdown to select a specific year -->
+                        <select id="year" onchange="jump()"></select>
+                    </div>
+                </div>
+                <div id="upcoming-container">
+                    <h3 id="upcoming-header">Upcoming Tasks</h3>
+                    <!-- Upcoming tasks go here -->
                 </div>
             </div>
-            <div id="upcoming-container">
-                <h3 id="upcoming-header">Upcoming Tasks</h3>
-                <!-- Upcoming tasks go here -->
-            </div>
-        </div>
-        <div class="right-container">
-            <div class="day-header">
-                <!-- Need to make this dynamic -->
-                <h2 id="curr-day">Sunday, May 19</h2>
-            </div>
-            <div class="hourly-schedule">
-                <div class="hourly-schedule-hours">
-                    <ul id="hours">
-                        <div class="event">
-                            <li>00:00</li>
-                        </div>
-                        <div class="event">
-                            <li>01:00</li>
-                        </div>
-                        <div class="event">
-                            <li>02:00</li>
-                        </div>
-                        <div class="event">
-                            <li>03:00</li>
-                        </div>
-                        <div class="event">
-                            <li>04:00</li>
-                        </div>
-                        <div class="event">
-                            <li>05:00</li>
-                        </div>
-                        <div class="event">
-                            <li>06:00</li>
-                        </div>
-                        <div class="event">
-                            <li>07:00</li>
-                        </div>
-                        <div class="event">
-                            <li>08:00</li>
-                        </div>
-                        <div class="event">
-                            <li>09:00</li>
-                        </div>
-                        <div class="event">
-                            <li>10:00</li>
-                        </div>
-                        <div class="event">
-                            <li>11:00</li>
-                        </div>
-                        <div class="event">
-                            <li>12:00</li>
-                        </div>
-                        <div class="event">
-                            <li>13:00</li>
-                        </div>
-                        <div class="event">
-                            <li>14:00</li>
-                        </div>
-                        <div class="event">
-                            <li>15:00</li>
-                        </div>
-                        <div class="event">
-                            <li>16:00</li>
-                        </div>
-                        <div class="event">
-                            <li>17:00</li>
-                        </div>
-                        <div class="event">
-                            <li>18:00</li>
-                        </div>
-                        <div class="event">
-                            <li>19:00</li>
-                        </div>
-                        <div class="event">
-                            <li>20:00</li>
-                        </div>
-                        <div class="event">
-                            <li>21:00</li>
-                        </div>
-                        <div class="event">
-                            <li>22:00</li>
-                        </div>
-                        <div class="event">
-                            <li>23:00</li>
-                        </div>
-                    </ul>
+            <div class="right-container">
+                <div class="weekly-container">
+                    <table id="weekly-details">
+                        <thead id="weekday-header">
+                            <tr id="weekdays">
+                                <th class="day-detail"></th>
+                                <th class="day-detail">
+                                    <h2 id="sunday">SUN</h2>
+                                    <h2 id="sun-date">19</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="monday">MON</h2>
+                                    <h2 id="mon-date">20</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="tuesday">TUE</h2>
+                                    <h2 id="tue-date">21</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="wednesday">WED</h2>
+                                    <h2 id="wed-date">22</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="sunday">THU</h2>
+                                    <h2 id="sun-date">23</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="sunday">FRI</h2>
+                                    <h2 id="sun-date">24</h2>
+                                </th>
+                                <th class="day-detail">
+                                    <h2 id="sunday">SAT</h2>
+                                    <h2 id="sun-date">25</h2>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr id="time-filler">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="0900">
+                            <td class="time">09:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="0930">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="1000">
+                            <td class="time">10:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="1030">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="1100">
+                            <td class="time">11:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="1130">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="1200">
+                            <td class="time">12:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="1230">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="1300">
+                            <td class="time">13:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="1330">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="1400">
+                            <td class="time">14:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="1430">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">15:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">16:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="task-2" rowspan="5">
+                                Test
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">17:00</td>
+                            <td rowspan="2" class="test-task hour">
+                                Test task
+                            </td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">18:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">19:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">20:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">21:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time">22:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr class="07">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
         </div>
