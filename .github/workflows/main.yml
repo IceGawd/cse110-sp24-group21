@@ -1,13 +1,6 @@
 name: CI/CD Pipeline
 
-on:
-  push:
-    branches:
-      - main
-      - test-branch
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request] 
 
 jobs: # the things being executed
   build:  # the name of your status check
