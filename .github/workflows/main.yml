@@ -53,7 +53,7 @@ jobs: # the things being executed
       - name: Install Dependencies
         run: npm install
       - name: Fetch Code Climate Test Reporter Binary
-        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-arm64 > ./cc-test-reporter
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - name: Make Test Reporter Executable
         run: chmod +x ./cc-test-reporter
       - name: Run Code Climate Before Build
