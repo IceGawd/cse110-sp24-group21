@@ -27,22 +27,21 @@ jobs: # the things being executed
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_EXCLUDE: .*docs/.*
 
-  test: # the name of your status check, will become important when you do branch protection
+  #test: # the name of your status check, will become important when you do branch protection
+  #  name: Test Code Base
+  #  runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
+  #  steps:
+  #    - name: Checkout Code
+  #      uses: actions/checkout@v4 # using version 4 of Actions
+  #    - name: Install Dependencies
+  #      run: npm install
+  #    - name: Unit Test
+  #      run: npm run test:unit # unit tests
+  #    - name: E2E Test
+  #      run: npm run test:e2e # e2e tests
+ 
+  test:
     name: Test Code Base
-    runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4 # using version 4 of Actions
-      - name: Install Dependencies
-        run: npm install
-      - name: Unit Test
-        run: npm run test:unit # unit tests
-      - name: E2E Test
-        run: npm run test:e2e # e2e tests
-  
-  coverage:
-    needs: [test]
-    name: coverage
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -53,13 +52,28 @@ jobs: # the things being executed
           node-version: '18'
       - name: Install Dependencies
         run: npm install
-      - name: Upload Coverage to Code Climate
-        uses: paambaati/codeclimate-action@v3.1.1
+      - name: Fetch Code Climate Test Reporter Binary
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-arm64 > ./cc-test-reporter
+      - name: Make Test Reporter Executable
+        run: chmod +x ./cc-test-reporter
+      - name: Run Code Climate Before Build
+        run: ./cc-test-reporter before-build
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: npm run coverage:unit
-          debug: true
+      - name: Run Unit Tests with Coverage
+        run: npm run coverage:unit
+      - name: Run E2E Tests with Coverage
+        run: npm run coverage:e2e
+      - name: Format Unit Test Coverage
+        run: ./cc-test-reporter format-coverage --output coverage/unit/codeclimate.unit.json --input-type lcov coverage/unit/lcov.info
+      - name: Format E2E Test Coverage
+        run: ./cc-test-reporter format-coverage --output coverage/e2e/codeclimate.e2e.json --input-type lcov coverage/e2e/lcov.info
+      - name: Sum Coverage
+        run: ./cc-test-reporter sum-coverage coverage/unit/codeclimate.unit.json coverage/e2e/codeclimate.e2e.json --output coverage/codeclimate.json
+      - name: Upload Combined Coverage
+        run: ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
   generate-docs:
     name: Generate JSDocs
