@@ -10,7 +10,10 @@
   "scripts": {
     "test:unit": "jest --config=jest.unit.config.js",
     "test:e2e": "jest --config=jest.e2e.config.js --maxWorkers=1",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "coverage:unit": "npm run test:unit",
+    "coverage:e2e": "npm run test:e2e",
+    "coverage": "npm run test:unit && npm run test:e2e"
   },
   "jest": {
     "preset": "jest-puppeteer",
