@@ -10,20 +10,14 @@
     <link href="https://fonts.googleapis.com/css?family=Radio Canada" rel="stylesheet">
     <!-- Web Components -->
     <script src="../components/task-element.js" type="module"></script>
+    <script src="../components/navbar.js" type="module"></script>
     <!-- Main Scripts -->
     <script src="../scripts/storage.js" type="module"></script>
     <script src="../scripts/tasks.js" type="module"></script>
+    <script src="../scripts/labeling.js" type="module"></script>
 </head>
 <body id="main-page">
-    <nav>
-        <ul id="sidebar">
-            <img src="../assets/icons/journal.svg" alt="Journal Icon" id="journal-icon"/>
-            <a class="navlink" href="./home.html">Home</a>
-            <a class="navlink" href="./calendar.html">Calendar</a>
-            <a class="navlink" href="./tasks.html">Tasks</a>
-            <a class="navlink" href="./entries.html">Entries</a>
-        </ul>
-    </nav>
+    <my-navbar></my-navbar>
     <main>
         <div class="button-container">
             <button id="prev-week">Previous Week</button>

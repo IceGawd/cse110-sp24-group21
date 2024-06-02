@@ -1,0 +1,37 @@
+{
+    "2024-05-27": {
+      "title": "Example Entry Title 1",
+      "entry": "wait what happens if we have a string with \"quotes\" inside them. probably nothing, right?",
+      "labels": ["html", "javascript", "We can do that", "testing", "example"]
+    },
+    "2024-05-30": {
+        "title": "Example Entry Title 2",
+        "entry": "How to make it markdown type?",
+        "labels": ["unsolved", "should there be tag ids"]
+      },
+      "2024-05-21": {
+        "title": "Example Entry Title 2",
+        "entry": "Entry text. Probably in markdown format?",
+        "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+      },
+      "2024-05-23": {
+        "title": "Title or something",
+        "entry": "Entry text. Probably in markdown format?",
+        "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+      },
+      "2024-05-25": {
+        "title": "Title or something",
+        "entry": "Entry text. Probably in markdown format?",
+        "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+      },
+      "2024-05-29": {
+        "title": "Title or something",
+        "entry": "Entry text. Probably in markdown format?",
+        "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+      },
+    "1998-01-31": {
+      "title": "should come last",
+      "entry": "Entry text.\nProbably in markdown format?",
+      "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+    }
+}

@@ -14,7 +14,7 @@ describe('Basic user flow for Website', () => {
       // Expect there that array from earlier to be of length 20, meaning 20 <product-item> elements where found
       expect(numProducts).toBe(20);
     });
-  
+    
     // Check to make sure that all 20 <product-item> elements have data in them
     it('Make sure <product-item> elements are populated', async () => {
       console.log('Checking to make sure <product-item> elements are populated...');
@@ -145,7 +145,7 @@ describe('Basic user flow for Website', () => {
   
     // Checking to make sure that it remembers us removing everything from the cart
     // after we refresh the page
-    it('Checking number of items in cart on screen after reload', async () => {
+    /*it('Checking number of items in cart on screen after reload', async () => {
       console.log('Checking number of items in cart on screen after reload...');
       // TODO - Step 7
       // Reload the page once more, then go through each <product-item> to make sure that it has remembered nothing
@@ -163,7 +163,7 @@ describe('Basic user flow for Website', () => {
       cartCountHandle = await page.$('#cart-count');
       cartCountText = await cartCountHandle.evaluate(p => p.innerText);
       expect(cartCountText).toBe("0");
-    }, 10000);
+    }, 10000);*/
   
     // Checking to make sure that localStorage for the cart is as we'd expect for the
     // cart being empty

@@ -233,3 +233,30 @@ input {
 .delete-task:hover {
   background-color: #d3d3d3;
 }
+
+/* Priority button styles */
+.priority-task {
+    background: none;
+    border: none;
+    color: #827F7F;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.priority-task::before {
+    content: attr(data-priority);
+    margin-right: 5px;
+}
+
+.priority-task[data-priority="high"] {
+    color: red;
+}
+
+.priority-task[data-priority="medium"] {
+    color: orange;
+}
+
+.priority-task[data-priority="low"] {
+    color: green;
+}
