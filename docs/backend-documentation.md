@@ -4,23 +4,29 @@ Below is a breakdown of documentation for backend.
 ## **JSON Structure**
 Detailing of the JSON structure used to load tasks
 
-NOT FINALIZED \
-tasks.json
+Updated 05/28/2024 \
+`tasks.json`
 ```
 [
     {
       "id": 123456,
       "title": "Example Task",
-      "assignDate": "05/18/2024",
+      "date": "05/20/2024",
+      "startTime": "08:00",
+      "endTime": "09:59",
       "description": "Just an example task used for testing purposes",
-      "tags": ["python", "logistics"]
+      "tags": ["python", "logistics"],
+      "priority": "low"
     },
     {
       "id": 654321,
       "title": "Example Task 2",
-      "assignDate": "05/20/2024",
+      "date": "05/22/2024",
+      "startTime": "10:00",
+      "endTime": "12:00",
       "description": "Just an example task used for testing purposes",
-      "tags": ["java", "MATLAB"]
+      "tags": ["java", "MATLAB"],
+      "priority": "high"
     }
 ]
 ```

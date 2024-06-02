@@ -180,7 +180,6 @@ body {
   .delete-task:hover {
     background-color: #d3d3d3;
   }
-}
 
 /* Priority button styles */
 .priority-task {

@@ -1,16 +1,16 @@
 {
     "2024-05-27": {
-      "title": "Title or something",
+      "title": "Example Entry Title 1",
       "entry": "wait what happens if we have a string with \"quotes\" inside them. probably nothing, right?",
-      "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+      "labels": ["html", "javascript", "We can do that", "testing", "example"]
     },
     "2024-05-30": {
-        "title": "Title or something",
-        "entry": "Entry text. Probably in markdown format?",
-        "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
+        "title": "Example Entry Title 2",
+        "entry": "How to make it markdown type?",
+        "labels": ["unsolved", "should there be tag ids"]
       },
       "2024-05-21": {
-        "title": "Title or something",
+        "title": "Example Entry Title 2",
         "entry": "Entry text. Probably in markdown format?",
         "labels": ["not sure if these", "should be tag ids", "or actual words", "do we want tags to be editable?"]
       },

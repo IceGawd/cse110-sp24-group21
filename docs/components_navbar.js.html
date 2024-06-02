@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/navbar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/navbar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const style = `
+/* Navbar styling */
+:host {
+    width: 20vw;
+}
+
+.nav-group {
+    width: 100%;
+}
+
+.nav-icon {
+    margin-left: 20px;
+}
+
+.nav-label {
+    color: #2B2B2B;
+    font-size: 22px;
+    padding: 10px;
+    text-decoration: none;
+    animation: showNavLabel 0.3s forwards;
+}
+
+.nav-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    background: transparent;
+    border-width: 0;
+    padding: 0;
+}
+
+#sidebar {
+    background-color: #CAC9C9;
+    color: #fff;
+    display: inline-flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 20vw;
+    margin-top: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    position: fixed;
+    transition: width 0.3s ease;
+}
+
+/* Hovering stuff */
+.nav-row:hover {
+    background-color: #FFFFFF;
+}
+
+.nav-row:hover .nav-label {
+    font-weight: bold;
+}
+
+/* Minimized state */
+:host(.minimized) {
+    width: 100px;
+}
+
+:host(.minimized) #sidebar {
+    width: 100px;
+}
+
+:host(.minimized) .nav-label {
+    display: none;
+}
+
+:host(.minimized) .nav-row {
+    justify-content: center;
+}
+
+:host(.minimized) .nav-icon {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+:host(.minimized) #minimize-btn {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+/* Keyframes for showing nav-label */
+@keyframes showNavLabel {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+/* End of Navbar Styling */
+`;
+
+const html = `
+&lt;nav>
+    &lt;ul id="sidebar">
+        &lt;div class="nav-group">
+            &lt;a class="nav-row" href="./home.html">
+                &lt;img src="../assets/icons/home.svg" alt="Home Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Home&lt;/p>
+            &lt;/a>
+            &lt;a class="nav-row" href="./calendar.html">
+                &lt;img src="../assets/icons/calendar.svg" alt="Calendar Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Calendar&lt;/p>
+            &lt;/a>
+            &lt;a class="nav-row" href="./tasks.html">
+                &lt;img src="../assets/icons/tasks.svg" alt="Tasks Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Tasks&lt;/p>
+            &lt;/a>
+            &lt;a class="nav-row" href="./entries.html">
+                &lt;img src="../assets/icons/entries.svg" alt="Entries Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Entries&lt;/p>
+            &lt;/a>
+        &lt;/div>
+        &lt;div class="nav-group">
+            &lt;button class="nav-row" id="minimize-btn">
+                &lt;img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Minimize&lt;/p>
+            &lt;/button>
+            &lt;button class="nav-row">
+                &lt;img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon"/>
+                &lt;p class="nav-label">Settings&lt;/p>
+            &lt;/button>
+        &lt;/div>
+    &lt;/ul>
+&lt;/nav>
+`;
+
+
+/**
+ * Represents a custom navbar element.
+ * @class MyNavbar
+ * @extends HTMLElement
+ */
+class MyNavbar extends HTMLElement {
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        // add our HTML and CSS to the navbar shadow DOM
+        const template = document.createElement('template');
+        template.innerHTML = html;
+        const styleElem = document.createElement('style');
+        styleElem.textContent = style;
+        shadow.appendChild(template.content.cloneNode(true));
+        shadow.appendChild(styleElem);
+
+        // Add event listener for minimize button
+        this.minimizeBtn = shadow.querySelector('#minimize-btn');
+        this.minimizeBtn.addEventListener('click', this.toggleMinimize.bind(this));
+
+        if (localStorage.getItem('navbarMinimized') === 'true') {
+            this.classList.add('minimized');
+        }
+
+        // Add resize event listener
+        window.addEventListener('resize', this.handleResize.bind(this));
+        this.handleResize();
+    }
+
+    /**
+     * Toggles the minimized state of the navbar.
+     * If the window width is less than 800 pixels, the function returns early.
+     * Otherwise, it toggles the 'minimized' class on the navbar element,
+     * updates the 'navbarMinimized' value in the local storage to be remembered across sessions,
+     * and adjusts the width of the 'main' element accordingly.
+     */
+    toggleMinimize() {
+        if(window.innerWidth &lt; 800) return;
+        this.classList.toggle('minimized');
+        localStorage.setItem('navbarMinimized', this.classList.contains('minimized'));
+        this.updateMainWidth();
+    }
+
+
+    /**
+     * Updates the width of the main element based on the presence of the 'minimized' class.
+     */
+    updateMainWidth() {
+        if(this.classList.contains('minimized')) {
+            document.querySelector('main').style.width = `calc(100vw - 100px)`;
+        } else {
+            document.querySelector('main').style.width = `80vw`;
+        }
+    }
+
+    /**
+     * Handles the resize event of the window.
+     * If the window width is less than 800 pixels, it adds the 'minimized' class to the element,
+     * sets the width of the 'main' element to 'calc(100vw - 100px)', and updates the display state.
+     * If the window width is greater than or equal to 800 pixels, it removes the 'minimized' class from the element,
+     * sets the width of the 'main' element to '80vw', and updates the display state if the 'navbarMinimized' flag is not set.
+     */
+    handleResize() {
+        if (window.innerWidth &lt; 800) {
+            this.classList.add('minimized');
+            this.updateMainWidth();
+        } 
+        else {
+            if (localStorage.getItem('navbarMinimized') !== 'true') {
+                this.classList.remove('minimized');
+                this.updateMainWidth();
+            }
+        }
+    }
+}
+
+customElements.define('my-navbar', MyNavbar);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getTaskObjectFromTask">getTaskObjectFromTask</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue May 28 2024 12:37:35 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
