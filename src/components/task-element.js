@@ -5,13 +5,13 @@ const style = `
   position: relative;
   flex: 0 0 auto;
   margin-top: 0rem; 
-  padding: 0.5rem;
+  padding: 0.1rem;
   background-color: #f4f4f4;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  font-family: 'Radio Canada', sans-serif;
 }
 
 /* Task textarea style */
