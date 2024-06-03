@@ -115,8 +115,9 @@ details {
     font-size: 15px;
     width: 10%;
     left: 90%;
-    top: 32vw;
+    top: 22vw;
     height: 25px;
+    cursor: pointer;
 }
 
 .popup {
@@ -178,6 +179,7 @@ details {
     width: 10%;
     left: 90%;
     height: 25px;
+    cursor: pointer;
 }
 
 #delete {
