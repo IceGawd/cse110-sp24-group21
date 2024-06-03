@@ -8,11 +8,34 @@ let blurbLength = 45; //length of sidebar entry blurbs in characters
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * 
+ * init function.
  */
 function init(){
     entries = storage.getItems('entries');
     populatePage();
+    //adding search functionality
+    let searchInput = document.getElementById('search')
+    searchInput.addEventListener('input', (event) => search(event.currentTarget.value));
+}
+
+/**
+ * Searches the entries by label and displays only the ones with tags containing the queryLabel
+ * @param {string} queryLabel - Label string that we search for
+ * @returns void
+ */
+function search(queryLabel){
+
+    if (queryLabel === '') {
+      return; // Do nothing if the search bar is empty
+    }
+    else {
+        let entriesList = document.getElementsByClassName('entry-list')[0].children;
+        for(let i = 0; i<entriesList.length; ++i){
+            let entry = entries[entriesList[i].id];
+            if(!entry.labels.some(l => l.toLowerCase().includes(queryLabel)))
+                entriesList[i].style.display = 'none';
+        }
+    }
 }
 
 function populatePage(){
