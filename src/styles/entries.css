@@ -108,7 +108,7 @@ details {
 
 
 
-#delete-entry {
+/* #delete-entry {
     position: relative;
     border-radius: 5px;
     background-color: #A6A6A6;
@@ -118,7 +118,7 @@ details {
     top: 22vw;
     height: 25px;
     cursor: pointer;
-}
+} */
 
 .popup {
     visibility: hidden;
