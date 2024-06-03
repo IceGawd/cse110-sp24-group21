@@ -6,11 +6,12 @@ main {
     display: flex;
 	justify-content:left;
 	width: auto;
-	overflow: auto;
+	/* overflow: hidden; */
 }
 
 .container {
 	display: flex;
+	overflow: hidden;
 }
 
 /* Calendar container */
