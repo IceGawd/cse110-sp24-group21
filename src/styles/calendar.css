@@ -6,6 +6,7 @@ main {
     display: flex;
 	justify-content:left;
 	width: auto;
+	overflow: auto;
 }
 
 .container {
@@ -20,7 +21,7 @@ main {
 	padding: 15px;
 	width: 0.3w;
 	margin: 0 auto;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	/* display: inline-block; */
 	display: flex;
@@ -49,7 +50,7 @@ main {
 .right-container {
 	min-width: 50vw;
     padding-left: 10px;
-	overflow-x: hidden;
+	overflow: scroll;
 }
 
 .day-header {
