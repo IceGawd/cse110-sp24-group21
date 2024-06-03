@@ -16,7 +16,10 @@
     <my-navbar></my-navbar>
     <main>
         <div class="scrollable-entries">
-            <input type="text" id="search" placeholder="Search...">
+            <div class="header-entries">
+                <input type="text" id="search" placeholder="Search...">
+                <button type="button" id="add-button"><b>+</b></button>
+            </div>
             <ol class="entry-list">
                 <li><a href="#"><details open="true">
                     <summary><b>Creating search bar</b></summary>
@@ -63,8 +66,9 @@
                 <header>
                     <h2 id="title">Title</h2>
                     <h6 id="date">date</h6>
-                    <button id="edit-entry">edit</button>
-                    <button id="new-entry">new</button>
+                    <!--Commented out buttons located with in entry container-->
+                    <!--<button id="edit-entry">edit</button>
+                    <button id="new-entry">new</button>-->
                 </header>
                 <div id="entry">
                     <p>entry text or something idk</p>
