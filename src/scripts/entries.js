@@ -1,4 +1,5 @@
 import { storage } from './storage.js';
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 let entries; //dict of entries, keys are strings of dates YYYY-MM-DD
 let months = ['', 'Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
@@ -28,7 +29,7 @@ function populatePage(){
         dispEntry(dates[i]);
     }
     //sets entry-container to most recent entry
-    setFocus(dates[0]);
+    setFocus(dates[dates.length-1]);
 }
 
 /**
@@ -46,8 +47,7 @@ function setFocus(id){
 
     entryContainer.querySelector('#title').innerHTML = entry.title;
     entryContainer.querySelector('#date').innerHTML = getDate(id);
-    entryContainer.querySelector('#entry').innerHTML = '';
-    entryContainer.querySelector('#entry').append(md2HTML(entry.entry));
+    md2HTML(entry.entry, entryContainer.querySelector('#entry'));
     
     //then the labels as spans in a footer element
     //TODO: currently the labels are just strings, should probably eventually refactor into using ids. alas.
@@ -153,7 +153,7 @@ function dispEntry(date){
     let item = document.createElement('li');
     let items = entryList.children;
     //if is most recent (date greater than top id), add at the top
-    if (date > items[0].id)
+    if (items.length == 0 || date > items[0].id)
         entryList.prepend(item);
     //otherwise, add after last element with id greater than date.
     else {
@@ -188,11 +188,19 @@ function getBlurb(entry){
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**
- * (potentially) takes in a markdown entry and renders it into html
- * @returns {Element} currently just returns whatever you give it in a paragraph element.
+ * Puts rendered markdown into container:
+ * Tries to render markdown using Marked; if fails, returns whatever is passed to it in a <p>
+ * @param {Element} container - element that contains the rendered markdown at the end
+ * @param {string} entry - markdown to be rendered
+ * @returns nothing
  */
-function md2HTML(entry){
-    let content = document.createElement('p');
-    content.innerHTML = entry;
-    return content;
+function md2HTML(entry, container){
+    try{
+        container.innerHTML = marked.parse(entry);
+    }
+    catch (err) {
+        container.innerHTML = '';
+        container.appendChild(document.createElement('p'));
+        container.innerHTML = entry;
+    }
 }

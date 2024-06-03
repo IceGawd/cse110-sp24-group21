@@ -19,5 +19,8 @@
     "preset": "jest-puppeteer",
     "transform": {},
     "verbose": true
+  },
+  "dependencies": {
+    "marked": "^12.0.2"
   }
 }
