@@ -199,3 +199,10 @@ details {
     height: 40px;
     cursor: pointer;
 }
+
+.delete-icon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    transform: translate(180px, -20px);
+}
