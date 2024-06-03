@@ -204,3 +204,7 @@ function md2HTML(entry, container){
         container.innerHTML = entry;
     }
 }
+
+/**
+  TODO: frontend function to disable entry list to close information when title is
+  clicked*/
