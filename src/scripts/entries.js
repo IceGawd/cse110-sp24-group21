@@ -8,7 +8,7 @@ let blurbLength = 45; //length of sidebar entry blurbs in characters
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * init function.
+ * init function, fetches the entries, populates page, adds necessary listeners
  */
 function init(){
     entries = storage.getItems('entries');
@@ -16,6 +16,37 @@ function init(){
     //adding search functionality
     let searchInput = document.getElementById('search')
     searchInput.addEventListener('input', (event) => search(event.currentTarget.value));
+    //adding listeners to add/delete buttons
+    document.getElementById('delete-entry').addEventListener('click', ()=> document.getElementById('delete-popup').style.visibility = 'visible');
+    document.getElementById('add-button').addEventListener('click', () => editEntry(''));
+    // magic number 10 is the length of YYYY-MM-DD, since main entry id is YYYY-MM-DDmain
+    document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
+    document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
+    document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
+    // TODO: fill out after turning the popup into a form
+    document.getElementById('submit').addEventListener('click', ()=> {
+                                                        setEntry(new FormData(document.getElementById('new-entry')));
+                                                        document.getElementById('popup').style.visibility = 'hidden';
+                                                    });
+}
+
+/**
+ * 
+ * @param {string} date YYYY-MM-DD string corresponding to the 
+ */
+function editEntry(date){
+    //if is new entry, then date is an empty string
+    let form = document.getElementById('new-entry');
+    if(date == ''){
+        let date = new Date();
+        form.getElementsByTagName('input')[0].value = 'Title';
+        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+        form.getElementsByTagName('textarea').innerHTML = 'Entry here...';
+        form.getElementsByTagName('input')[2].value = 'Labels';
+    }
+    else{
+        let entry = entries[0];
+    }
 }
 
 /**
@@ -90,18 +121,20 @@ function setFocus(id){
  * Creates entry for date if it doesn't already exist or modifies existing entry, saves changes to localStorage
  * TODO: Also needs to modify the sidebar (done, needs to be tested)
  * @param {string} date - YYYY-MM-DD string that serves as entry ID as well
+ * @param {FormData} data  - data from the form
  * @returns nothing
  */
-function setEntry(date){
+function setEntry(data){
+    let date = data.date;
     //quick fix to accomodate for the fact that storage.getItems returns [] if it doesn't already exist.
     if(entries.length == 0)
         entries = {};
 
     //TODO: frontend isn't done with their entry adding/editing popup so...
     let entry = {
-        title: "",
-        entry: "",
-        tags: []
+        title: data.title.trim(),
+        entry: data.entry.trim(),
+        labels: data.labels.trim().split(',')
     };
     //adding an entry for a new date
     if(!(date in entries)){
@@ -113,15 +146,16 @@ function setEntry(date){
     //modifying existing content for the date:
     entries[date] = entry;
     localStorage.setItem('entries', JSON.stringify(entries));
-    let elem = document.getElementById("#" + date);
+    let elem = document.getElementById(date);
     elem = elem.querySelector('a>details');
-    elem.querySelector('summary>b').innerHTML = entry.title;
-    elem.querySelector('p').innerHTML = md2HTML(entry.entry);
+    elem.querySelector('.side-title>b').innerHTML = entry.title;
+    elem.querySelector('.side-blurb').innerHTML = md2HTML(entry.entry);
 }
 
 
 /**
  * Deletes the sidebar element and storage object corresponding to the entry for date
+ * TODO: also delete the main entry, if applicable.
  * @param {string} date 
  * @returns nothing
  */
@@ -147,14 +181,12 @@ function entryItemSetup(item, date) {
     item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
     item.href = '#';
-    item = item.appendChild(document.createElement('details'));
-    item.open = 'true';
-    
-    //populating that element
-    let title = document.createElement('summary');
+    let title = document.createElement('p');
+    title.class = 'side-title'
     title.innerHTML = '<b>' + entry.title + '</b>';
     item.append(title);
     let blurb = document.createElement('p');
+    blurb.class = 'side-blurb';
     blurb.innerHTML = getBlurb(entry.entry);
     item.append(blurb);
     let d = document.createElement('h6');

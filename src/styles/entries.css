@@ -120,7 +120,7 @@ details {
     cursor: pointer;
 }
 
-.popup {
+#popup {
     visibility: hidden;
     position: absolute;
     width: 100%;
@@ -150,7 +150,7 @@ details {
     height: 30px;
 }
 
-.delete-popup {
+#delete-popup {
     visibility: hidden;
     position: absolute;
     width: 100%;
