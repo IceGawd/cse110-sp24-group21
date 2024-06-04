@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+coverage/
+e2e-coverage/
+unit-coverage/

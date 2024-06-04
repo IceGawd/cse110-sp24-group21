@@ -4,5 +4,5 @@ module.exports = {
     slowMo: 25,
     args: ["--start-maximized"],
     defaultViewport: null
-  }
+  },
 }
