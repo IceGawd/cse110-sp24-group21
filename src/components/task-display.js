@@ -1,5 +1,4 @@
 /* Toggle Functionality */
-/*
 function toggleIcon(el) {
     const task = el.parentNode;
     const description = task.getElementsByClassName('description')[0];
@@ -17,4 +16,3 @@ function toggleIcon(el) {
         image.src = '../assets/icons/triangle-down-black.svg';
     }
 }
-*/
