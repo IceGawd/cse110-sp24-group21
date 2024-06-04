@@ -15,17 +15,17 @@ function init(){
     populatePage();
     //adding search functionality
     let searchInput = document.getElementById('search')
-    searchInput.addEventListener('input', (event) => search(event.currentTarget.value));
+    searchInput.addEventListener('input', (event) => search(event.currentTarget.value.trim()));
     //adding listeners to add/delete buttons
-    document.getElementById('delete-entry').addEventListener('click', ()=> document.getElementById('delete-popup').style.visibility = 'visible');
     document.getElementById('add-button').addEventListener('click', () => editEntry(''));
     // magic number 10 is the length of YYYY-MM-DD, since main entry id is YYYY-MM-DDmain
     document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
     document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     // TODO: fill out after turning the popup into a form
-    document.getElementById('submit').addEventListener('click', ()=> {
-                                                        setEntry(new FormData(document.getElementById('new-entry')));
+    document.getElementById('submit').addEventListener('click', (e)=> {
+                                                        let data = new FormData(document.getElementById('new-entry'));
+                                                        setEntry(data);
                                                         document.getElementById('popup').style.visibility = 'hidden';
                                                     });
 }
@@ -34,18 +34,23 @@ function init(){
  * 
  * @param {string} date YYYY-MM-DD string corresponding to the 
  */
-function editEntry(date){
+function editEntry(id){
     //if is new entry, then date is an empty string
     let form = document.getElementById('new-entry');
-    if(date == ''){
+    document.getElementById('popup').style.visibility = 'visible';
+    if(id == ''){
         let date = new Date();
         form.getElementsByTagName('input')[0].value = 'Title';
-        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-        form.getElementsByTagName('textarea').innerHTML = 'Entry here...';
+        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
         form.getElementsByTagName('input')[2].value = 'Labels';
     }
     else{
-        let entry = entries[0];
+        let entry = entries[id];
+        form.getElementsByTagName('input')[0].value = entry.title;
+        form.getElementsByTagName('input')[1].value = id;
+        form.getElementsByTagName('textarea')[0].innerHTML = entry.entry;
+        form.getElementsByTagName('input')[2].value = entry.labels;
     }
 }
 
@@ -57,7 +62,9 @@ function editEntry(date){
 function search(queryLabel){
 
     if (queryLabel === '') {
-      return; // Do nothing if the search bar is empty
+        for(let i = 0; i<entriesList.length; ++i){
+            entriesList[i].style.display = '';
+        }    
     }
     else {
         let entriesList = document.getElementsByClassName('entry-list')[0].children;
@@ -65,6 +72,9 @@ function search(queryLabel){
             let entry = entries[entriesList[i].id];
             if(!entry.labels.some(l => l.toLowerCase().includes(queryLabel)))
                 entriesList[i].style.display = 'none';
+            else
+                entriesList[i].style.display = '';
+            
         }
     }
 }
@@ -120,21 +130,20 @@ function setFocus(id){
 /**
  * Creates entry for date if it doesn't already exist or modifies existing entry, saves changes to localStorage
  * TODO: Also needs to modify the sidebar (done, needs to be tested)
- * @param {string} date - YYYY-MM-DD string that serves as entry ID as well
  * @param {FormData} data  - data from the form
  * @returns nothing
  */
 function setEntry(data){
-    let date = data.date;
+    let date = data.get('date');
     //quick fix to accomodate for the fact that storage.getItems returns [] if it doesn't already exist.
     if(entries.length == 0)
         entries = {};
 
     //TODO: frontend isn't done with their entry adding/editing popup so...
     let entry = {
-        title: data.title.trim(),
-        entry: data.entry.trim(),
-        labels: data.labels.trim().split(',')
+        title: data.get('title').trim(),
+        entry: data.get('entry').trim(),
+        labels: data.get('labels').trim().split(',')
     };
     //adding an entry for a new date
     if(!(date in entries)){

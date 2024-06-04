@@ -10,8 +10,6 @@
     <script src="../scripts/storage.js" type="module"></script>
     <script src="../scripts/entries.js" type="module"></script>
     <!--script src="../scripts/labeling.js" type="module"></script-->
-    <!--<script src="../scripts/entries.js" type="module"></script>-->
-    <!--<script src="../scripts/labeling.js" type="module"></script>-->
     <script src="../components/navbar.js" type="module"></script>
 </head>
 <body id="main-page">
@@ -73,13 +71,11 @@
                     <h6 id="date">date</h6>
                 </header>
                 <button id="edit-entry">Edit</button>
-                <button id="edit-entry">Edit</button>
                 <div id="entry">
                     <p>entry text or something idk</p>
                     <!--<button type="button" id="delete-entry">Delete</button>-->
                 </div>
                 
-                <button type="button" id="delete-entry">Delete</button>
                 <footer>
                     <span id="label1">label1</span>
                     <span id="label2">label2</span>
@@ -100,19 +96,18 @@
     <div id="popup">
         <div class="new-entry-popup">
             <form id="new-entry">
-                <input type="text" name="title">
-                <input type="date" name="date">
-                <textarea name="entry" rows="10" cols="50"></textarea>
-                <input type="text" name="labels">
+                <input type="text" name="title"><br>
+                <input type="date" name="date" required><br>
+                <textarea name="entry" rows="10" cols="50"></textarea><br>
+                <input type="text" name="labels"><br>
+                <button type="submit" id="submit"><b>Submit</b></button>
             </form>
             
             <!--h2 id="new-title">Title</h2>
             <h6 id="new-date">date</h6>
-            <div id="new-entry">
                 <p>entry text or something idk</p>
             </div-->
 
-            <button type="button" id="submit"><b>Submit</b></button>
         </div>
     </div>
 
