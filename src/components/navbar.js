@@ -99,6 +99,61 @@ const style = `
     }
 }
 
+/* End of Navbar Styling */
+`;
+
+const html = `
+<nav>
+    <ul id="sidebar">
+        <div class="nav-group">
+            <a class="nav-row" href="./home.html">
+                <img src="../assets/icons/home.svg" alt="Home Icon" class="nav-icon"/>
+                <p class="nav-label">Home</p>
+            </a>
+            <a class="nav-row" href="./calendar.html">
+                <img src="../assets/icons/calendar.svg" alt="Calendar Icon" class="nav-icon"/>
+                <p class="nav-label">Calendar</p>
+            </a>
+            <a class="nav-row" href="./tasks.html">
+                <img src="../assets/icons/tasks.svg" alt="Tasks Icon" class="nav-icon"/>
+                <p class="nav-label">Tasks</p>
+            </a>
+            <a class="nav-row" href="./entries.html">
+                <img src="../assets/icons/entries.svg" alt="Entries Icon" class="nav-icon"/>
+                <p class="nav-label">Entries</p>
+            </a>
+        </div>
+        <div class="nav-group">
+            <button class="nav-row" id="minimize-btn">
+                <img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon"/>
+                <p class="nav-label">Minimize</p>
+            </button>
+            
+            <button class="nav-row" id="settings-btn">
+                <img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon"/>
+                <p class="nav-label">Settings</p>
+            </button>
+
+        </div>
+    </ul>
+</nav>
+`;
+
+const settingHTML = `
+<div class="settings-container" id="setting-container"> 
+    <div class="settings-box">
+        <h1>Hello</h1>
+        <p>
+            Hello world! This is a test. 
+        </p>
+        <button class="close-btn" id="close-button">
+            Done
+        </button>
+    </div>
+</div>
+`;
+
+const settingStyle = `
 /* Settings popup styling */
 .settings-container {
     position: fixed; /* Cover the whole screen */
@@ -113,6 +168,7 @@ const style = `
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease;
+    z-index: 10000;
 }
 
 .settings-container.active {
@@ -122,7 +178,7 @@ const style = `
 
 .settings-box {
     width: 500px;
-    background: #B8B8B8; /* Corrected spelling */
+    background: #ffffff; /* Corrected spelling */
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     padding: 30px;
@@ -158,56 +214,8 @@ const style = `
     font-weight: 500;
 }
 
-/* End of Navbar Styling */
+/* End of Setting Pop-up Styling */
 `;
-
-const html = `
-<nav>
-    <ul id="sidebar">
-        <div class="nav-group">
-            <a class="nav-row" href="./home.html">
-                <img src="../assets/icons/home.svg" alt="Home Icon" class="nav-icon"/>
-                <p class="nav-label">Home</p>
-            </a>
-            <a class="nav-row" href="./calendar.html">
-                <img src="../assets/icons/calendar.svg" alt="Calendar Icon" class="nav-icon"/>
-                <p class="nav-label">Calendar</p>
-            </a>
-            <a class="nav-row" href="./tasks.html">
-                <img src="../assets/icons/tasks.svg" alt="Tasks Icon" class="nav-icon"/>
-                <p class="nav-label">Tasks</p>
-            </a>
-            <a class="nav-row" href="./entries.html">
-                <img src="../assets/icons/entries.svg" alt="Entries Icon" class="nav-icon"/>
-                <p class="nav-label">Entries</p>
-            </a>
-        </div>
-        <div class="nav-group">
-            <button class="nav-row" id="minimize-btn">
-                <img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon"/>
-                <p class="nav-label">Minimize</p>
-            </button>
-            
-            <button class="nav-row" id="settings-btn">
-                <img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon"/>
-                <p class="nav-label">Settings</p>
-            </button>
-            <div class="settings-container" id="setting-container"> 
-                <div class="settings-box">
-                    <h1>Hello</h1>
-                    <p>
-                        Hello world! This is a test. 
-                    </p>
-                    <button class="close-btn" id="close-button">
-                        Done
-                    </button>
-                </div>
-            </div>
-        </div>
-    </ul>
-</nav>
-`;
-
 
 /**
  * Represents a custom navbar element.
@@ -240,22 +248,21 @@ class MyNavbar extends HTMLElement {
         this.handleResize();
 
         // Add event listener for settings button
-        // Add event listener for settings button
         this.showPopup = shadow.getElementById('settings-btn');
-        this.popupContainer = shadow.getElementById('setting-container');
-        this.closePopup = shadow.getElementById('close-button');
+        const popupContainer = document.querySelector("my-settings").shadowRoot.querySelector('#setting-container');
+        this.closePopup = document.querySelector("my-settings").shadowRoot.querySelector('#close-button');
 
         this.showPopup.addEventListener('click', () => {
-            this.popupContainer.classList.add('active');
+            popupContainer.classList.add('active')
         });
 
         this.closePopup.addEventListener('click', () => {
-            this.popupContainer.classList.remove('active');
+            popupContainer.classList.remove('active');
         });
 
         window.addEventListener('click', (event) => {
-            if (event.target === this.popupContainer) {
-                this.popupContainer.classList.remove('active');
+            if (event.target === popupContainer) {
+                popupContainer.classList.remove('active');
             }
         });
     }
@@ -306,6 +313,23 @@ class MyNavbar extends HTMLElement {
         }
     }
 
+}
+
+class MySettings extends HTMLElement {
+
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        // add our HTML and CSS to the navbar shadow DOM
+        const template = document.createElement('template');
+        template.innerHTML = settingHTML;
+        const styleElem = document.createElement('style');
+        styleElem.textContent = settingStyle;
+        shadow.appendChild(template.content.cloneNode(true));
+        shadow.appendChild(styleElem);
+    }
+
     /**
      * Creates a popup for the settings button to allow the user to change viewing preferences
      */
@@ -314,4 +338,6 @@ class MyNavbar extends HTMLElement {
     }
 }
 
+customElements.define('my-settings', MySettings);
 customElements.define('my-navbar', MyNavbar);
+
