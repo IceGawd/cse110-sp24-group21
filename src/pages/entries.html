@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/entries.css">
     <script src="../scripts/storage.js" type="module"></script>
-    <script src="../scripts/entries.js" type="module"></script>
+    <!--script src="../scripts/entries.js" type="module"></script-->
     <!--script src="../scripts/labeling.js" type="module"></script-->
     <script src="../components/navbar.js" type="module"></script>
 </head>
@@ -25,14 +25,18 @@
             </div>
             <ol class="entry-list">
                 <li><a href="#">
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <p class="side-title"><b>Creating search bar</b></p>
+                    <div class="title-flex">
+                        <p class="side-title"><b>Creating search bar</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry"></button>
+                    </div>
                     <p class="side-blurb">This is my first entry. This is a test. blah blah blah blah</p>
                     <h6>May 20, 2024</h6>
                 </a></li>
                 <li><a href="#">
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <p class="side-title"><b>Making list scrollable</b></p>
+                    <div class="title-flex">
+                        <p class="side-title"><b>Creating search bar</b></p>
+                        <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
+                    </div>
                     <p class="side-blurb">This is my first entry. This is a test. blah</p>
                     <h6>May 19, 2024</h6>
                 </a></li>
