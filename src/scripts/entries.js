@@ -4,6 +4,8 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 let entries; //dict of entries, keys are strings of dates YYYY-MM-DD
 let months = ['', 'Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
 let blurbLength = 45; //length of sidebar entry blurbs in characters
+let deleteIconSrc = '/src/assets/icons/delete_icon.png';
+let deleteIconAlt = 'Delete this entry';
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -190,12 +192,23 @@ function entryItemSetup(item, date) {
     item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
     item.href = '#';
+    item = item.appendChild(document.createElement('div'));
+    
+    item.className = 'title-flex';
     let title = document.createElement('p');
-    title.class = 'side-title'
+    title.className = 'side-title'
     title.innerHTML = '<b>' + entry.title + '</b>';
     item.append(title);
+    let btn = document.createElement('button');
+    btn.className = 'delete-entry';
+    item.append(btn);
+    btn = btn.appendChild(document.createElement('img'));
+    btn.className = 'delete-icon';
+    btn.src = deleteIconSrc;
+    btn.alt = deleteIconAlt;
+    item = item.parentElement;
     let blurb = document.createElement('p');
-    blurb.class = 'side-blurb';
+    blurb.className = 'side-blurb';
     blurb.innerHTML = getBlurb(entry.entry);
     item.append(blurb);
     let d = document.createElement('h6');
