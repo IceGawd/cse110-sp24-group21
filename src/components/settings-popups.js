@@ -117,13 +117,6 @@ class MySettings extends HTMLElement {
             }
         });
     }
-
-    /**
-     * Creates a popup for the settings button to allow the user to change viewing preferences
-     */
-    settingsPopup(){
-
-    }
 }
 
 customElements.define('my-settings', MySettings);
