@@ -14,9 +14,9 @@
     <main>
         <div class="container">
             <div class="left-container">
-                <div id="calendar-create-task">
+                <!-- <div id="calendar-create-task">
                     <button id="create-calendar-task">Create Task</button>
-                </div>
+                </div> -->
                 <div id="mini-calendar">
                     <h3 id="month-and-year"></h3>
                     <div class="button-container-calendar">
@@ -51,6 +51,16 @@
                 <div id="upcoming-container">
                     <h3 id="upcoming-header">Upcoming Tasks</h3>
                     <!-- Upcoming tasks go here -->
+                    <div class="upcoming">
+                        <h2>ASD</h2>
+                        <p class="upcoming-date">May 23, 2024</p>
+                        <p class="upcoming-desc">Some Description</p>
+                    </div>
+                    <div class="upcoming">
+                        <h2>Test Task HAHAH</h2>
+                        <p class="upcoming-date">May 23, 2024</p>
+                        <p class="upcoming-desc">Some Description</p>
+                    </div>
                 </div>
             </div>
             <div class="right-container">
@@ -99,7 +109,27 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="0500">
+                        <tr id="r0400">
+                            <td class="time">04:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr id="r0430">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="r0500">
                             <td class="time">05:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -109,7 +139,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="0530">
+                        <tr id="r0530">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -325,7 +355,11 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
-                            <td class="hour"></td>
+                            <td class="hour overlap-task" rowspan="2">
+                                <div class="overlap">
+                                    ASD
+                                </div>
+                            </td>
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
@@ -335,9 +369,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td class="task-2" rowspan="5">
-                                Test asdasdadasd
-                            </td>
+                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
