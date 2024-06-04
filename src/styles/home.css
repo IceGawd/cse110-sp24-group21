@@ -55,7 +55,7 @@ main {
 }
 
 /* media query for when the sccreen width is less than 900 px */
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 940px) {
     #top {
         flex-direction: column;
     }
