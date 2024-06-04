@@ -8,47 +8,59 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/entries.css">
     <script src="../scripts/storage.js" type="module"></script>
-    <script src="../scripts/entries.js" type="module"></script>
-    <script src="../scripts/labeling.js" type="module"></script>
+    <!--<script src="../scripts/entries.js" type="module"></script>-->
+    <!--<script src="../scripts/labeling.js" type="module"></script>-->
     <script src="../components/navbar.js" type="module"></script>
 </head>
 <body id="main-page">
-    <my-navbar></my-navbar>
+
+    <my-navbar></my-navbar>   
+
     <main>
         <div class="scrollable-entries">
-            <input type="text" id="search" placeholder="Search...">
+            <div class="header-entries">
+                <input type="text" id="search" placeholder="Search...">
+                <button type="button" id="add-button"><b>+</b></button>
+                
+            </div>
             <ol class="entry-list">
                 <li><a href="#"><details open="true">
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Creating search bar</b></summary>
                     <p>This is my first entry. This is a test. blah blah blah blah</p>
                     <h6>May 20, 2024</h6>
                     </details>
                 </a></li>
                 <li><a href="#"><details open>
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Making list scrollable</b></summary>
                     <p>This is my first entry. This is a test. blah</p>
                     <h6>May 19, 2024</h6>
                     </details>
                 </a></li>
                 <li><a href="#"><details open>
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Making tests</b></summary>
                     <p>This is my first entry. This is a test. blah</p>
                     <h6>May 18, 2024</h6>
                     </details>
                 </a></li>
                 <li><a href="#"><details open>
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Automating tests</b></summary>
                     <p>This is my first entry. This is a test. blah</p>
                     <h6>May 17, 2024</h6>
                     </details>
                 </a></li>
                 <li><a href="#"><details open>
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Deploying website</b></summary>
                     <p>This is my first entry. This is a test. blah</p>
                     <h6>May 16, 2024</h6>
                     </details>
                 </a></li>
                 <li><a href="#"><details open>
+                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
                     <summary><b>Making revisions to website</b></summary>
                     <p>This is my first entry. This is a test. blah. Testing and changing the text formatting</p>
                     <h6>May 15, 2024</h6>
@@ -57,18 +69,19 @@
                 <!--List of journal entries will be dynamically loaded-->
             </ol>
         </div>
-        
+
         <div class="content">
             <article class="entry-container">
                 <header>
                     <h2 id="title">Title</h2>
                     <h6 id="date">date</h6>
-                    <button id="edit-entry">edit</button>
-                    <button id="new-entry">new</button>
                 </header>
+                <button id="edit-entry">Edit</button>
                 <div id="entry">
                     <p>entry text or something idk</p>
+                    <!--<button type="button" id="delete-entry">Delete</button>-->
                 </div>
+                
                 <footer>
                     <span id="label0">label1</span>
                     <span id="label2">label2</span>
@@ -77,5 +90,25 @@
             <!--Entries will also be dynamically loaded-->
         </div>
     </main>
+
+    <div class="delete-popup">
+        <div class="delete-text">
+            <h2>Are you sure you want to delete this entry?</h2>
+            <button type="button" id="delete">Yes, delete this entry</button>
+            <button type="button" id="cancel-delete">No, I will keep this entry</button>
+        </div>            
+    </div>
+
+    <div class="popup">
+        <div class="new-entry-popup">
+            <h2 id="new-title">Title</h2>
+            <h6 id="new-date">date</h6>
+            <div id="new-entry">
+                <p>entry text or something idk</p>
+            </div>
+            <button type="button" id="submit"><b>Submit</b></button>
+        </div>
+    </div>
+
 </body>
 </html>
