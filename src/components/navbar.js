@@ -209,7 +209,7 @@ class MyNavbar extends HTMLElement {
         else {
             if (localStorage.getItem('navbarMinimized') !== 'true') {
                 this.classList.remove('minimized');
-                document.querySelector('main').style.width = `80vw`;
+                this.updateMainWidth();
             }
         }
     }
