@@ -170,27 +170,27 @@ class MyNavbar extends HTMLElement {
         window.addEventListener('resize', this.handleResize.bind(this));
         this.handleResize();
 
-        // Add event listener for settings button
-        this.showPopup = shadow.getElementById('settings-btn');
-        const popupContainer = document.querySelector("my-settings").shadowRoot.querySelector('#setting-container');
-        this.closePopup = document.querySelector("my-settings").shadowRoot.querySelector('#close-button');
+        // // Add event listener for settings button
+        // this.showPopup = shadow.getElementById('settings-btn');
+        // const popupContainer = document.querySelector("my-settings").shadowRoot.querySelector('#setting-container');
+        // this.closePopup = document.querySelector("my-settings").shadowRoot.querySelector('#close-button');
 
-        // Click setting button in nav bar
-        this.showPopup.addEventListener('click', () => {
-            popupContainer.classList.add('active')
-        });
+        // // Click setting button in nav bar
+        // this.showPopup.addEventListener('click', () => {
+        //     popupContainer.classList.add('active')
+        // });
 
-        // Click close button in setting pop-ups
-        this.closePopup.addEventListener('click', () => {
-            popupContainer.classList.remove('active');
-        });
+        // // Click close button in setting pop-ups
+        // this.closePopup.addEventListener('click', () => {
+        //     popupContainer.classList.remove('active');
+        // });
         
-        // Click outside of the setting pop-ups
-        popupContainer.addEventListener('click', (event) => {
-            if (event.target === popupContainer) {
-                popupContainer.classList.remove('active');
-            }
-        });
+        // // Click outside of the setting pop-ups
+        // popupContainer.addEventListener('click', (event) => {
+        //     if (event.target === popupContainer) {
+        //         popupContainer.classList.remove('active');
+        //     }
+        // });
 
     }
 

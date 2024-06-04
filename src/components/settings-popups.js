@@ -94,6 +94,28 @@ class MySettings extends HTMLElement {
         styleElem.textContent = settingStyle;
         shadow.appendChild(template.content.cloneNode(true));
         shadow.appendChild(styleElem);
+
+        // Add event listener for settings button
+        const showPopup = document.querySelector("my-navbar").shadowRoot.getElementById('settings-btn');
+        const popupContainer = document.querySelector("my-settings").shadowRoot.querySelector('#setting-container');
+        const closePopup = document.querySelector("my-settings").shadowRoot.querySelector('#close-button');
+
+        // Click setting button in nav bar
+        showPopup.addEventListener('click', () => {
+            popupContainer.classList.add('active')
+        });
+
+        // Click close button in setting pop-ups
+        closePopup.addEventListener('click', () => {
+            popupContainer.classList.remove('active');
+        });
+        
+        // Click outside of the setting pop-ups
+        popupContainer.addEventListener('click', (event) => {
+            if (event.target === popupContainer) {
+                popupContainer.classList.remove('active');
+            }
+        });
     }
 
     /**
