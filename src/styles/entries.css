@@ -204,5 +204,6 @@ details {
     width: 18px;
     height: 18px;
     position: relative;
+    display: flexbox;
     transform: translate(180px, -20px);
 }
