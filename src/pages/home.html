@@ -126,40 +126,47 @@
                 <h1 class="title">My Tasks</h1>
                 <hr/>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon right-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="blue" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 1</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description" style="display: none;">This is an example of when the dropdown is pressed and the description is shown.</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="red" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 2</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">This is an example of when the dropdown is pressed and the description is shown.</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="green" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 3</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">This is an example of when the dropdown is pressed and the description is shown. How about lot of text.......................................................... </p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox"> 
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="orange" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 4</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">Not much text, but a little more than usual, and even a little more</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
+                </li>
+                <li class="task">
+                    <button class="add-task">Add Task</button>
                 </li>
             </ul>
         </section>
