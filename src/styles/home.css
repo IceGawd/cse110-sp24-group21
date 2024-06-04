@@ -45,13 +45,30 @@ main {
 }
 
 #top-left {
-    max-width: 60%;
+    width: 60%;
     padding-right: 5%;
     position: relative;
 }
 
 #top-right {
     width: 40%;
+}
+
+/* media query for when the sccreen width is less than 900 px */
+@media only screen and (max-width: 900px) {
+    #top {
+        flex-direction: column;
+    }
+
+    #top-left {
+        width: 90%;
+        margin: auto;
+    }
+
+    #top-right {
+        width: 90%;
+        margin: auto;
+    }
 }
 
 /* CSS for the entries */
