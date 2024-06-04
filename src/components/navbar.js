@@ -49,6 +49,7 @@ const style = `
 /* Hovering stuff */
 .nav-row:hover {
     background-color: #FFFFFF;
+    cursor: pointer;
 }
 
 .nav-row:hover .nav-label {
