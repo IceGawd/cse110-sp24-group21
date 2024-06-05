@@ -2,7 +2,7 @@
 # Configuration for the Jekyll template "Just the Docs"
 parent: Decisions
 # nav_order: 100
-title: 
+title: Modifying CodeClimate Argument Count Limit
 
 # These are optional elements. Feel free to remove any of them.
 # status: {proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)}
