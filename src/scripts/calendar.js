@@ -277,6 +277,8 @@ function getWeekTasks(datesArr){
  */
 function roundTimeBy30(timeUnrounded){
 	let [hr, min] = timeUnrounded.split(":").map(part => parseInt(part, 10));
+	console.log("hr "+ hr)
+	console.log("min" + min)
 	if( min < 15){
 		min = 0;
 	} else if( min <= 30){
@@ -287,6 +289,8 @@ function roundTimeBy30(timeUnrounded){
 		min = 0;
 		hr += 1;
 	}
+	console.log("hr rounded"+ hr)
+	console.log("min rounded" + min)
 	return [hr, min];
 }
 
@@ -298,15 +302,19 @@ function roundedFormat(tasksForDay){
 	let roundedFormat = [];
 	for(let i = 0; i < tasksForDay.length; i++){
 		let singleTask = tasksForDay[i];
+		console.log(singleTask);
 		const timeStart = singleTask['startTime'];
+		console.log("start time: " + timeStart)
 		let newStart = roundTimeBy30(timeStart);
 		const timeEnd = singleTask['endTime'];
+		console.log("endTime" + timeEnd)
 		let newEnd = roundTimeBy30(timeEnd);
 		let taskInfoObj = {
 			task: tasksForDay[i],
 			roundStart: newStart,
 			roundEnd: newEnd
 		}
+		console.log(taskInfoObj)
 		roundedFormat.push(taskInfoObj);
 
 	}
@@ -365,16 +373,19 @@ function addNewTasks(datesArr){
 	//console.log(tasks);
 	for(let i = 0; i < tasks.length; i++){
 		let tasksForDay = tasks[i];
+		console.log(tasksForDay);
 		tasksForDay = roundedFormat(tasksForDay);
-		console.log(tasksForDay)
 		tasksForDay = sortTasks(tasksForDay);
 		for(let j = 0; j < tasksForDay.length; j++){
 			let taskLen = mathRowLength(tasksForDay[j]);
-			let hr = tasksForDay['hour'] < 10 ? "0" + JSON.stringify(tasksForDay['hour']) : JSON.stringify(tasksForDay['hour']);
-			let min = tasksForDay['hour'] === 0 ? "00" : "30";
+			console.log("----")
+			console.log(tasksForDay)
+			console.log(tasksForDay[j]['roundStart'])
+			let hr = tasksForDay[j]['roundStart'][0] < 10 ? "0" + JSON.stringify(tasksForDay[j]['roundStart'][0]) : JSON.stringify(tasksForDay[j]['roundStart'][0]);
+			let min = tasksForDay[j]['roundStart'][1] === 0 ? "00" : "30";
 			let rowId = "r" + hr + min;
 			console.log(rowId);
-			displaytaskCalendar(rowId, i + 1, tasksForDay['task'], taskLen);
+			displaytaskCalendar(rowId, i + 1, tasksForDay[j]['task'], taskLen);
 		}
 
 	}
