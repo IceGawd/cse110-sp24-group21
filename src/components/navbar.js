@@ -49,6 +49,7 @@ const style = `
 /* Hovering stuff */
 .nav-row:hover {
     background-color: #FFFFFF;
+    cursor: pointer;
 }
 
 .nav-row:hover .nav-label {
@@ -97,6 +98,7 @@ const style = `
         opacity: 1;
     }
 }
+
 /* End of Navbar Styling */
 `;
 
@@ -126,10 +128,12 @@ const html = `
                 <img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon"/>
                 <p class="nav-label">Minimize</p>
             </button>
-            <button class="nav-row">
+            
+            <button class="nav-row" id="settings-btn">
                 <img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon"/>
                 <p class="nav-label">Settings</p>
             </button>
+
         </div>
     </ul>
 </nav>
@@ -212,6 +216,8 @@ class MyNavbar extends HTMLElement {
             }
         }
     }
+
 }
 
 customElements.define('my-navbar', MyNavbar);
+
