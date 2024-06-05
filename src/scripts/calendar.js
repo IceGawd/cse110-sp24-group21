@@ -62,7 +62,7 @@ function jump() {
 }
 
 // Filled Cell Function used as a sub-function of showCalendar
-function addFilledCell(j, row, year, month) {
+function addFilledCell(j, date,row, year, month) {
 	cell = document.createElement("td");
 	cell.setAttribute("data-date", date);
 	cell.setAttribute("data-month", month + 1);
@@ -102,7 +102,7 @@ function showCalendar(month, year) {
 			} else if (date > daysInMonth(month, year)) {
 				break;
 			} else {
-				addFilledCell(j, row, year, month);
+				addFilledCell(j, date, row, year, month);
 				date++;
 			}
 		}
