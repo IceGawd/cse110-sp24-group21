@@ -295,7 +295,7 @@ function getDate(date){
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let lines = entry.split('\n')[0];
+    let lines = entry.split('\n');
     let line = lines[0];
     if(lines[0] == '```')
         line = lines[1];
