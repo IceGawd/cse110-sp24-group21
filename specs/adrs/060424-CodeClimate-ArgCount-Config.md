@@ -13,7 +13,7 @@ deciders: {Peter, Avingha, Kane, Sierra}
 ---
 <!-- we need to disable MD025, because we use the different heading "ADR Template" in the homepage (see above) than it is foreseen in the template -->
 <!-- markdownlint-disable-next-line MD025 -->
-# Modifying CodeClimate Argument Count 
+# The decision regarding CodeClimate Argument Count Limit
 
 ## Context and Problem Statement
 Currently in the CI pipeline, CodeClimate is implemented to automate code analysis to enhance the quality of our code. For our calendar feature, its display is dynamically populated using a series of Javascript functions (written right before CodeClimate Implementation) which have 5 arguments. However, this design is being caught as the default codeclimate configurations limit function parameter counts to 4.
