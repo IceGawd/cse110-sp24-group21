@@ -24,13 +24,13 @@ function init(){
     document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     //document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
     //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
-    // TODO: fill out after turning the popup into a form
     document.getElementById('submit').addEventListener('click', (e)=> {
                                                         let data = new FormData(document.getElementById('new-entry'));
                                                         setEntry(data);
                                                         document.getElementById('popup').style.visibility = 'hidden';
+                                                        setFocus(data.get('date'));
                                                     });
-    //TODO: set focus based on query in URL
+    //set focus based on query in URL
     let query = new URL(window.location.href).searchParams;
     if('date' in query)
         setFocus(query[date]);
@@ -109,7 +109,16 @@ function populatePage(){
  */
 function setFocus(id){
     if(id == ""){
-
+        let date = new Date();
+        id = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        let entryContainer = document.getElementsByClassName('entry-container')[0];
+        entryContainer.style.color = '#ABABAB';
+        entryContainer.querySelector('#title').innerHTML = 'Title...';
+        entryContainer.querySelector('#date').innerHTML = getDate(id);
+        entryContainer.querySelector('#entry').innerHTML = '<p>Entry...</p>'
+        entryContainer.querySelector('footer').innerHTML = '';
+        entryContainer.id = id+"main";
+        return;
     }
     let entryContainer = document.getElementsByClassName('entry-container')[0];
     //so the id doesn't collide with the ids in the sidebar
@@ -136,7 +145,6 @@ function setFocus(id){
 
 /**
  * Creates entry for date if it doesn't already exist or modifies existing entry, saves changes to localStorage
- * TODO: Also needs to modify the sidebar (done, needs to be tested)
  * @param {FormData} data  - data from the form
  * @returns nothing
  */
@@ -146,7 +154,6 @@ function setEntry(data){
     if(entries.length == 0)
         entries = {};
 
-    //TODO: frontend isn't done with their entry adding/editing popup so...
     let entry = {
         title: data.get('title').trim(),
         entry: data.get('entry').trim(),
@@ -170,7 +177,6 @@ function setEntry(data){
 
 /**
  * Confirms with user that they want to delete the entry, then deletes the sidebar element and corresponding storage object
- * TODO: also delete the main entry, if applicable.
  * @param {string} date 
  * @returns nothing
  */
@@ -247,8 +253,7 @@ function entryItemSetup(item, date) {
 
 
 /**
- * Adds entries to the sidebar
- * TODO: add entries according to chronological order, not just appending to the end (done, needs to be tested)
+ * Adds entries to the sidebar according to chronological order, not just appending to the end
  * @param {string} date - YYYY-MM-DD string representing date of the entry
  * @returns nothing
  */
@@ -285,12 +290,15 @@ function getDate(date){
 }
 
 /**
- * (potentially) takes in a markdown entry and strips it down to plaintext, then returns blurb-length beginning.
+ * TODO: strips entry down to plaintext, then returns blurb-length beginning.
  * @param {string} entry is the md string 
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let line = entry.split('\n')[0]
+    let lines = entry.split('\n')[0];
+    let line = lines[0];
+    if(lines[0] == '```')
+        line = lines[1];
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**
@@ -311,6 +319,4 @@ function md2HTML(entry, container){
     }
 }
 
-/**
-  TODO: frontend function to disable entry list to close information when title is
-  clicked*/
+
