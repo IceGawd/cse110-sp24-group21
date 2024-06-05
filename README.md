@@ -12,3 +12,6 @@ Here is our Figma design:
 
 Here are the JSDocs:
 [JSDocs](https://cse110-sp24-group21.github.io/cse110-sp24-group21/docs/)
+
+Here is the main page:
+[Developer Journal][https://cse110-sp24-group21.github.io/cse110-sp24-group21/]
