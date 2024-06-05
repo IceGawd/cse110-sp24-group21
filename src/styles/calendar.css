@@ -114,14 +114,16 @@ th.day-detail {
 } */
 
 /* Test task coloring */
-.test-task {
-	border-radius: 5%;
-	background-color: red;
-	text-align: center;
-	color: white;
-	max-width: 50px;
-	background-size: cover;
-	background-position: center;
+.task{
+    border-radius: 5%;
+    background-color: red;
+    text-align: center;
+    color: white;
+    max-width: 50px;
+    width: 50px; 
+    height: 40px; 
+    line-height: 50px; /*is this necessary ? */
+    z-index: 1000; 
 }
 
 .overlap-task {
@@ -132,13 +134,6 @@ th.day-detail {
 	max-width: 50px;
 }
 
-.task-2 {
-	border-radius: 5%;
-	background-color: green;
-	text-align: center;
-	color: white;
-	max-width: 100%;
-}
 
 #upcoming-container {
 	width: 100%;
