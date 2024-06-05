@@ -4,7 +4,7 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 let entries; //dict of entries, keys are strings of dates YYYY-MM-DD
 let months = ['', 'Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
 let blurbLength = 45; //length of sidebar entry blurbs in characters
-let deleteIconSrc = '/src/assets/icons/delete_icon.png';
+let deleteIconSrc = '../assets/icons/delete_icon.png';
 let deleteIconAlt = 'Delete this entry';
 
 window.addEventListener('DOMContentLoaded', init);
@@ -30,6 +30,10 @@ function init(){
                                                         setEntry(data);
                                                         document.getElementById('popup').style.visibility = 'hidden';
                                                     });
+    //TODO: set focus based on query in URL
+    let query = new URL(window.location.href).searchParams;
+    if('date' in query)
+        setFocus(query[date]);
 }
 
 /**
@@ -100,12 +104,13 @@ function populatePage(){
 
 /**
  * Takes in a date (?), sets the focused entry (the one in entry-container) to the entry of that date
- * If no date is selected, do nothing
+ * If no date is selected, set to nothing
  * @param {string} id - YYYY-MM-DD string also used as the entry id
  */
 function setFocus(id){
-    if(id == "")
-        return;
+    if(id == ""){
+
+    }
     let entryContainer = document.getElementsByClassName('entry-container')[0];
     //so the id doesn't collide with the ids in the sidebar
     entryContainer.id = id+"main";
@@ -158,9 +163,8 @@ function setEntry(data){
     entries[date] = entry;
     localStorage.setItem('entries', JSON.stringify(entries));
     let elem = document.getElementById(date);
-    elem = elem.querySelector('a>details');
     elem.querySelector('.side-title>b').innerHTML = entry.title;
-    elem.querySelector('.side-blurb').innerHTML = md2HTML(entry.entry);
+    elem.querySelector('.side-blurb').innerHTML = getBlurb(entry.entry);
 }
 
 
@@ -176,9 +180,28 @@ function deleteEntry(date){
         return;
     if(!(date in entries))
         return;
+    //if this entry is also the main entry:
+    if(date == document.getElementsByClassName('entry-container')[0].id.substring(0,10)){
+        let dates = Object.keys(entries).sort();
+        if(dates.length == 1){
+            setFocus('');
+        }
+        else if(date == dates[0]){
+            setFocus(dates[dates.length-1]);
+        }
+        else{
+            for(let i = 1; i<dates.length; ++i){
+                if(dates[i] == date){
+                    setFocus(dates[i-1]);
+                    break;
+                }
+            }
+        }
+            
+    }
     document.getElementById(date).remove();
     delete entries[date];
-    localStorage.setItem('entries', JSON.stringify(entries));
+    localStorage.setItem('entries', JSON.stringify(entries));    
 }
 
 /**
