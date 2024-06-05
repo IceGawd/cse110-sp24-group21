@@ -22,8 +22,8 @@ function init(){
     document.getElementById('add-button').addEventListener('click', () => editEntry(''));
     // magic number 10 is the length of YYYY-MM-DD, since main entry id is YYYY-MM-DDmain
     document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
-    document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
-    document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
+    //document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
+    //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     // TODO: fill out after turning the popup into a form
     document.getElementById('submit').addEventListener('click', (e)=> {
                                                         let data = new FormData(document.getElementById('new-entry'));
@@ -165,13 +165,16 @@ function setEntry(data){
 
 
 /**
- * Deletes the sidebar element and storage object corresponding to the entry for date
+ * Confirms with user that they want to delete the entry, then deletes the sidebar element and corresponding storage object
  * TODO: also delete the main entry, if applicable.
  * @param {string} date 
  * @returns nothing
  */
 function deleteEntry(date){
-    if(!(date in localStorage.entries))
+    //confirm with user
+    if(!confirm('Are you sure you want to delete this entry?'))
+        return;
+    if(!(date in entries))
         return;
     document.getElementById(date).remove();
     delete entries[date];
@@ -201,6 +204,9 @@ function entryItemSetup(item, date) {
     item.append(title);
     let btn = document.createElement('button');
     btn.className = 'delete-entry';
+    //bit hacky, returns the id of the <li>, might want to give each button a unique id as well?
+    btn.addEventListener('click', (event) => deleteEntry(event.currentTarget.parentElement.parentElement.parentElement.id));
+
     item.append(btn);
     btn = btn.appendChild(document.createElement('img'));
     btn.className = 'delete-icon';
