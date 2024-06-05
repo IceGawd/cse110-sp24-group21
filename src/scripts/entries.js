@@ -1,17 +1,88 @@
 import { storage } from './storage.js';
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 let entries; //dict of entries, keys are strings of dates YYYY-MM-DD
 let months = ['', 'Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
 let blurbLength = 45; //length of sidebar entry blurbs in characters
+let deleteIconSrc = '../assets/icons/delete_icon.png';
+let deleteIconAlt = 'Delete this entry';
 
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * 
+ * init function, fetches the entries, populates page, adds necessary listeners
  */
 function init(){
     entries = storage.getItems('entries');
     populatePage();
+    //adding search functionality
+    let searchInput = document.getElementById('search')
+    searchInput.addEventListener('input', (event) => search(event.currentTarget.value.trim()));
+    //adding listeners to add/delete buttons
+    document.getElementById('add-button').addEventListener('click', () => editEntry(''));
+    // magic number 10 is the length of YYYY-MM-DD, since main entry id is YYYY-MM-DDmain
+    document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
+    //document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
+    //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
+    document.getElementById('submit').addEventListener('click', (e)=> {
+                                                        let data = new FormData(document.getElementById('new-entry'));
+                                                        setEntry(data);
+                                                        document.getElementById('popup').style.visibility = 'hidden';
+                                                        setFocus(data.get('date'));
+                                                    });
+    //set focus based on query in URL
+    let query = new URL(window.location.href).searchParams;
+    if('date' in query)
+        setFocus(query[date]);
+}
+
+/**
+ * 
+ * @param {string} date YYYY-MM-DD string corresponding to the 
+ */
+function editEntry(id){
+    //if is new entry, then date is an empty string
+    let form = document.getElementById('new-entry');
+    document.getElementById('popup').style.visibility = 'visible';
+    if(id == ''){
+        let date = new Date();
+        form.getElementsByTagName('input')[0].value = 'Title';
+        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
+        form.getElementsByTagName('input')[2].value = 'Labels';
+    }
+    else{
+        let entry = entries[id];
+        form.getElementsByTagName('input')[0].value = entry.title;
+        form.getElementsByTagName('input')[1].value = id;
+        form.getElementsByTagName('textarea')[0].innerHTML = entry.entry;
+        form.getElementsByTagName('input')[2].value = entry.labels;
+    }
+}
+
+/**
+ * Searches the entries by label and displays only the ones with tags containing the queryLabel
+ * @param {string} queryLabel - Label string that we search for
+ * @returns void
+ */
+function search(queryLabel){
+
+    if (queryLabel === '') {
+        for(let i = 0; i<entriesList.length; ++i){
+            entriesList[i].style.display = '';
+        }    
+    }
+    else {
+        let entriesList = document.getElementsByClassName('entry-list')[0].children;
+        for(let i = 0; i<entriesList.length; ++i){
+            let entry = entries[entriesList[i].id];
+            if(!entry.labels.some(l => l.toLowerCase().includes(queryLabel)))
+                entriesList[i].style.display = 'none';
+            else
+                entriesList[i].style.display = '';
+            
+        }
+    }
 }
 
 function populatePage(){
@@ -28,17 +99,27 @@ function populatePage(){
         dispEntry(dates[i]);
     }
     //sets entry-container to most recent entry
-    setFocus(dates[0]);
+    setFocus(dates[dates.length-1]);
 }
 
 /**
  * Takes in a date (?), sets the focused entry (the one in entry-container) to the entry of that date
- * If no date is selected, do nothing
+ * If no date is selected, set to nothing
  * @param {string} id - YYYY-MM-DD string also used as the entry id
  */
 function setFocus(id){
-    if(id == "")
+    if(id == ""){
+        let date = new Date();
+        id = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        let entryContainer = document.getElementsByClassName('entry-container')[0];
+        entryContainer.style.color = '#ABABAB';
+        entryContainer.querySelector('#title').innerHTML = 'Title...';
+        entryContainer.querySelector('#date').innerHTML = getDate(id);
+        entryContainer.querySelector('#entry').innerHTML = '<p>Entry...</p>'
+        entryContainer.querySelector('footer').innerHTML = '';
+        entryContainer.id = id+"main";
         return;
+    }
     let entryContainer = document.getElementsByClassName('entry-container')[0];
     //so the id doesn't collide with the ids in the sidebar
     entryContainer.id = id+"main";
@@ -46,8 +127,7 @@ function setFocus(id){
 
     entryContainer.querySelector('#title').innerHTML = entry.title;
     entryContainer.querySelector('#date').innerHTML = getDate(id);
-    entryContainer.querySelector('#entry').innerHTML = '';
-    entryContainer.querySelector('#entry').append(md2HTML(entry.entry));
+    md2HTML(entry.entry, entryContainer.querySelector('#entry'));
     
     //then the labels as spans in a footer element
     //TODO: currently the labels are just strings, should probably eventually refactor into using ids. alas.
@@ -65,20 +145,19 @@ function setFocus(id){
 
 /**
  * Creates entry for date if it doesn't already exist or modifies existing entry, saves changes to localStorage
- * TODO: Also needs to modify the sidebar (done, needs to be tested)
- * @param {string} date - YYYY-MM-DD string that serves as entry ID as well
+ * @param {FormData} data  - data from the form
  * @returns nothing
  */
-function setEntry(date){
+function setEntry(data){
+    let date = data.get('date');
     //quick fix to accomodate for the fact that storage.getItems returns [] if it doesn't already exist.
     if(entries.length == 0)
         entries = {};
 
-    //TODO: frontend isn't done with their entry adding/editing popup so...
     let entry = {
-        title: "",
-        entry: "",
-        tags: []
+        title: data.get('title').trim(),
+        entry: data.get('entry').trim(),
+        labels: data.get('labels').trim().split(',')
     };
     //adding an entry for a new date
     if(!(date in entries)){
@@ -90,24 +169,45 @@ function setEntry(date){
     //modifying existing content for the date:
     entries[date] = entry;
     localStorage.setItem('entries', JSON.stringify(entries));
-    let elem = document.getElementById("#" + date);
-    elem = elem.querySelector('a>details');
-    elem.querySelector('summary>b').innerHTML = entry.title;
-    elem.querySelector('p').innerHTML = md2HTML(entry.entry);
+    let elem = document.getElementById(date);
+    elem.querySelector('.side-title>b').innerHTML = entry.title;
+    elem.querySelector('.side-blurb').innerHTML = getBlurb(entry.entry);
 }
 
 
 /**
- * Deletes the sidebar element and storage object corresponding to the entry for date
+ * Confirms with user that they want to delete the entry, then deletes the sidebar element and corresponding storage object
  * @param {string} date 
  * @returns nothing
  */
 function deleteEntry(date){
-    if(!(date in localStorage.entries))
+    //confirm with user
+    if(!confirm('Are you sure you want to delete this entry?'))
         return;
+    if(!(date in entries))
+        return;
+    //if this entry is also the main entry:
+    if(date == document.getElementsByClassName('entry-container')[0].id.substring(0,10)){
+        let dates = Object.keys(entries).sort();
+        if(dates.length == 1){
+            setFocus('');
+        }
+        else if(date == dates[0]){
+            setFocus(dates[dates.length-1]);
+        }
+        else{
+            for(let i = 1; i<dates.length; ++i){
+                if(dates[i] == date){
+                    setFocus(dates[i-1]);
+                    break;
+                }
+            }
+        }
+            
+    }
     document.getElementById(date).remove();
     delete entries[date];
-    localStorage.setItem('entries', JSON.stringify(entries));
+    localStorage.setItem('entries', JSON.stringify(entries));    
 }
 
 /**
@@ -124,14 +224,26 @@ function entryItemSetup(item, date) {
     item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
     item.href = '#';
-    item = item.appendChild(document.createElement('details'));
-    item.open = 'true';
+    item = item.appendChild(document.createElement('div'));
     
-    //populating that element
-    let title = document.createElement('summary');
+    item.className = 'title-flex';
+    let title = document.createElement('p');
+    title.className = 'side-title'
     title.innerHTML = '<b>' + entry.title + '</b>';
     item.append(title);
+    let btn = document.createElement('button');
+    btn.className = 'delete-entry';
+    //bit hacky, returns the id of the <li>, might want to give each button a unique id as well?
+    btn.addEventListener('click', (event) => deleteEntry(event.currentTarget.parentElement.parentElement.parentElement.id));
+
+    item.append(btn);
+    btn = btn.appendChild(document.createElement('img'));
+    btn.className = 'delete-icon';
+    btn.src = deleteIconSrc;
+    btn.alt = deleteIconAlt;
+    item = item.parentElement;
     let blurb = document.createElement('p');
+    blurb.className = 'side-blurb';
     blurb.innerHTML = getBlurb(entry.entry);
     item.append(blurb);
     let d = document.createElement('h6');
@@ -141,8 +253,7 @@ function entryItemSetup(item, date) {
 
 
 /**
- * Adds entries to the sidebar
- * TODO: add entries according to chronological order, not just appending to the end (done, needs to be tested)
+ * Adds entries to the sidebar according to chronological order, not just appending to the end
  * @param {string} date - YYYY-MM-DD string representing date of the entry
  * @returns nothing
  */
@@ -153,7 +264,7 @@ function dispEntry(date){
     let item = document.createElement('li');
     let items = entryList.children;
     //if is most recent (date greater than top id), add at the top
-    if (date > items[0].id)
+    if (items.length == 0 || date > items[0].id)
         entryList.prepend(item);
     //otherwise, add after last element with id greater than date.
     else {
@@ -179,24 +290,33 @@ function getDate(date){
 }
 
 /**
- * (potentially) takes in a markdown entry and strips it down to plaintext, then returns blurb-length beginning.
+ * TODO: strips entry down to plaintext, then returns blurb-length beginning.
  * @param {string} entry is the md string 
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let line = entry.split('\n')[0]
+    let lines = entry.split('\n')[0];
+    let line = lines[0];
+    if(lines[0] == '```')
+        line = lines[1];
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**
- * (potentially) takes in a markdown entry and renders it into html
- * @returns {Element} currently just returns whatever you give it in a paragraph element.
+ * Puts rendered markdown into container:
+ * Tries to render markdown using Marked; if fails, returns whatever is passed to it in a <p>
+ * @param {Element} container - element that contains the rendered markdown at the end
+ * @param {string} entry - markdown to be rendered
+ * @returns nothing
  */
-function md2HTML(entry){
-    let content = document.createElement('p');
-    content.innerHTML = entry;
-    return content;
+function md2HTML(entry, container){
+    try{
+        container.innerHTML = marked.parse(entry);
+    }
+    catch (err) {
+        container.innerHTML = '';
+        container.appendChild(document.createElement('p'));
+        container.innerHTML = entry;
+    }
 }
 
-/**
-  TODO: frontend function to disable entry list to close information when title is
-  clicked*/
+
