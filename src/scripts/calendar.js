@@ -110,6 +110,7 @@ function showCalendar(month, year) {
 	}
 	let datesForWeek = getDatesForWeek();
 	changeDateHeader(datesForWeek);
+	addNewTasks(datesForWeek);
 	datesIntoButtons();
 }
 

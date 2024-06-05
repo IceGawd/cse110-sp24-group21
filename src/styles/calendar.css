@@ -105,6 +105,9 @@ th.day-detail {
 	padding-top: 2%;
 	/* overflow-y: auto; */
 }
+#weekday-header {
+	z-index: 1000;
+}
 
 /* #weekday-details td {
 	display: inline-block;
@@ -123,7 +126,7 @@ th.day-detail {
     width: 50px; 
     height: 40px; 
     line-height: 50px; /*is this necessary ? */
-    z-index: 1000; 
+    z-index: 900; 
 }
 
 .overlap-task {
