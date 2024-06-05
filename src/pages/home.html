@@ -9,22 +9,25 @@
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/calendar.css">
     <script src="../components/navbar.js" type="module"></script>
+    <script src="../components/settings-popups.js" type="module"></script>
     <script src="../components/task-display.js" type="module"></script>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
+    <my-settings></my-settings>
     <main>
         <div id="top">
             <section id="top-left">
-                <h1>Entries</h1>
+                <h1 class="title">Entries</h1>
+                <hr/>
                 <div id="entries-container">
-                    <div class="entry" 
+                    <button class="entry" 
                     style=" display: flex;
                     align-items: center;
                     justify-content: center;">
                         <img src="../assets/icons/plus.svg" alt="Add Entry" id="add-entry-icon"/>
-                    </div>
-                    <div class="entry">
+                    </button>
+                    <button class="entry">
                         <div class="entry-header">
                             <h3>Building C+++</h3> 
                             <h3>2/13/2030</h3>
@@ -37,8 +40,8 @@
                         <p>How to build a programming language from scratch.</p>
                         <h3>Other</h3>
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </div>
-                    <div class="entry">
+                    </button>
+                    <button class="entry">
                         <div class="entry-header">
                             <h3>Building C+++</h3> 
                             <h3>2/13/2030</h3>
@@ -51,8 +54,8 @@
                         <p>How to build a programming language from scratch.</p>
                         <h3>Other</h3>
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </div>
-                    <div class="entry">
+                    </button>
+                    <button class="entry">
                         <div class="entry-header">
                             <h3>Building C+++</h3> 
                             <h3>2/13/2030</h3>
@@ -65,8 +68,8 @@
                         <p>How to build a programming language from scratch.</p>
                         <h3>Other</h3>
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </div>
-                    <div class="entry">
+                    </button>
+                    <button class="entry">
                         <div class="entry-header">
                             <h3>Building C+++</h3> 
                             <h3>2/13/2030</h3>
@@ -79,11 +82,14 @@
                         <p>How to build a programming language from scratch.</p>
                         <h3>Other</h3>
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </div>
+                    </button>
                 </div>
+                <div id="fade-out"></div>
             </section>
             <section id="top-right">
-                <h1>Calendar</h1>
+                <h1 class="title">Calendar</h1>
+                <hr/>
+                <!-- I basically just took the calendar html and put it in here-->
                 <div id="mini-calendar">
                     <h3 id="month-and-year"></h3>
                     <div class="button-container-calendar">
@@ -120,42 +126,50 @@
         </div>
         <section id="bottom">
             <ul id="list">
-                <h1>My Tasks</h1>
+                <h1 class="title">My Tasks</h1>
+                <hr/>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-right-black.svg" alt="Task Icon" class="task-icon light-mode-icon right-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="blue" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 1</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description" style="display: none;">This is an example of when the dropdown is pressed and the description is shown.</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="red" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 2</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">This is an example of when the dropdown is pressed and the description is shown.</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox">
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="green" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 3</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">This is an example of when the dropdown is pressed and the description is shown. How about lot of text.......................................................... </p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
                 </li>
                 <li class="task">
-                    <button class="dropdown-btn" onclick="toggleIcon(this)">
-                        <img src="../assets/icons/triangle-down-black.svg" alt="Task Icon" class="task-icon light-mode-icon down-icon">
-                    </button>
-                    <input class="checkbox" type="checkbox"> 
+                    <svg height="40" width="40">
+                        <circle r="18" cx="20" cy="20" fill="orange" stroke="black" stroke-width="3" />
+                    </svg>
                     <h3 class="task-name">Task 4</h3>
                     <p class="due-date">Apr 24, 2024</p>
-                    <p class="description">Not much text, but a little more than usual, and even a little more</p>
+                    <button class="delete-btn">
+                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
+                    </button>
+                </li>
+                <li class="task">
+                    <button class="add-task">Add Task</button>
                 </li>
             </ul>
         </section>
