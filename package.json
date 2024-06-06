@@ -20,7 +20,7 @@
     "verbose": true
   },
   "dependencies": {
-    "serve": "^14.2.3"
+    "serve": "^14.2.3",
     "marked": "^12.0.2"
   }
 }

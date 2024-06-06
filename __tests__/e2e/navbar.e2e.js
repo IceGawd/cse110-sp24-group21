@@ -22,15 +22,20 @@ describe('e2e testing for navbar', () => {
     });
 
     it('Test the Minimize Button', async () => {
+        async function getSidebarWidth(sidebarHandle) {
+            const width = await page.evaluate(sidebar => {
+                const computedStyle = window.getComputedStyle(sidebar);
+                return computedStyle.width;
+            }, sidebarHandle);
+            return width;
+        }
+        
         const navbar = await page.$('my-navbar');
         // Grab the shadowRoot of that element
         const shadowRoot = await navbar.getProperty('shadowRoot');
         const minimizeBtn = await page.evaluateHandle(root => root.querySelector('#minimize-btn'), shadowRoot);
         const sidebarHandle = await page.evaluateHandle(root => root.querySelector('#sidebar'), shadowRoot);
-        const sidebarWidth = await page.evaluate(sidebar => {
-            const computedStyle = window.getComputedStyle(sidebar);
-            return computedStyle.width;
-        }, sidebarHandle);
+        const sidebarWidth = await getSidebarWidth(sidebarHandle);
         // expect sidebarWidth to be greater than 150px
         expect(parseInt(sidebarWidth)).toBeGreaterThan(150);
         // if the classes of my-navbar contain minimized, isMinized = true
@@ -42,10 +47,7 @@ describe('e2e testing for navbar', () => {
         const classNameAfterClick = await (await navbar.getProperty('className')).jsonValue();
         expect (classNameAfterClick.includes('minimized')).toBe(true);
         // Check the width of the sidebar after clicking the minimize button
-        const sidebarWidthAfterClick = await page.evaluate(sidebar => {
-            const computedStyle = window.getComputedStyle(sidebar);
-            return computedStyle.width;
-        }, sidebarHandle);
+        const sidebarWidthAfterClick = await getSidebarWidth(sidebarHandle);
         expect(sidebarWidthAfterClick).toBe('100px');
     });
 });
