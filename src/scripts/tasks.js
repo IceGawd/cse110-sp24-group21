@@ -109,10 +109,7 @@ function createTask(day, data) {
   fields.forEach(field => {
     // Gives fields ability to expand/contract based on text inside
     field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; });
-    // Add event listener to save changes on input
-    // field.addEventListener('input', () => { saveTask(taskElement); });
   });
-  taskElement.addEventListener('saved', () => { saveTask(taskElement); });
   taskElement.addEventListener('deleted', () => { deleteTask(taskElement); });
   taskElement.addEventListener('priority-changed', () => { sortTasks(day); });
 
@@ -124,34 +121,6 @@ function createTask(day, data) {
   sortTasks(day);
 }
 
-/**
- * Sets the priority of the task
- */
-/*function setPriority(taskElement) {
-  const priorities = ['low', 'medium', 'high'];
-  let currentPriority = taskElement.querySelector('.priority-dropdown').value;
-  let newPriorityIndex = (priorities.indexOf(currentPriority) + 1) % priorities.length;
-  let newPriority = priorities[newPriorityIndex];
-  taskElement.querySelector('.priority-dropdown').value = newPriority;
-  taskElement.data.priority = newPriority;
-  saveTask(taskElement);
-  sortTasks(taskElement.parentElement);
-}
-
-  let taskObject = {
-    id: inputId,
-    title: "",
-    date: date,
-    startTime: "00:00",
-    endTime: "23:59",
-    description: "",
-    tags: []  // might have some trouble with this method (whitespaces)
-  };
-  createTask(day, taskObject);
-  console.log(taskObject);*/
-/**
- * Sorts tasks by priority within the specified day container
- */
 function sortTasks(day) {
   const tasks = Array.from(day.querySelectorAll('task-element'));
   tasks.sort((a, b) => {
@@ -159,58 +128,6 @@ function sortTasks(day) {
     return priorities.indexOf(b.data.priority) - priorities.indexOf(a.data.priority);
   });
   tasks.forEach(task => day.insertBefore(task, day.querySelector('.add-task')));
-}
-
-/** 
- * Creates a save-able object from the HTML task element
-*/
-function getTaskObjectFromTask(task) {
-  // Get current values in fields
-  const wrapper = task.shadowRoot;
-  const inputTitle = wrapper.querySelector(".title").value;
-  const inputDate = task.parentElement.querySelector(".date").innerHTML;
-  const inputDescription = wrapper.querySelector(".description").value;
-  const inputStartTime = wrapper.querySelector(".start-time").value;
-  const inputEndTime = wrapper.querySelector(".end-time").value;
-  const allDayBox = wrapper.querySelector(".all-day").checked;
-  const inputTags = wrapper.querySelector(".tags").value;
-  const inputPriority = wrapper.querySelector('.priority-dropdown').value;
-
-  // Create object from task information
-  let taskObject = {
-    id: task.data.id,
-    title: inputTitle,
-    date: inputDate,
-    startTime: allDayBox ? "00:00" : inputStartTime,
-    endTime: allDayBox ? "23:59" : inputEndTime,
-    description: inputDescription,
-    tags: ((inputTags == '') ? [] : inputTags.split(' ')),
-    priority: inputPriority
-  };
-
-  return taskObject;
-}
-
-/**
- * Given the task element, save its current state
- */
-function saveTask(task) {
-  // Get the object of the task
-  let taskObject = getTaskObjectFromTask(task);
-
-  // Update task in the list
-  const taskIndex = tasks.findIndex(t => t.id === taskObject.id);
-  if (taskIndex >= 0) {
-    tasks[taskIndex] = taskObject;
-  } else {
-    tasks.push(taskObject);
-  }
-
-  // Save the updated list to local storage
-  localStorage.setItem('tasklist', JSON.stringify(tasks));
-
-  // Sort tasks after saving changes
-  sortTasks(task.parentElement);
 }
 
 /**

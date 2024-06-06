@@ -4,7 +4,8 @@ const style = `
 .task {
   position: relative;
   flex: 0 0 auto;
-  margin-top: 0rem; 
+  margin-top: 0rem;
+  margin-bottom: 0.5rem; 
   padding: 0.1rem;
   background-color: #f4f4f4;
   text-align: center;
@@ -54,8 +55,8 @@ input {
 /* Task buttons style */
 .task-buttons {
   position: absolute;
-  bottom: 15px;
-  right: 20px; 
+  bottom: 5px;
+  right: 5px; 
   display: flex;
   flex-direction: row;
   margin-top: auto;
@@ -72,15 +73,6 @@ input {
   border-radius: 3px;
   cursor: pointer;
   transition: background 0.5s;
-}
-
-.save-task {
-  background-image: url(../assets/icons/save.svg);
-  background-size: 20px 20px;
-}
-
-.save-task:hover {
-  background-color: #d3d3d3;
 }
 
 .delete-task {
@@ -180,17 +172,12 @@ class TaskElement extends HTMLElement {
     const buttonWrapper = document.createElement('div');
     buttonWrapper.classList.add('task-buttons');
 
-    const savedEvent = new Event('saved', { bubbles: true, composed: true });
-    const saveButton = document.createElement('button');
-    saveButton.addEventListener('click', () => { this.dispatchEvent(savedEvent); });
-    saveButton.classList.add('save-task');
-
     const deletedEvent = new Event('deleted', { bubbles: true, composed: true });
     const deleteButton = document.createElement('button');
     deleteButton.addEventListener('click', () => { this.dispatchEvent(deletedEvent); });
     deleteButton.classList.add('delete-task');
 
-    buttonWrapper.append(saveButton, deleteButton);
+    buttonWrapper.append(deleteButton);
     return buttonWrapper;
   }
 
@@ -209,6 +196,9 @@ class TaskElement extends HTMLElement {
 
     this.addSaveEventListener(title, 'title');
     this.addSaveEventListener(description, 'description');
+    this.addSaveEventListener(time.querySelector('.start-time'), 'startTime');
+    this.addSaveEventListener(time.querySelector('.end-time'), 'endTime');
+    this.addSaveEventListener(time.querySelector('.all-day'), 'allDay');
     this.addSaveEventListener(tags, 'tags');
     this.addSaveEventListener(priorityDropdown, 'priority');
 
@@ -227,7 +217,13 @@ class TaskElement extends HTMLElement {
       } else if (field === 'priority') {
         this.json.priority = element.value;
         this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
-      } else {
+      } else if (field === 'allDay' && element.checked) {
+        element.parentElement.parentElement.querySelector('.start-time').value = "00:00";
+        element.parentElement.parentElement.querySelector('.end-time').value = "23:59";
+        this.json.startTime = "00:00";
+        this.json.endTime = "23:59";
+      }
+      else {
         this.json[field] = element.value;
       }
       this.saveToLocalStorage();
