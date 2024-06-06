@@ -56,6 +56,16 @@ const style = `
     font-weight: bold;
 }
 
+/* Selected Status */
+.selected {
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.selected .nav-label {
+    font-weight: bold;
+}
+
 /* Minimized state */
 :host(.minimized) {
     width: 100px;
@@ -170,6 +180,9 @@ class MyNavbar extends HTMLElement {
         // Add resize event listener
         window.addEventListener('resize', this.handleResize.bind(this));
         this.handleResize();
+
+        // Set the active navbar item
+        this.setActiveNavItem();
     }
 
     /**
@@ -218,6 +231,23 @@ class MyNavbar extends HTMLElement {
         }
     }
 
+    /**
+     * Sets the active navigation item based on the current page.
+     * Pages are identified by their file name (e.g., 'home.html') in the url.
+     */
+    setActiveNavItem() {
+        const navItems = this.shadowRoot.querySelectorAll('.nav-row');
+        const currentPath = window.location.pathname.split('/').pop(); // Get the current page (e.g., 'home.html')
+
+        navItems.forEach(item => {
+            const link = item.getAttribute('href');
+            if (link && link.includes(currentPath)) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    }
 }
 
 customElements.define('my-navbar', MyNavbar);
