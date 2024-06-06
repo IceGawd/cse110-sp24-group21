@@ -48,6 +48,7 @@ const style = `
     padding: 0;
     position: fixed;
     transition: width 0.3s ease;
+    z-index: 10000;
 }
 
 /* Hovering stuff */
