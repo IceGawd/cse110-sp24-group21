@@ -10,12 +10,14 @@ const style = `
 
 .nav-icon {
     margin-left: 20px;
+    padding-bottom: 10px;
 }
 
 .nav-label {
     color: #2B2B2B;
-    font-size: 22px;
-    padding: 10px;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-bottom: 2px;
     text-decoration: none;
     animation: showNavLabel 0.3s forwards;
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
@@ -26,10 +28,11 @@ const style = `
     flex-direction: row;
     align-items: center;
     width: 100%;
+    
     text-decoration: none;
     background: transparent;
     border-width: 0;
-    padding: 0;
+    padding-top: 10px;
 }
 
 #sidebar {
@@ -76,7 +79,6 @@ const style = `
 
 :host(.minimized) .nav-icon {
     margin: 0;
-    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -165,7 +167,6 @@ class MyNavbar extends HTMLElement {
 
         if (localStorage.getItem('navbarMinimized') === 'true') {
             this.classList.add('minimized');
-            this.updateMainWidth();
         }
 
         // Add resize event listener
@@ -181,7 +182,7 @@ class MyNavbar extends HTMLElement {
      * and adjusts the width of the 'main' element accordingly.
      */
     toggleMinimize() {
-        if(window.innerWidth < 850) return;
+        if(window.innerWidth < 800) return;
         this.classList.toggle('minimized');
         localStorage.setItem('navbarMinimized', this.classList.contains('minimized'));
         this.updateMainWidth();
@@ -192,7 +193,7 @@ class MyNavbar extends HTMLElement {
      * Updates the width of the main element based on the presence of the 'minimized' class.
      */
     updateMainWidth() {
-        if(localStorage.getItem('navbarMinimized') === 'true'){
+        if(this.classList.contains('minimized')) {
             document.querySelector('main').style.width = `calc(100vw - 100px)`;
         } else {
             document.querySelector('main').style.width = `80vw`;
@@ -207,9 +208,9 @@ class MyNavbar extends HTMLElement {
      * sets the width of the 'main' element to '80vw', and updates the display state if the 'navbarMinimized' flag is not set.
      */
     handleResize() {
-        if (window.innerWidth < 850) {
+        if (window.innerWidth < 800) {
             this.classList.add('minimized');
-            document.querySelector('main').style.width = `calc(100vw - 100px)`;
+            this.updateMainWidth();
         } 
         else {
             if (localStorage.getItem('navbarMinimized') !== 'true') {
