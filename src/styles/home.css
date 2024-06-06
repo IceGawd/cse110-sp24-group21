@@ -47,11 +47,13 @@ main {
 #top-left {
     width: 60%;
     padding-right: 5%;
+    padding-left: 3%;
     position: relative;
 }
 
 #top-right {
     width: 40%;
+    padding-right: 3%;
 }
 
 /* media query for when the sccreen width is less than 900 px */
