@@ -1,5 +1,153 @@
 let daysArray = [];
 
+// Testing hashmap
+let task1 = {
+    date: "2024/06/02",
+    description: "",
+    endTime: "06:45",
+    id: 1258705,
+    priority: "low",
+    startTime: "04:00",
+    tags: [],
+    title: "Task 1 very long task name ksdghjshgjhdgjhagjhdasjghv jsjdhgja jsdhgdja",
+    color: "green"
+};
+
+let task2 = {
+    date: "2024/07/02",
+    description: "",
+    endTime: "14:59",
+    id: 1258705,
+    priority: "low",
+    startTime: "12:00",
+    tags: [],
+    title: "Task 2",
+    color: "blue"
+};
+
+let task3 = {
+    date: "2024/07/03",
+    description: "",
+    endTime: "18:59",
+    id: 1258705,
+    priority: "low",
+    startTime: "13:00",
+    tags: [],
+    title: "Task 2",
+    color: "red"
+};
+
+let task4 = {
+    date: "2024/07/07",
+    description: "",
+    endTime: "17:30",
+    id: 1258705,
+    priority: "low",
+    startTime: "16:59",
+    tags: [],
+    title: "Task 4 ksdghaighispjhghghl",
+    color: "purple"
+};
+
+let task5 = {
+    date: "2024/07/03",
+    description: "",
+    endTime: "19:59",
+    id: 1258705,
+    priority: "low",
+    startTime: "14:00",
+    tags: [],
+    title: "Task 5",
+    color: "red"
+};
+let task6 = {
+    date: "2024/06/06",
+    description: "blah blah blah",
+    endTime: "10:00",
+    id: 1258705,
+    priority: "low",
+    startTime: "1:00",
+    tags: [],
+    title: "Task 6",
+    color: "blue"
+};
+let task7 = {
+    date: "2024/06/06",
+    description: "blah blah blah",
+    endTime: "10:00",
+    id: 1258705,
+    priority: "low",
+    startTime: "6:00",
+    tags: [],
+    title: "Task 7",
+    color: "orange"
+};
+let task8 = {
+    date: "2024/09/14",
+    description: "blah blah blah",
+    endTime: "10:00",
+    id: 1258705,
+    priority: "low",
+    startTime: "00:00",
+    tags: [],
+    title: "Task 8",
+    color: "pink"
+};
+let task9 = {
+    date: "2024/06/02",
+    description: "blah blah blah",
+    endTime: "14:30",
+    id: 1258705,
+    priority: "low",
+    startTime: "14:00",
+    tags: [],
+    title: "Task 9",
+    color: "green"
+};
+let task10 = {
+    date: "2024/06/03",
+    description: "blah blah blah",
+    endTime: "20:00",
+    id: 1258705,
+    priority: "low",
+    startTime: "17:00",
+    tags: [],
+    title: "Task 10",
+    color: "orange"
+};
+let task11 = {
+    date: "2024/06/04",
+    description: "blah blah blah",
+    endTime: "14:00",
+    id: 1258705,
+    priority: "low",
+    startTime: "12:00",
+    tags: [],
+    title: "Task 11",
+    color: "red"
+};
+
+// Array of tasks
+let tasks = [task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11];
+
+// Create a Map to hold the date-task pairs
+let taskMap = new Map();
+
+// Populate the Map with tasks
+tasks.forEach(task => {
+    let date = task.date;
+    if (!taskMap.has(date)) {
+        taskMap.set(date, []);
+    }
+    taskMap.get(date).push(task);
+});
+
+// Example of accessing the tasks for a specific date
+console.log(taskMap.get("2024/06/02")); // Outputs: Array with task1 and task2
+console.log(taskMap.get("2024/06/03")); // Outputs: Array with task3 and task5
+console.log(taskMap.get("2024/06/07")); // Outputs: Array with task4
+
+
 // Function to generate a range of 
 // years for the year select input
 function generate_year_range(start, end) {
@@ -74,7 +222,7 @@ function addFilledCell(j, date,row, year, month) {
 	if (
 		date === today.getDate() && 
 		year === today.getFullYear() &&
-		month === today.getMonth()
+		month === today.getMonth() && document.querySelector(".date-picker.selected") == null
 	) {
 		cell.className = "date-picker selected";
 	}
@@ -108,10 +256,10 @@ function showCalendar(month, year) {
 		}
 		tbl.appendChild(row);
 	}
-	let datesForWeek = getDatesForWeek();
-	changeDateHeader(datesForWeek);
+	// let datesForWeek = getDatesForWeek();
+	// changeDateHeader(datesForWeek);
 	datesIntoButtons();
-	addNewTasks(datesForWeek);
+	//addNewTasks(datesForWeek);
 }
 
 // display calendar
@@ -139,14 +287,23 @@ function datesIntoButtons(){
 		});
 	}
 }
+function formatDate(month, day, year){
+	month = JSON.stringify(month);
+	year = JSON.stringify(year);
+	day = JSON.stringify(day);
+	let formatMonth = month < 10 ? 0 + month : month;
+	let formatDay = day < 10 ? 0 + day : day;
+	let formatDate = year + '/' + formatMonth + '/' + formatDay;
+	return formatDate;
+}
 /**
  * Function to add a date in the correct format to the date array that contains the dates of a given week to display
  */
 function addDateArr(datesArr, year, month, day){
-	formatDate(year,month, day);
+	let dateFormatted = formatDate(month + 1,day, year); //add one because months was previously used with january being 0
 	datesArr.push({
 		dayOfMonth: day,
-		date : formatDate
+		date : dateFormatted
 	});
 }
 
@@ -197,7 +354,7 @@ function getDatesForWeek(){
 
 function changeDateHeader(datesArr){
 	let tableHeaders = document.querySelectorAll('.day-detail');
-	for(let i = 0; i < 7; i++){
+	for(let i = 0; i < 7 && i+1 < tableHeaders.length; i++){
 		let headerDate = tableHeaders[i+1].querySelectorAll('h2')[1];
 		headerDate.innerHTML = datesArr[i].dayOfMonth;
 	}
@@ -206,7 +363,10 @@ function changeDateHeader(datesArr){
  * Function to clear the tasks that are being displayed for a selected date
  */
 function clearTasks(){
-	let allTasks = document.querySelectorAll(".tasks");
+	let allTasks = document.querySelectorAll(".task"); 
+	if(!allTasks){
+		return;
+	}
 	let numTasks = allTasks.length;
 	for(let i = 0; i < numTasks; i++){
 		allTasks[i].remove();
@@ -218,63 +378,10 @@ function clearTasks(){
  * each element containing an array with tasks for the corresponding day of the week
  */
 function getWeekTasks(datesArr){
-	// let taskMap = localStorage.getItem('tasklist');
-	// taskMap = new Map(JSON.parse(tasksMap));//see if this is how it is done (what if null)
-	// let tasksArr = [];
-	// for(let i = 0; i < 7; i++){
-	// 	tasksArr[i] = taskMap.get(datesArr[i].date) || []; //is this how you write empty array if null?
-	// }
-	let task1 = {date: "06/02/2024",
-		description: "",
-		endTime: "06:45",
-		id: 1258705,
-		priority: "low",
-		startTime: "04:00",
-		tags: [],
-		title: "Task 1 very long task name ksdghjshgjhdgjhagjhdasjghv jsjdhgja jsdhgdja",
-		color: "green"
-		};
-	let task2 = {date: "06/02/2024",
-		description: "",
-		endTime: "14:59",
-		id: 1258705,
-		priority: "low",
-		startTime: "12:00",
-		tags: [],
-		title: "Task 2",
-		color: "blue"
-		};
-	let task3 = {date: "06/03/2024",
-		description: "",
-		endTime: "18:59",
-		id: 1258705,
-		priority: "low",
-		startTime: "13:00",
-		tags: [],
-		title: "Task 2",
-		color: "red"
-		};
-	let task4 = {date: "06/07/2024",
-		description: "",
-		endTime: "17:30",
-		id: 1258705,
-		priority: "low",
-		startTime: "16:59",
-		tags: [],
-		title: "Task 4 ksdghaighispjhghghl",
-		color: "purple"
-		};
-		let task5 = {date: "06/03/2024",
-		description: "",
-		endTime: "19:59",
-		id: 1258705,
-		priority: "low",
-		startTime: "14:00",
-		tags: [],
-		title: "Task 5",
-		color: "red"
-		};
-	let tasksArr = [[task1, task2], [task3, task5], [], [], [task4], [], []];
+	let tasksArr = [];
+	for(let i = 0; i < 7; i++){
+		tasksArr.push(taskMap.get(datesArr[i]['date']));
+	}
 	return tasksArr;
 }
 
@@ -283,8 +390,6 @@ function getWeekTasks(datesArr){
  */
 function roundTimeBy30(timeUnrounded){
 	let [hr, min] = timeUnrounded.split(":").map(part => parseInt(part, 10));
-	console.log("hr "+ hr)
-	console.log("min" + min)
 	if( min < 15){
 		min = 0;
 	} else if( min <= 30){
@@ -295,8 +400,6 @@ function roundTimeBy30(timeUnrounded){
 		min = 0;
 		hr += 1;
 	}
-	console.log("hr rounded"+ hr)
-	console.log("min rounded" + min)
 	return [hr, min];
 }
 
@@ -306,21 +409,20 @@ function roundTimeBy30(timeUnrounded){
  */
 function roundedFormat(tasksForDay){
 	let roundedFormat = [];
+	if(!tasksForDay){
+		return;
+	}
 	for(let i = 0; i < tasksForDay.length; i++){
 		let singleTask = tasksForDay[i];
-		console.log(singleTask);
 		const timeStart = singleTask['startTime'];
-		console.log("start time: " + timeStart)
 		let newStart = roundTimeBy30(timeStart);
 		const timeEnd = singleTask['endTime'];
-		console.log("endTime" + timeEnd)
 		let newEnd = roundTimeBy30(timeEnd);
 		let taskInfoObj = {
 			task: tasksForDay[i],
 			roundStart: newStart,
 			roundEnd: newEnd
 		}
-		console.log(taskInfoObj)
 		roundedFormat.push(taskInfoObj);
 
 	}
@@ -361,6 +463,9 @@ function compareIsAfter(task1, task2){
  * Function to sort the tasks array by earliest start time
  */
 function sortTasks(tasksForDay){ 
+	if(!tasksForDay){
+		return;
+	}
 	for(let i = 1; i < tasksForDay.length; i++){
 		let curr = tasksForDay[i];
 		let j = i -1;
@@ -372,45 +477,39 @@ function sortTasks(tasksForDay){
 	}
 	return tasksForDay;
 }
-function waitForPageLoad() {
-    return new Promise((resolve) => {
-        window.onload = resolve;
-    });
-}
 /**
  * Function to display tasks for a given week on the grid
  */
 async function addNewTasks(datesArr){
-	let tasks = getWeekTasks(datesArr);
-	await waitForPageLoad();
-	//console.log(tasks);
-	for(let i = 0; i < tasks.length; i++){
-		let tasksForDay = tasks[i];
-		console.log(tasksForDay);
+	let tasksForWeek = getWeekTasks(datesArr);
+	console.log("tasksForWeek")
+	console.log(tasksForWeek)
+	console.group();
+	console.log(!tasksForWeek)
+	if(!tasksForWeek){
+		console.log("tasksForWeek undefined")
+		return;
+	}
+	for(let i = 0; i < tasksForWeek.length; i++){
+		let tasksForDay = tasksForWeek[i];
+		console.log("tasksForDay")
+		console.log(tasksForDay)
+		if(!tasksForDay){
+			continue;
+		}
 		tasksForDay = roundedFormat(tasksForDay);
 		tasksForDay = sortTasks(tasksForDay);
 		for(let j = 0; j < tasksForDay.length; j++){
 			let taskLen = mathRowLength(tasksForDay[j]);
-			console.log("----")
-			console.log(tasksForDay)
-			console.log(tasksForDay[j]['roundStart'])
 			let hr = tasksForDay[j]['roundStart'][0] < 10 ? "0" + JSON.stringify(tasksForDay[j]['roundStart'][0]) : JSON.stringify(tasksForDay[j]['roundStart'][0]);
 			let min = tasksForDay[j]['roundStart'][1] === 0 ? "00" : "30";
 			let rowId = "r" + hr + min;
-			console.log(rowId);
+			console.log(rowId)
 			displaytaskCalendar(rowId, i + 1, tasksForDay[j]['task'], taskLen);
 		}
 
 	}
-}
-function formatDate(month, day, year){
-	month = JSON.stringify(month);
-	year = JSON.stringify(year);
-	day = JSON.stringify(day);
-	let formatMonth = month < 10 ? 0 + month : month;
-	let formatDay = day < 10 ? 0 + day : day;
-	let formatDate = year + '/' + formatMonth + '/' + formatDay;
-	return formatDate;
+	console.groupEnd();
 }
 
 /**
@@ -418,75 +517,29 @@ function formatDate(month, day, year){
  */
 function populateUpcoming(){
 	const upcomingBox = document.getElementById("upcoming-container"); //new elements will be appended to this
-	let dateSelected = document.querySelector(".date-picker.selected");
-	let date = parseInt(dateSelected.dataset['date'], 10);
-	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
-	let yearSelected = parseInt(dateSelected.dataset['year'],10);
-	date = formatDate(date, monthSelected, yearSelected);
+	let date = today.getDate();
+	let monthSelected = today.getMonth() + 1;
+	let yearSelected = today.getFullYear();
+	date = formatDate(monthSelected, date, yearSelected);
 	//get tasks for that day
-	let testTasksArr = [{date: "06/02/2024",
-	description: "random description of a task",
-	endTime: "06:45",
-	id: 1258705,
-	priority: "low",
-	startTime: "04:00",
-	tags: [],
-	title: "Task 1 longer task name",
-	color: "green"
-	},
- 	{date: "06/02/2024",
-	description: "shgjad djhgjakg sdga",
-	endTime: "14:59",
-	id: 1258705,
-	priority: "low",
-	startTime: "12:00",
-	tags: [],
-	title: "Task 2",
-	color: "blue"
-	},
-	{date: "06/03/2024",
-	description: "some random words",
-	endTime: "18:59",
-	id: 1258705,
-	priority: "low",
-	startTime: "13:00",
-	tags: [],
-	title: "Task 2",
-	color: "red"
-	},
-	{date: "06/07/2024",
-	description: "test description ",
-	endTime: "17:30",
-	id: 1258705,
-	priority: "low",
-	startTime: "16:59",
-	tags: [],
-	title: "Task 4 ksdghaighispjhghghl",
-	color: "purple"
-	},
-	{date: "06/03/2024",
-	description: "information for specific task",
-	endTime: "19:59",
-	id: 1258705,
-	priority: "low",
-	startTime: "14:00",
-	tags: [],
-	title: "Task 5",
-	color: "red"
-	}];
-	//testTasksArr = sortTasks(testTasksArr);
-	for(let i = 0; i < testTasksArr.length; i++){
+	let tasksArr = taskMap.get(date);
+	if(!tasksArr){
+		let upcomingHdr = document.getElementById("upcoming-header");
+		upcomingHdr.innerHTML = "No Tasks For Today";
+		return;
+	}
+	
+	for(let i = 0; i < tasksArr.length; i++){
 		let newUpcoming = document.createElement("div");
 		newUpcoming.className = "upcoming";
 		let newH2 = document.createElement("h2");
-		newH2.innerHTML = testTasksArr[i]['title'];
+		newH2.innerHTML = tasksArr[i]['title'];
 		let newDate = document.createElement("p");
 		newDate.className = "upcoming-date";
-		newDate.innerHTML = testTasksArr[i]['date'];
+		newDate.innerHTML = tasksArr[i]['date'];
 		let newDesc = document.createElement("p");
 		newDesc.className = "upcoming-desc";
-		newDesc.innerHTML = testTasksArr[i]['description'];
-		console.log(newUpcoming);
+		newDesc.innerHTML = tasksArr[i]['description'];
 		upcomingBox.append(newUpcoming);
 		newUpcoming.appendChild(newH2);
 		newUpcoming.append(newDate);
@@ -494,8 +547,13 @@ function populateUpcoming(){
 
 	}
 }
-document.addEventListener("DOMContentLoaded",
-	populateUpcoming());
+document.addEventListener("DOMContentLoaded",()=>{
+	populateUpcoming();
+	let datesForWeek = getDatesForWeek();
+	changeDateHeader(datesForWeek);
+	addNewTasks(datesForWeek);
+
+});
 function updateTaskPos(newElem, cell, len){
 	const rect = cell.getBoundingClientRect();
     newElem.style.top = `${rect.top}px`;
@@ -537,6 +595,4 @@ function displaytaskCalendar(rowId, col, task,len) {
 	minButton.addEventListener("click", () => {
 		updateTaskPos(newElem, cell, len);
 	});
-
-
 }
