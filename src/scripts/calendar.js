@@ -130,6 +130,7 @@ function datesIntoButtons(){
 			}
 			dates[i].className = "date-picker selected";
 			changeDateHeader();
+			// NOTE: there are two very different ways clearTasks and addTasks should be done as the home and calendar pages.
 			clearTasks();
 			addNewTasks();
 		});
@@ -160,22 +161,37 @@ function changeDateHeader() {
 			dofW = "Saturday"; break;
 	}
   
-	dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
+	// TODO: Fix this. Commenting as I don't know what this does and it is stopping the code from progressing.
+	// dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
 }
 /**
  * Function to clear the tasks that are being displayed for a selected date
  */
 function clearTasks(){
-	allEvents = document.querySelectorAll(".events");
-	for(let i = 0; i < allEvents.length; i++){
-		//remove all tasks from each hour
+	console.log("clearTasks")
+	let allEvents = document.getElementById("weekly-details");
+	let hourTable = allEvents.querySelectorAll("tr");
+	for (let i = 0; i < hourTable.length; i++) {
+		let dayTable = hourTable[i].querySelectorAll("td");
+		for (let j = 0; j < dayTable.length; j++) {
+			if (dayTable[j].className != "time") {
+				let blocks = dayTable[j].querySelectorAll("div");
+				for (let k = 0; k < blocks.length; k++) {
+					blocks[k].remove();
+				}
+				dayTable[j].innerHTML = "";
+				dayTable[j].classList.remove("overlap-task");
+				dayTable[j].classList.remove("test-task");
+				dayTable[j].rowSpan = "1";
+			}
+		}
 	}
 }
 /**
  * Function to display the tasks that correspond to a selected day in its appropriate time slot
  */
 function addNewTasks(){
-
+	
 }
 /**
  * Function to add upcoming tasks to the Upcoming Tasks section
@@ -184,6 +200,5 @@ function populateUpcoming(){
 	const upcomingBox = document.getElementById("upoming-container");
 	//use current date
 	//find tasks assigned to it 
-
 
 }
