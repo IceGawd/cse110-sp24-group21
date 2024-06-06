@@ -90,10 +90,14 @@ table {
 	text-align: center;
 }
 
-th.day-detail {
+
+#weekly-details thead {
 	position: sticky;
 	top: 0;
 	z-index: 10;
+}
+
+th.day-detail {
 	background-color: #e3e3e3;
 }
 
@@ -106,12 +110,20 @@ th.day-detail {
 	/* overflow-y: auto; */
 }
 
-/* #weekday-details td {
-	display: inline-block;
-	vertical-align: top;
-	background-size: cover;
-	background-position: center;
-} */
+#allday-tasks {
+	text-align: center;	
+	background-color: lightgray;
+}
+
+#tue-allday {
+	background-color: red;
+	color: white;
+}
+
+#sat-allday {
+	background-color: #00BCD4;
+	color: white;
+}
 
 /* Test task coloring */
 .test-task {
