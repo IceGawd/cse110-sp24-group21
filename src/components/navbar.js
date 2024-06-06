@@ -48,7 +48,7 @@ const style = `
 
 /* Hovering stuff */
 .nav-row:hover {
-    background-color: #FFFFFF;
+    background-color: #8E8E8E;
     cursor: pointer;
 }
 
@@ -58,7 +58,7 @@ const style = `
 
 /* Selected Status */
 .selected {
-    background-color: #FFFFFF;
+    background-color: #8E8E8E;
     cursor: pointer;
 }
 
