@@ -143,12 +143,7 @@ function datesIntoButtons(){
  * Function to add a date in the correct format to the date array that contains the dates of a given week to display
  */
 function addDateArr(datesArr, year, month, day){
-	month = JSON.stringify(month);
-	year = JSON.stringify(year);
-	day = JSON.stringify(day);
-	let formatMonth = month < 10 ? 0 + month : month;
-	let formatDay = day < 10 ? 0 + day : day;
-	let formatDate = year + '/' + formatMonth + '/' + formatDay;
+	formatDate(year,month, day);
 	datesArr.push({
 		dayOfMonth: day,
 		date : formatDate
@@ -407,17 +402,94 @@ async function addNewTasks(datesArr){
 
 	}
 }
+function formatDate(month, day, year){
+	month = JSON.stringify(month);
+	year = JSON.stringify(year);
+	day = JSON.stringify(day);
+	let formatMonth = month < 10 ? 0 + month : month;
+	let formatDay = day < 10 ? 0 + day : day;
+	let formatDate = year + '/' + formatMonth + '/' + formatDay;
+	return formatDate;
+}
 
 /**
  * Function to add upcoming tasks to the Upcoming Tasks section
  */
 function populateUpcoming(){
-	const upcomingBox = document.getElementById("upoming-container");
-
+	const upcomingBox = document.getElementById("upoming-header"); //new elements will be appended to this
+	let dateSelected = document.querySelector(".date-picker.selected");
+	let date = parseInt(dateSelected.dataset['date'], 10);
+	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
+	let yearSelected = parseInt(dateSelected.dataset['year'],10);
+	date = formatDate(date, monthSelected, yearSelected);
+	//get tasks for that day
+	let testTasksArr = [{date: "06/02/2024",
+	description: "",
+	endTime: "06:45",
+	id: 1258705,
+	priority: "low",
+	startTime: "04:00",
+	tags: [],
+	title: "Task 1 very long task name ksdghjshgjhdgjhagjhdasjghv jsjdhgja jsdhgdja",
+	color: "green"
+	},
+ 	{date: "06/02/2024",
+	description: "",
+	endTime: "14:59",
+	id: 1258705,
+	priority: "low",
+	startTime: "12:00",
+	tags: [],
+	title: "Task 2",
+	color: "blue"
+	},
+	{date: "06/03/2024",
+	description: "",
+	endTime: "18:59",
+	id: 1258705,
+	priority: "low",
+	startTime: "13:00",
+	tags: [],
+	title: "Task 2",
+	color: "red"
+	},
+	{date: "06/07/2024",
+	description: "",
+	endTime: "17:30",
+	id: 1258705,
+	priority: "low",
+	startTime: "16:59",
+	tags: [],
+	title: "Task 4 ksdghaighispjhghghl",
+	color: "purple"
+	},
+	{date: "06/03/2024",
+	description: "",
+	endTime: "19:59",
+	id: 1258705,
+	priority: "low",
+	startTime: "14:00",
+	tags: [],
+	title: "Task 5",
+	color: "red"
+	}];
+	testTasksArr = sortTasks(testTasksArr);
+	for(let i = 0; i < testTasksArr.length; i++){
+		let newTask = document.createElement("div");
+		//newTask.className = 
+	}
+	//sort those tasks
+	//loop through those tasks and display (after page reload) (only ones that after or currently from curr time)
 
 }
 
-
+function updateTaskPos(newElem, cell, len){
+	const rect = cell.getBoundingClientRect();
+    newElem.style.top = `${rect.top}px`;
+    newElem.style.left = `${rect.left}px`; 
+	newElem.style.width = `${rect.width}px`;
+	newElem.style.height = `${rect.height * len}px`;
+}
 /**
  * Function to display a singular task to its correct location on the grid
  */
@@ -426,63 +498,31 @@ function displaytaskCalendar(rowId, col, task,len) {
     let newElem = document.createElement("div");
     newElem.className = "task";
     newElem.style.position = "absolute";
-	try{
-		console.log(task);
-	}catch(error){
-		console.log("?")
-		console.error(error)
-	}
     newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = task['color'];
 	//newElem.style.width = dimensions[0]; //gets width of element
 
     rCont.appendChild(newElem);
-    console.log(newElem);
     let row = document.getElementById(rowId);
     let cells = row.querySelectorAll("td");
     let cell = cells[col]; 
 
-    const rect = cell.getBoundingClientRect();
-	console.log("top " + rect.top)
-	console.log(" left " + rect.left)
-    newElem.style.top = `${rect.top}px`;
-    newElem.style.left = `${rect.left}px`; 
-	newElem.style.width = `${rect.width}px`;
-	newElem.style.height = `${rect.height * len}px`; //gets height of element
-	console.log("top " + newElem.getBoundingClientRect().top)
-	console.log("left " + newElem.getBoundingClientRect().left)
+	updateTaskPos(newElem, cell, len);
 
     // Update the position on scroll
     rCont.addEventListener("scroll", () => {
-        const rect = cell.getBoundingClientRect();
-        newElem.style.top = `${rect.top + window.scrollY}px`;
-        newElem.style.left = `${rect.left + window.scrollX}px`; 
-		newElem.style.width = `${rect.width}px`;
-		newElem.style.height = `${rect.height * len}px`;
+		updateTaskPos(newElem, cell, len);
     });
+	//Update the position on page resizing
 	window.addEventListener("resize", () => {
-        const rect = cell.getBoundingClientRect();
-        newElem.style.top = `${rect.top + window.scrollY}px`;
-        newElem.style.left = `${rect.left + window.scrollX}px`; 
-		newElem.style.width = `${rect.width}px`;
-		newElem.style.height = `${rect.height * len}px`;
-    });
-	window.addEventListener("scroll", () => {
-        const rect = cell.getBoundingClientRect();
-        newElem.style.top = `${rect.top + window.scrollY}px`;
-        newElem.style.left = `${rect.left + window.scrollX}px`; 
-		newElem.style.width = `${rect.width}px`;
-		newElem.style.height = `${rect.height * len}px`;
+		updateTaskPos(newElem, cell, len);
     });
 	let minBar = document.querySelector(".minimized");
-	let sR = minBar.shadowRoot; //is there shadow root stuff to do???
+	let sR = minBar.shadowRoot;
 	let minButton = sR.getElementById('minimize-btn');
+	//Update the position when side bar is minimized
 	minButton.addEventListener("click", () => {
-		const rect = cell.getBoundingClientRect();
-		newElem.style.top = `${rect.top + window.scrollY}px`; 
-		newElem.style.left = `${rect.left + window.scrollX}px`; 
-		newElem.style.width = `${rect.width}px`;
-		newElem.style.height = `${rect.height * len}px`;
+		updateTaskPos(newElem, cell, len);
 	});
 
 

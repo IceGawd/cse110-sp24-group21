@@ -127,7 +127,6 @@ th.day-detail {
     overflow-wrap: break-word;
 	overflow: hidden;
 	border: 1px solid #e3e3e3;
-    /*z-index: 900; */
 }
 
 .overlap-task {
