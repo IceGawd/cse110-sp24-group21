@@ -18,6 +18,7 @@ const style = `
     padding: 10px;
     text-decoration: none;
     animation: showNavLabel 0.3s forwards;
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
 .nav-row {
