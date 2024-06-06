@@ -340,30 +340,31 @@ function mathRowLength(singularTask){
 }
 
 /**
- * Function to compare if a given tasks is before another task (or has an earlier start time)
+ * Function to compare if a given tasks is after another task (or has an later start time) 
+ * useful because you want to populate calendar in backwards chronological order for overlapping 
  */
-function compareIsBefore(task1, task2){
+function compareIsAfter(task1, task2){
 	const hour1 = task1['roundStart'][0];
 	const minute1 = task1['roundStart'][1];
 	const hour2 = task2['roundStart'][0];
 	const min2 = task2['roundStart'][1];
 	if (hour1 < hour2 || (hour1 === hour2 && minute1 < minute2)) {
-		return -1; //task 1 is before
+		return -1; //task 1 is after
 	} else if (hour1 > hour2 || (hour1 === hour2 && minute1 > minute2)) {
-		return 1; //task 2 is before
+		return 1; //task 2 is after
 	} else {
 		return 0; //they have same start time
 	}
 }
 
 /**
- * Function to clear sort the tasks array by earliest start time
+ * Function to sort the tasks array by earliest start time
  */
 function sortTasks(tasksForDay){ 
 	for(let i = 1; i < tasksForDay.length; i++){
 		let curr = tasksForDay[i];
 		let j = i -1;
-		while(j >= 0 && compareIsBefore(tasksForDay[j], curr) > 0){
+		while(j >= 0 && compareIsAfter(tasksForDay[j], curr) > 0){
 			tasksForDay[j + 1] = tasksForDay[j];
 			j--;
 		}
@@ -416,7 +417,7 @@ function formatDate(month, day, year){
  * Function to add upcoming tasks to the Upcoming Tasks section
  */
 function populateUpcoming(){
-	const upcomingBox = document.getElementById("upoming-header"); //new elements will be appended to this
+	const upcomingBox = document.getElementById("upcoming-container"); //new elements will be appended to this
 	let dateSelected = document.querySelector(".date-picker.selected");
 	let date = parseInt(dateSelected.dataset['date'], 10);
 	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
@@ -424,17 +425,17 @@ function populateUpcoming(){
 	date = formatDate(date, monthSelected, yearSelected);
 	//get tasks for that day
 	let testTasksArr = [{date: "06/02/2024",
-	description: "",
+	description: "random description of a task",
 	endTime: "06:45",
 	id: 1258705,
 	priority: "low",
 	startTime: "04:00",
 	tags: [],
-	title: "Task 1 very long task name ksdghjshgjhdgjhagjhdasjghv jsjdhgja jsdhgdja",
+	title: "Task 1 longer task name",
 	color: "green"
 	},
  	{date: "06/02/2024",
-	description: "",
+	description: "shgjad djhgjakg sdga",
 	endTime: "14:59",
 	id: 1258705,
 	priority: "low",
@@ -444,7 +445,7 @@ function populateUpcoming(){
 	color: "blue"
 	},
 	{date: "06/03/2024",
-	description: "",
+	description: "some random words",
 	endTime: "18:59",
 	id: 1258705,
 	priority: "low",
@@ -454,7 +455,7 @@ function populateUpcoming(){
 	color: "red"
 	},
 	{date: "06/07/2024",
-	description: "",
+	description: "test description ",
 	endTime: "17:30",
 	id: 1258705,
 	priority: "low",
@@ -464,7 +465,7 @@ function populateUpcoming(){
 	color: "purple"
 	},
 	{date: "06/03/2024",
-	description: "",
+	description: "information for specific task",
 	endTime: "19:59",
 	id: 1258705,
 	priority: "low",
@@ -473,16 +474,28 @@ function populateUpcoming(){
 	title: "Task 5",
 	color: "red"
 	}];
-	testTasksArr = sortTasks(testTasksArr);
+	//testTasksArr = sortTasks(testTasksArr);
 	for(let i = 0; i < testTasksArr.length; i++){
-		let newTask = document.createElement("div");
-		//newTask.className = 
+		let newUpcoming = document.createElement("div");
+		newUpcoming.className = "upcoming";
+		let newH2 = document.createElement("h2");
+		newH2.innerHTML = testTasksArr[i]['title'];
+		let newDate = document.createElement("p");
+		newDate.className = "upcoming-date";
+		newDate.innerHTML = testTasksArr[i]['date'];
+		let newDesc = document.createElement("p");
+		newDesc.className = "upcoming-desc";
+		newDesc.innerHTML = testTasksArr[i]['description'];
+		console.log(newUpcoming);
+		upcomingBox.append(newUpcoming);
+		newUpcoming.appendChild(newH2);
+		newUpcoming.append(newDate);
+		newUpcoming.append(newDesc);
+
 	}
-	//sort those tasks
-	//loop through those tasks and display (after page reload) (only ones that after or currently from curr time)
-
 }
-
+document.addEventListener("DOMContentLoaded",
+	populateUpcoming());
 function updateTaskPos(newElem, cell, len){
 	const rect = cell.getBoundingClientRect();
     newElem.style.top = `${rect.top}px`;
