@@ -34,7 +34,6 @@ jobs: # the things being executed
         run: npm install
       - name: start server
         run: npm start & npx wait-on http://localhost:3000
-        background: true
       - name: Fetch Code Climate Test Reporter Binary
         run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - name: Make Test Reporter Executable
