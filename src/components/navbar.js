@@ -9,7 +9,7 @@ const style = `
 }
 
 .nav-icon {
-    margin-left: 20px;
+    margin-left: 15px;
     padding-bottom: 10px;
 }
 
@@ -74,17 +74,22 @@ const style = `
 }
 
 :host(.minimized) .nav-row {
-    justify-content: center;
+    // justify-content: center;
 }
 
 :host(.minimized) .nav-icon {
     margin: 0;
     padding-bottom: 10px;
+    padding-left: 15px;
 }
 
 :host(.minimized) #minimize-btn {
-    -webkit-transform: scaleX(-1);
+    
+}
+
+:host(.minimized) .mini-icon {
     transform: scaleX(-1);
+    padding-right: 15px;
 }
 
 /* Keyframes for showing nav-label */
@@ -128,12 +133,12 @@ const html = `
         </div>
         <div class="nav-group">
             <button class="nav-row" id="minimize-btn">
-                <img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon"/>
+                <img src="../assets/icons/minimize.svg" alt="Minimize Icon" class="nav-icon mini-icon"/>
                 <p class="nav-label">Minimize</p>
             </button>
             
             <button class="nav-row" id="settings-btn">
-                <img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon"/>
+                <img src="../assets/icons/settings.svg" alt="Settings Icon" class="nav-icon setting-icon"/>
                 <p class="nav-label">Settings</p>
             </button>
 
