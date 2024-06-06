@@ -210,14 +210,13 @@ class MyNavbar extends HTMLElement {
     handleResize() {
         if (window.innerWidth < 910) {
             this.classList.add('minimized');
-            this.updateMainWidth();
         } 
         else {
             if (localStorage.getItem('navbarMinimized') !== 'true') {
                 this.classList.remove('minimized');
-                this.updateMainWidth();
             }
         }
+        this.updateMainWidth();
     }
 
 }
