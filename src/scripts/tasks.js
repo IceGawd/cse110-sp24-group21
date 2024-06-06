@@ -1,6 +1,6 @@
 import { storage } from './storage.js';
 
-let tasks; // The variable we'll use to add our array of objects we fetch
+let tasks = {}; // Initialize tasks as an empty object
 let taskURL = '../assets/json/tasklist.json'; // the URL to fetch from
 let currDate = new Date();
 
@@ -12,6 +12,7 @@ async function init() {
   // Attempt to fetch the task items
   try {
     await fetchTasks();
+    console.log(tasks);
   } catch (err) {
     console.log(`Error fetching tasks: ${err}`);
     return; // Return if fetch fails
@@ -34,14 +35,18 @@ async function fetchTasks() {
       resolve();
     } else {
       fetch(taskURL)
-        // Grab the response first, catch any errors here
         .then(response => response.json())
         .catch(err => reject(err))
-        // Grab the data next, catch errors here as well
         .then(data => {
           if (data) {
-            localStorage.setItem('tasklist', JSON.stringify(data));
-            tasks = data;
+            // Convert the array to a hashmap
+            data.forEach(task => {
+              if (!tasks[task.date]) {
+                tasks[task.date] = [];
+              }
+              tasks[task.date].push(task);
+            });
+            localStorage.setItem('tasklist', JSON.stringify(tasks));
             resolve();
           }
         })
@@ -54,20 +59,20 @@ async function fetchTasks() {
  * Adds the fetched tasks to the webpage -> UI Task
  */
 function populatePage() {
-  tasks = storage.getItems('tasklist');
+  tasks = JSON.parse(localStorage.getItem('tasklist'));
   if (!tasks) return;
 
-  // Get all visible dates, will probably later change to be dynamic
   const htmlDates = document.querySelectorAll('.date');
   let visibleDates = [];
   htmlDates.forEach(date => { visibleDates.push(date.innerHTML); });
 
-  tasks.forEach(element => {
-    for (let i = 0; i < 7; i++) {
-      if (element.date === visibleDates[i]) {
-        const day = document.querySelectorAll('.day-container')[i];
-        createTask(day, element);
-      }
+  visibleDates.forEach(date => {
+    if (tasks[date]) {
+      tasks[date].forEach(task => {
+        const dayIndex = visibleDates.indexOf(date);
+        const day = document.querySelectorAll('.day-container')[dayIndex];
+        createTask(day, task);
+      });
     }
   });
 }
@@ -100,27 +105,25 @@ function bindUpdates() {
  * Displays on webpage
  */
 function createTask(day, data) {
-  // Creates all the content and styles of task
   let taskElement = document.createElement('task-element');
   taskElement.data = data;
 
-  // Binds updates to task
   const fields = Array.from(taskElement.shadowRoot.querySelectorAll("textarea"));
   fields.forEach(field => {
-    // Gives fields ability to expand/contract based on text inside
     field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; });
   });
   taskElement.addEventListener('deleted', () => { deleteTask(taskElement); });
   taskElement.addEventListener('priority-changed', () => { sortTasks(day); });
 
-  // Add to webpage right before add button of the day
   const addButton = day.querySelector('.add-task');
   day.insertBefore(taskElement, addButton);
 
-  // Sort tasks after adding a new one
   sortTasks(day);
 }
 
+/**
+ * Sorts tasks by priority within the specified day container
+ */
 function sortTasks(day) {
   const tasks = Array.from(day.querySelectorAll('task-element'));
   tasks.sort((a, b) => {
@@ -134,14 +137,15 @@ function sortTasks(day) {
  * Given the task element, delete it
  */
 function deleteTask(task) {
-  // Get the id to help remove it
   const taskId = task.data.id;
-  tasks = tasks.filter(t => t.id !== taskId);
+  const date = task.data.date;
+  tasks[date] = tasks[date].filter(t => t.id !== taskId);
 
-  // Update local storage
+  if (tasks[date].length === 0) {
+    delete tasks[date];
+  }
+
   localStorage.setItem('tasklist', JSON.stringify(tasks));
-
-  // Remove from webpage
   const day = task.parentElement;
   day.removeChild(task);
 }
@@ -150,7 +154,6 @@ function deleteTask(task) {
  * Given the day html element, add a task with date and id and other fields empty
  */
 function newTask(day) {
-  // Generate ID
   const taskElements = Array.from(document.querySelectorAll("task-element"));
   const existingIds = new Set(taskElements.map(element => element.data.id));
   let inputId;
@@ -173,8 +176,10 @@ function newTask(day) {
 
   createTask(day, taskObject);
 
-  // Save new task to local storage
-  tasks.push(taskObject);
+  if (!tasks[date]) {
+    tasks[date] = [];
+  }
+  tasks[date].push(taskObject);
   localStorage.setItem('tasklist', JSON.stringify(tasks));
 }
 
@@ -183,7 +188,6 @@ function newTask(day) {
  * @param {Date} date 
  */
 function setWeek(date) {
-  // Compute next date
   const htmlDates = Array.from(document.querySelectorAll('.date'));
   const dayOfWeek = date.getDay();
   const monday = new Date(date);
@@ -191,12 +195,10 @@ function setWeek(date) {
   for (let i = 0; i < 7; i++) {
     const weekDate = new Date(monday);
     weekDate.setDate(monday.getDate() + i);
-    // Formatting string
     let options = { year: "numeric", month: "2-digit", day: "2-digit" };
     htmlDates[i].innerHTML = weekDate.toLocaleDateString("en", options);
   }
 
-  // Remove old task-elements from page
   let oldTasks = document.querySelectorAll('task-element');
   oldTasks.forEach(t => {
     t.parentNode.removeChild(t);

@@ -231,12 +231,17 @@ class TaskElement extends HTMLElement {
   }
 
   saveToLocalStorage() {
-    const tasks = JSON.parse(localStorage.getItem('tasklist')) || [];
-    const taskIndex = tasks.findIndex(t => t.id === this.json.id);
+    const tasks = JSON.parse(localStorage.getItem('tasklist')) || {};
+    const date = this.json.date;
+
+    if (!tasks[date]) {
+      tasks[date] = [];
+    }
+    const taskIndex = tasks[date].findIndex(t => t.id === this.json.id);
     if (taskIndex >= 0) {
-      tasks[taskIndex] = this.json;
+      tasks[date][taskIndex] = this.json;
     } else {
-      tasks.push(this.json);
+      tasks[date].push(this.json);
     }
     localStorage.setItem('tasklist', JSON.stringify(tasks));
   }
