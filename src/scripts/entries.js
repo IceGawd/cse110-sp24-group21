@@ -299,15 +299,14 @@ function getDate(date){
 }
 
 /**
- * TODO: strips entry down to plaintext, then returns blurb-length beginning.
+ * Strips entry down to plaintext, then returns blurb-length beginning.
  * @param {string} entry is the md string 
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let lines = entry.split('\n');
-    let line = lines[0];
-    if(lines[0] == '```')
-        line = lines[1];
+    let temp = document.createElement('div');
+    md2HTML(entry, temp);
+    let line = temp.innerText.split('\n')[0];
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**
