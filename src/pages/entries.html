@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/entries.css">
     <script src="../scripts/storage.js" type="module"></script>
-    <!--<script src="../scripts/entries.js" type="module"></script>-->
-    <!--<script src="../scripts/labeling.js" type="module"></script>-->
+    <script src="../scripts/entries.js" type="module"></script>
+    <!--script src="../scripts/labeling.js" type="module"></script-->
     <script src="../components/navbar.js" type="module"></script>
     <script src="../components/settings-popups.js" type="module"></script>
 </head>
@@ -24,47 +24,53 @@
                 
             </div>
             <ol class="entry-list">
-                <li><a href="#"><details open="true">
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Creating search bar</b></summary>
-                    <p>This is my first entry. This is a test. blah blah blah blah</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Creating search bar</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah blah blah blah</p>
                     <h6>May 20, 2024</h6>
-                    </details>
                 </a></li>
-                <li><a href="#"><details open>
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Making list scrollable</b></summary>
-                    <p>This is my first entry. This is a test. blah</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Creating search bar</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah</p>
                     <h6>May 19, 2024</h6>
-                    </details>
                 </a></li>
-                <li><a href="#"><details open>
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Making tests</b></summary>
-                    <p>This is my first entry. This is a test. blah</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Making tests</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah</p>
                     <h6>May 18, 2024</h6>
-                    </details>
                 </a></li>
-                <li><a href="#"><details open>
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Automating tests</b></summary>
-                    <p>This is my first entry. This is a test. blah</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Automating tests</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah</p>
                     <h6>May 17, 2024</h6>
-                    </details>
                 </a></li>
-                <li><a href="#"><details open>
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Deploying website</b></summary>
-                    <p>This is my first entry. This is a test. blah</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Deploying website</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah</p>
                     <h6>May 16, 2024</h6>
-                    </details>
                 </a></li>
-                <li><a href="#"><details open>
-                    <img class="delete-icon" src="\src\assets\icons\delete_icon.png" alt="Delete this entry">
-                    <summary><b>Making revisions to website</b></summary>
-                    <p>This is my first entry. This is a test. blah. Testing and changing the text formatting</p>
+                <li><a href="#">
+                    <div class="title-flex">
+                        <p class="side-title"><b>Makig revisions to website</b></p>
+                        <button class="delete-entry"><img class="delete-icon" src="../assets/icons/delete_icon.png" alt="Delete this entry"></button>
+                    </div>
+                    <p class="side-blurb">This is my first entry. This is a test. blah. Testing and changing the text formatting</p>
                     <h6>May 15, 2024</h6>
-                    </details>
                 </a></li>
                 <!--List of journal entries will be dynamically loaded-->
             </ol>
@@ -83,7 +89,7 @@
                 </div>
                 
                 <footer>
-                    <span id="label0">label1</span>
+                    <span id="label1">label1</span>
                     <span id="label2">label2</span>
                 </footer>
             </article>
@@ -91,22 +97,29 @@
         </div>
     </main>
 
-    <div class="delete-popup">
+    <!--div id="delete-popup">
         <div class="delete-text">
             <h2>Are you sure you want to delete this entry?</h2>
             <button type="button" id="delete">Yes, delete this entry</button>
             <button type="button" id="cancel-delete">No, I will keep this entry</button>
         </div>            
-    </div>
+    </div-->
 
-    <div class="popup">
+    <div id="popup">
         <div class="new-entry-popup">
-            <h2 id="new-title">Title</h2>
+            <form id="new-entry">
+                <input type="text" name="title"><br>
+                <input type="date" name="date" required><br>
+                <textarea name="entry" rows="10" cols="50"></textarea><br>
+                <input type="text" name="labels"><br>
+                <button type="submit" id="submit"><b>Submit</b></button>
+            </form>
+            
+            <!--h2 id="new-title">Title</h2>
             <h6 id="new-date">date</h6>
-            <div id="new-entry">
                 <p>entry text or something idk</p>
-            </div>
-            <button type="button" id="submit"><b>Submit</b></button>
+            </div-->
+
         </div>
     </div>
 

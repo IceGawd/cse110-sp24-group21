@@ -120,7 +120,7 @@ details {
     cursor: pointer;
 } */
 
-.popup {
+#popup {
     visibility: hidden;
     position: absolute;
     width: 100%;
@@ -150,7 +150,7 @@ details {
     height: 30px;
 }
 
-.delete-popup {
+#delete-popup {
     visibility: hidden;
     position: absolute;
     width: 100%;
@@ -200,10 +200,26 @@ details {
     cursor: pointer;
 }
 
+.title-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0%;
+    margin-right: 2%;
+    gap: 2%;
+}
+
+.side-title{
+    margin: 0;
+}
+
+.delete-entry{
+    border: none;
+}
+
 .delete-icon {
     width: 18px;
     height: 18px;
     position: relative;
     display: flexbox;
-    transform: translate(180px, -20px);
 }
