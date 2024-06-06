@@ -208,7 +208,7 @@ class MyNavbar extends HTMLElement {
      * sets the width of the 'main' element to '80vw', and updates the display state if the 'navbarMinimized' flag is not set.
      */
     handleResize() {
-        if (window.innerWidth < 800) {
+        if (window.innerWidth < 910) {
             this.classList.add('minimized');
             this.updateMainWidth();
         } 
