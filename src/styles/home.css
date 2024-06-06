@@ -37,6 +37,7 @@ main {
     right: 0;
     /*------ If something wrong might be this --------*/
     transition: width 0.3s ease;
+    height: 100%;
 }
 
 .title {

@@ -3,8 +3,17 @@ body {
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
+/* Style and transition animation for main */
 main {
     display: flex;
+    flex-direction: row;
+    background-color: white;
+    /*------ This set the main absolute position --------*/
+    position: absolute; 
+    right: 0;
+    /*------ If something wrong might be this --------*/
+    transition: width 0.3s ease;
+    height: 100%;
 }
 
 h3 {
@@ -16,6 +25,7 @@ h3 {
     overflow-y: scroll;
     width: 25%;
     mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 100%);
+    z-index: 10000;
 }
 
 /*Make scrollbar invisible*/
