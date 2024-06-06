@@ -27,6 +27,7 @@ h1 {
     height: 80%;
 }
 
+/* Style and transition animation for main */
 main {
     display: flex;
     flex-direction: column;
