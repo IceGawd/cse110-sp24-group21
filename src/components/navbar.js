@@ -17,7 +17,7 @@ const style = `
     color: #2B2B2B;
     font-size: 20px;
     padding-left: 10px;
-    padding-bottom: 2px;
+    padding-bottom: 6px;
     text-decoration: none;
     animation: showNavLabel 0.3s forwards;
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
