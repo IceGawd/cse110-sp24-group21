@@ -2,8 +2,8 @@ import { storage } from './storage.js';
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 let entries;
-let numEntries = 5;
-let titleLength = 14;
+const numEntries = 5; //number of entries to load
+const titleLength = 14; //length of the title in characters
 
 window.addEventListener('DOMContentLoaded', initEntries);
 
