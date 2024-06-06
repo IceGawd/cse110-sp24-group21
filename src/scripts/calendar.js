@@ -143,7 +143,7 @@ function changeDateHeader() {
 	let dateHeader = document.getElementById("curr-day");
 	let date = document.querySelector(".date-picker.selected");
 	let dofW = date.dataset['day_of_week'];
-	switch (dotW) {
+	switch (dofW) {
 		case 1:
 			dofW = "Sunday"; break;
 		case 2:
