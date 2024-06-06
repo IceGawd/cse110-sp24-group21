@@ -110,8 +110,8 @@ function showCalendar(month, year) {
 	}
 	let datesForWeek = getDatesForWeek();
 	changeDateHeader(datesForWeek);
-	addNewTasks(datesForWeek);
 	datesIntoButtons();
+	addNewTasks(datesForWeek);
 }
 
 // display calendar
@@ -236,7 +236,7 @@ function getWeekTasks(datesArr){
 		priority: "low",
 		startTime: "04:00",
 		tags: [],
-		title: "Task 1",
+		title: "Task 1 very long task name ksdghjshgjhdgjhagjhdasjghv jsjdhgja jsdhgdja",
 		color: "green"
 		};
 	let task2 = {date: "06/02/2024",
@@ -249,14 +249,14 @@ function getWeekTasks(datesArr){
 		title: "Task 2",
 		color: "blue"
 		};
-	let task3 = {date: "06/04/2024",
+	let task3 = {date: "06/03/2024",
 		description: "",
 		endTime: "18:59",
 		id: 1258705,
 		priority: "low",
 		startTime: "13:00",
 		tags: [],
-		title: "Task 1",
+		title: "Task 2",
 		color: "red"
 		};
 	let task4 = {date: "06/07/2024",
@@ -266,10 +266,20 @@ function getWeekTasks(datesArr){
 		priority: "low",
 		startTime: "16:59",
 		tags: [],
-		title: "Task 1",
+		title: "Task 4 ksdghaighispjhghghl",
 		color: "purple"
 		};
-	let tasksArr = [[task1, task2], [task3], [], [], [task4], [], []];
+		let task5 = {date: "06/03/2024",
+		description: "",
+		endTime: "19:59",
+		id: 1258705,
+		priority: "low",
+		startTime: "14:00",
+		tags: [],
+		title: "Task 5",
+		color: "red"
+		};
+	let tasksArr = [[task1, task2], [task3, task5], [], [], [task4], [], []];
 	return tasksArr;
 }
 
@@ -323,7 +333,7 @@ function roundedFormat(tasksForDay){
 }
 
 /**
- * Function to get the row length in pixels for a given task that will be displayed
+ * Function to get the number of rows a given task that will be displayed
  */
 function mathRowLength(singularTask){
 	const startHr = singularTask['roundStart'][0];
@@ -331,7 +341,7 @@ function mathRowLength(singularTask){
 	const endHr = singularTask['roundEnd'][0];
 	const endMin = singularTask['roundEnd'][1];
 	const result = 2 * (endHr - startHr) + (Math.abs(startMin - endMin) / 30);//calculate number of rows
-	return result * 40; //multiply the result by 40 to get the exact number length of a task in pixels (one row is 40 pixels)
+	return result; //multiply the result by 40 to get the exact number length of a task in pixels (one row is 40 pixels)
 }
 
 /**
@@ -343,9 +353,9 @@ function compareIsBefore(task1, task2){
 	const hour2 = task2['roundStart'][0];
 	const min2 = task2['roundStart'][1];
 	if (hour1 < hour2 || (hour1 === hour2 && minute1 < minute2)) {
-		return 1; //task 1 is before
+		return -1; //task 1 is before
 	} else if (hour1 > hour2 || (hour1 === hour2 && minute1 > minute2)) {
-		return -1; //task 2 is before
+		return 1; //task 2 is before
 	} else {
 		return 0; //they have same start time
 	}
@@ -366,11 +376,17 @@ function sortTasks(tasksForDay){
 	}
 	return tasksForDay;
 }
+function waitForPageLoad() {
+    return new Promise((resolve) => {
+        window.onload = resolve;
+    });
+}
 /**
  * Function to display tasks for a given week on the grid
  */
-function addNewTasks(datesArr){
+async function addNewTasks(datesArr){
 	let tasks = getWeekTasks(datesArr);
+	await waitForPageLoad();
 	//console.log(tasks);
 	for(let i = 0; i < tasks.length; i++){
 		let tasksForDay = tasks[i];
@@ -397,11 +413,10 @@ function addNewTasks(datesArr){
  */
 function populateUpcoming(){
 	const upcomingBox = document.getElementById("upoming-container");
-	//use current date
-	//find tasks assigned to it 
 
 
 }
+
 
 /**
  * Function to display a singular task to its correct location on the grid
@@ -420,7 +435,6 @@ function displaytaskCalendar(rowId, col, task,len) {
     newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = task['color'];
 	//newElem.style.width = dimensions[0]; //gets width of element
-	newElem.style.height = len; //gets height of element
 
     rCont.appendChild(newElem);
     console.log(newElem);
@@ -429,26 +443,47 @@ function displaytaskCalendar(rowId, col, task,len) {
     let cell = cells[col]; 
 
     const rect = cell.getBoundingClientRect();
-    newElem.style.top = `${rect.top + window.scrollY}px`;
-    newElem.style.left = `${rect.left + window.scrollX}px`; 
+	console.log("top " + rect.top)
+	console.log(" left " + rect.left)
+    newElem.style.top = `${rect.top}px`;
+    newElem.style.left = `${rect.left}px`; 
+	newElem.style.width = `${rect.width}px`;
+	newElem.style.height = `${rect.height * len}px`; //gets height of element
+	console.log("top " + newElem.getBoundingClientRect().top)
+	console.log("left " + newElem.getBoundingClientRect().left)
 
     // Update the position on scroll
     rCont.addEventListener("scroll", () => {
         const rect = cell.getBoundingClientRect();
         newElem.style.top = `${rect.top + window.scrollY}px`;
         newElem.style.left = `${rect.left + window.scrollX}px`; 
+		newElem.style.width = `${rect.width}px`;
+		newElem.style.height = `${rect.height * len}px`;
     });
 	window.addEventListener("resize", () => {
         const rect = cell.getBoundingClientRect();
         newElem.style.top = `${rect.top + window.scrollY}px`;
         newElem.style.left = `${rect.left + window.scrollX}px`; 
+		newElem.style.width = `${rect.width}px`;
+		newElem.style.height = `${rect.height * len}px`;
     });
-	let minBar = document.querySelector('.minimized');
+	window.addEventListener("scroll", () => {
+        const rect = cell.getBoundingClientRect();
+        newElem.style.top = `${rect.top + window.scrollY}px`;
+        newElem.style.left = `${rect.left + window.scrollX}px`; 
+		newElem.style.width = `${rect.width}px`;
+		newElem.style.height = `${rect.height * len}px`;
+    });
+	let minBar = document.querySelector(".minimized");
 	let sR = minBar.shadowRoot; //is there shadow root stuff to do???
 	let minButton = sR.getElementById('minimize-btn');
 	minButton.addEventListener("click", () => {
-        const rect = cell.getBoundingClientRect();
-        newElem.style.top = `${rect.top + window.scrollY}px`; 
-        newElem.style.left = `${rect.left + window.scrollX}px`; 
-    });
+		const rect = cell.getBoundingClientRect();
+		newElem.style.top = `${rect.top + window.scrollY}px`; 
+		newElem.style.left = `${rect.left + window.scrollX}px`; 
+		newElem.style.width = `${rect.width}px`;
+		newElem.style.height = `${rect.height * len}px`;
+	});
+
+
 }

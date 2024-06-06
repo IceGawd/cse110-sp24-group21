@@ -6,14 +6,15 @@ main {
     display: flex;
 	justify-content:left;
 	width: auto;
-	/* overflow: hidden; */
 }
 
 .container {
 	display: flex;
 	overflow: hidden;
 }
-
+#main-page{
+	overflow: hidden;
+}
 /* Calendar container */
 .left-container {
 	min-width: 20vw;
@@ -53,6 +54,7 @@ main {
 	min-width: 50vw;
     padding-left: 10px;
 	overflow: scroll;
+
 }
 
 .day-header {
@@ -105,10 +107,6 @@ th.day-detail {
 	padding-top: 2%;
 	/* overflow-y: auto; */
 }
-#weekday-header {
-	z-index: 1000;
-}
-
 /* #weekday-details td {
 	display: inline-block;
 	vertical-align: top;
@@ -119,14 +117,17 @@ th.day-detail {
 /* Test task coloring */
 .task{
     border-radius: 5%;
-    background-color: red;
+    background-color: red; /*default but shoudld be overwritten*/
     text-align: center;
     color: white;
-    max-width: 50px;
-    width: 50px; 
-    height: 40px; 
-    line-height: 50px; /*is this necessary ? */
-    z-index: 900; 
+    width: 50px;  /*default but shoudld be overwritten*/
+    height: 40px; /*default but shoudld be overwritten*/
+	word-wrap: break-word; 
+    white-space: normal;  
+    overflow-wrap: break-word;
+	overflow: hidden;
+	border: 1px solid #e3e3e3;
+    /*z-index: 900; */
 }
 
 .overlap-task {
