@@ -32,9 +32,9 @@ The journal entries page can be divided into two sections: a scrollable section 
 
 #### Display
 
-- The left portion is implemented as an ordered list and extracts key information for the user to distinguish between the journal entries, which are scrollable.
+The left portion is implemented as an ordered list and extracts key information for the user to distinguish between the journal entries, which are scrollable.
 
-- The entries are dynamically populated; refer to backend documentation for logic behind search and HTML DOM population.
+The entries are dynamically populated; refer to backend documentation for logic behind search and HTML DOM population.
 
 
 #### Structure
