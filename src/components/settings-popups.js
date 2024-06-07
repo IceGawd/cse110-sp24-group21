@@ -212,18 +212,53 @@ class MySettings extends HTMLElement {
             }
         });
 
-        // Handles the selection of the theme
-        const handleThemeSelection = (event) => {
-            const theme = event.target.getAttribute('data-theme');
-            document.documentElement.setAttribute("data-selected-theme", theme);
-
-            const previouslyPressedButton = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
-            previouslyPressedButton.setAttribute('aria-pressed', false);
-            event.target.setAttribute('aria-pressed', 'true');
-        }
-
+        // Constants we will reuse for theme changing
+        const pressedButtonSelector = '[data-theme][aria-pressed="true"]';
         const themeSwitcher = document.querySelector('my-settings').shadowRoot.getElementById('themes');
         const buttons = themeSwitcher.querySelectorAll('button');
+
+        // Gets the saved theme
+        const savedTheme = localStorage.getItem('selected-theme');
+        const defaultTheme = 'light';
+
+        // Applies the given theme
+        const applyTheme = (theme) => {
+            const target = document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${theme}"]`);
+            document.documentElement.setAttribute("data-selected-theme", theme);
+            document.querySelector('my-settings').shadowRoot.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
+            target.setAttribute('aria-pressed', 'true');
+        };
+
+        // Handles the selection of the theme
+        const handleThemeSelection = (event) => {
+            const target = event.target;
+            const isPressed = target.getAttribute('aria-pressed');
+            const theme = target.getAttribute('data-theme'); 
+
+            if(isPressed !== "true") {
+                applyTheme(theme);
+                localStorage.setItem('selected-theme', theme);
+            }
+        }
+
+        if (savedTheme && savedTheme !== defaultTheme) {
+            const prevBtn = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
+            prevBtn.setAttribute('aria-pressed', false);
+            
+            document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${savedTheme}"]`).setAttribute('aria-pressed', true);
+            
+            document.documentElement.setAttribute("data-selected-theme", savedTheme);
+        }
+
+        // Making sure the theme is set correctly 
+        const setInitialTheme = () => {
+            const savedTheme = localStorage.getItem('selected-theme');
+            if(savedTheme && savedTheme !== defaultTheme) {
+              applyTheme(savedTheme);
+            }
+        };
+          
+        setInitialTheme();
 
         /* Adds the handleThemeSelection as a click handler to each of the buttons */
         buttons.forEach((button) => {
