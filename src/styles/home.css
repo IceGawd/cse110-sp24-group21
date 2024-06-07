@@ -27,14 +27,20 @@ h1 {
     height: 80%;
 }
 
+/* Style and transition animation for main */
 main {
     display: flex;
     flex-direction: column;
     background-color: white;
+    /*------ This set the main absolute position --------*/
+    position: absolute; 
+    right: 0;
+    /*------ If something wrong might be this --------*/
+    transition: width 0.3s ease;
+    height: 100%;
 }
 
 .title {
-    margin: 1em;
     margin-bottom: 5px;
 }
 
@@ -47,11 +53,13 @@ main {
 #top-left {
     width: 60%;
     padding-right: 5%;
+    padding-left: 3%;
     position: relative;
 }
 
 #top-right {
     width: 40%;
+    padding-right: 3%;
 }
 
 /* media query for when the sccreen width is less than 900 px */
@@ -91,6 +99,7 @@ main {
     overflow-y: hidden;
     border-radius: 20px;
     border: none;
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
 .entry:focus, .entry:hover {
