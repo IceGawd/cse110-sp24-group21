@@ -96,6 +96,14 @@ main {
 
 /* media query for when the sccreen width is less than 900 px */
 @media only screen and (max-width: 940px) {
+    #bottom {
+        overflow-y: visible;
+    }
+
+    #list {
+        height: 50vh;
+    }
+
     #top {
         flex-direction: column;
     }
@@ -171,7 +179,7 @@ ul li {
   /* Plus icon styles */
 .add-task::before {
     content: '+'; 
-    color: #909090; 
+    color: #ff0000; 
     font-size: 3rem; 
     margin-right: 10px; 
     margin-bottom: 8px;
