@@ -32,13 +32,18 @@ function init(){
                                                     });
     //set focus based on query in URL
     let query = new URL(window.location.href).searchParams;
-    if('date' in query)
-        setFocus(query[date]);
+    if(query.has('date')){
+        if(query.get('date') == 'new'){
+            editEntry('');
+        }
+        else
+            setFocus(query.get('date'));
+    }
 }
 
 /**
- * 
- * @param {string} date YYYY-MM-DD string corresponding to the 
+ * Opens up the entry-editing popup and fills it with information as necessary
+ * @param {string} date YYYY-MM-DD string corresponding to the date of the entry to be edited, or an empty string for a new entry
  */
 function editEntry(id){
     //if is new entry, then date is an empty string
@@ -63,7 +68,7 @@ function editEntry(id){
 /**
  * Searches the entries by label and displays only the ones with tags containing the queryLabel
  * @param {string} queryLabel - Label string that we search for
- * @returns void
+ * @returns nothing
  */
 function search(queryLabel){
 
@@ -85,6 +90,10 @@ function search(queryLabel){
     }
 }
 
+/**
+ * Populates page by filling sidebar and displaying the most recent entry
+ * @returns nothing
+ */
 function populatePage(){
     //If no entries, leave page in default state
     if(Object.keys(entries).length == 0){
@@ -290,15 +299,14 @@ function getDate(date){
 }
 
 /**
- * TODO: strips entry down to plaintext, then returns blurb-length beginning.
+ * Strips entry down to plaintext, then returns blurb-length beginning.
  * @param {string} entry is the md string 
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let lines = entry.split('\n');
-    let line = lines[0];
-    if(lines[0] == '```')
-        line = lines[1];
+    let temp = document.createElement('div');
+    md2HTML(entry, temp);
+    let line = temp.innerText.split('\n')[0];
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**

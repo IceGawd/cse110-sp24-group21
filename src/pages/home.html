@@ -12,6 +12,7 @@
     <script src="../components/navbar.js" type="module"></script>
     <script src="../components/settings-popups.js" type="module"></script>
     <script src="../components/task-display.js" type="module"></script>
+    <script src="../scripts/home-entries.js" type="module"></script>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
@@ -21,18 +22,18 @@
             <section id="top-left">
                 <h1 class="title">Entries</h1>
                 <hr/>
+                <div id="fade-left"></div>
                 <div id="entries-container">
                     <button class="entry" 
                     style=" display: flex;
                     align-items: center;
-                    justify-content: center;">
+                    justify-content: center;"><a href="entries.html?date=new">
                         <img src="../assets/icons/plus.svg" alt="Add Entry" id="add-entry-icon"/>
+                    </a>
                     </button>
                     <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
+                        <h3>Building C+++</h3> 
+                        <h3>2/13/2030</h3>
                         <h3>What I Did</h3>
                         <p>I built a new programming language that is faster than assembly and
                             easier to use than Python. It's called "C+++".
@@ -43,10 +44,8 @@
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
                     </button>
                     <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
+                        <h3>Building C+++</h3> 
+                        <h3>2/13/2030</h3>
                         <h3>What I Did</h3>
                         <p>I built a new programming language that is faster than assembly and
                             easier to use than Python. It's called "C+++".
@@ -57,10 +56,8 @@
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
                     </button>
                     <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
+                        <h3>Building C+++</h3> 
+                        <h3>2/13/2030</h3>
                         <h3>What I Did</h3>
                         <p>I built a new programming language that is faster than assembly and
                             easier to use than Python. It's called "C+++".
@@ -71,10 +68,8 @@
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
                     </button>
                     <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
+                        <h3>Building C+++</h3> 
+                        <h3>2/13/2030</h3>
                         <h3>What I Did</h3>
                         <p>I built a new programming language that is faster than assembly and
                             easier to use than Python. It's called "C+++".
@@ -85,7 +80,7 @@
                         <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
                     </button>
                 </div>
-                <div id="fade-out"></div>
+                <div id="fade-right"></div>
             </section>
             <section id="top-right">
                 <h1 class="title">Calendar</h1>
