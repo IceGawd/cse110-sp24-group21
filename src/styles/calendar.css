@@ -40,6 +40,18 @@ main {
 	overflow: scroll;
 }
 
+/* media query for screen changes for responsiveness */
+@media only screen and (max-width: 940px) {
+	.container {
+		flex-direction: column;
+		overflow: unset;
+	}
+
+	.left-container {
+		min-height: unset;
+	}
+}
+
 #create-calendar-task {
 	background-color: lightgray;
 	border: none;
