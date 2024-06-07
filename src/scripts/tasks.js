@@ -154,8 +154,13 @@ function deleteTask(task) {
  * Given the day html element, add a task with date and id and other fields empty
  */
 function newTask(day) {
-  const taskElements = Array.from(document.querySelectorAll("task-element"));
-  const existingIds = new Set(taskElements.map(element => element.data.id));
+  tasks = JSON.parse(localStorage.getItem('tasklist'));
+  const existingIds = new Set();
+  Object.keys(tasks).forEach(date => {
+    tasks[date].forEach(task => {
+      existingIds.add(task.id);
+    });
+  });
   let inputId;
   do {
     inputId = Math.floor(Math.random() * 2000000);
