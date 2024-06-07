@@ -1,6 +1,19 @@
 /* CSS for just the tasks page */
 body {
-  font-family: 'Radio Canada', sans-serif;
+  font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
+}
+
+/* Style and transition animation for main */
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  /*------ This set the main absolute position --------*/
+  position: absolute; 
+  right: 0;
+  /*------ If something wrong might be this --------*/
+  transition: width 0.3s ease;
+  height: 100%;
 }
 
 /* Styles for the button container */

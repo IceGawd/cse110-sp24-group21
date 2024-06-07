@@ -19,19 +19,6 @@ jobs: # the things being executed
           VALIDATE_HTML: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_EXCLUDE: .*docs/.*
-
-  #test: # the name of your status check, will become important when you do branch protection
-  #  name: Test Code Base
-  #  runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
-  #  steps:
-  #    - name: Checkout Code
-  #      uses: actions/checkout@v4 # using version 4 of Actions
-  #    - name: Install Dependencies
-  #      run: npm install
-  #    - name: Unit Test
-  #      run: npm run test:unit # unit tests
-  #    - name: E2E Test
-  #      run: npm run test:e2e # e2e tests
  
   test:
     name: Test Code Base
@@ -45,6 +32,8 @@ jobs: # the things being executed
           node-version: '18'
       - name: Install Dependencies
         run: npm install
+      - name: start server
+        run: npm start & npx wait-on http://localhost:3000
       - name: Fetch Code Climate Test Reporter Binary
         run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - name: Make Test Reporter Executable
