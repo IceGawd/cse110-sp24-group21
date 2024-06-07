@@ -24,7 +24,7 @@
 
 #fade-left {
     position: absolute;
-    width: 10%; 
+    width: 9%; 
     height: 100%;
     left: 0;
     top: 0;
@@ -73,6 +73,7 @@ main {
 
 .title {
     margin-bottom: 5px;
+    margin-left: 1rem;
 }
 
 #top {
@@ -96,6 +97,14 @@ main {
 
 /* media query for when the sccreen width is less than 900 px */
 @media only screen and (max-width: 940px) {
+    #bottom {
+        overflow-y: visible;
+    }
+
+    #list {
+        height: 50vh;
+    }
+
     #top {
         flex-direction: column;
     }
@@ -171,7 +180,7 @@ ul li {
   /* Plus icon styles */
 .add-task::before {
     content: '+'; 
-    color: #909090; 
+    color: #ff0000; 
     font-size: 3rem; 
     margin-right: 10px; 
     margin-bottom: 8px;
