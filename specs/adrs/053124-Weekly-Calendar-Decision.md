@@ -71,7 +71,6 @@ Below evaluates the different options of implementation and justification for ch
 ## Decision Outcome
 
 Chosen option: **Option 1: Using a HTML Table**
-gi
 Given the time available and scope of the project, using an HTML table was deemed the more appropriate way to implememt the weekly calendar. Experementing with the CSS grid brought difficulty when it came to overlapping tasks, and given the remaining time may be difficult to implement. Customizing a third party implementation would mean it is limited to suit our needs. Using an HTML table proved to be a solid solution and proved to work with overlapping tasks as well, hence was the chosen method.
 
 In future iterations, it may be good to consider refactoring to utilize a CSS grid for responsiveness and robustness going forward.
