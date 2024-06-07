@@ -1,4 +1,21 @@
 /* CSS for just the home page */
+:root,
+[data-selected-theme="light"] {
+    --background: #f0f0f0;
+    --delete-background: #999999;
+    --add-task-color: #909090;
+    --task-hover: #f0f0f0;
+    --text-color: #1e1e1e;
+}
+
+[data-selected-theme="dark"] {
+    --background: #565656;
+    --delete-background: #999999;
+    --add-task-color: #d9d9d9;
+    --task-hover: #c0bfbf;
+    --text-color: #cccccc;
+}
+
 #bottom {
     width: 100%;
     height: 50%;
@@ -16,6 +33,7 @@
 }
 
 h1 {
+    color: var(--text-color);
     font-size: 24px;
 }
 
@@ -31,7 +49,7 @@ h1 {
 main {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--backgound);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
@@ -132,7 +150,7 @@ ul li {
 .add-task {
     background: none; 
     border: none; 
-    color: #827F7F;
+    color: var(--text-color);
     font-size: 1.4rem; 
     display: flex; 
     align-items: center; 
@@ -145,9 +163,10 @@ ul li {
   /* Plus icon styles */
 .add-task::before {
     content: '+'; 
-    color: #ff0000; 
+    color: #909090; 
     font-size: 3rem; 
     margin-right: 10px; 
+    margin-bottom: 8px;
   }
 
 .delete-btn {
@@ -158,7 +177,7 @@ ul li {
 
 .delete-btn:hover, .delete-btn:focus {
     cursor: pointer;
-    background-color: red;
+    background-color: var(--delete-background);
 }
 
 .delete-btn img{
@@ -185,7 +204,7 @@ ul li {
 }
 
 .task:hover {
-    background-color: #f0f0f0;
+    background-color: var(--task-hover);
     cursor: pointer;
 }
 
