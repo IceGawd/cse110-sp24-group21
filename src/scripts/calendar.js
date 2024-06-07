@@ -164,15 +164,30 @@ function changeDateHeader() {
 	// TODO: Fix this. Commenting as I don't know what this does and it is stopping the code from progressing.
 	// dateHeader.innerHTML = dofW + ", " + date.dataset['month_name'] + " " + date.dataset['date'];
 }
+
+/**
+ * Grabs all of the time slots that a task can be places
+ * @returns {Array} It returns a 2D array where each element represents a half hour and holds the days from Sunday to Saturday
+ */
+function grabAllSlots() {
+	let allEvents = document.getElementById("weekly-details");
+	let hourTable = allEvents.querySelectorAll("tr");
+	let slots = [];
+	for (let i = 0; i < hourTable.length; i++) {
+		let dayTable = hourTable[i].querySelectorAll("td");
+		slots.push(dayTable);
+	}
+	return slots;
+}
+
 /**
  * Function to clear the tasks that are being displayed for a selected date
  */
-function clearTasks(){
-	console.log("clearTasks")
-	let allEvents = document.getElementById("weekly-details");
-	let hourTable = allEvents.querySelectorAll("tr");
-	for (let i = 0; i < hourTable.length; i++) {
-		let dayTable = hourTable[i].querySelectorAll("td");
+function clearTasks() {
+	console.log("clearTasks");
+	let slots = grabAllSlots();
+	for (let i = 0; i < slots.length; i++) {
+		let dayTable = slots[i];
 		for (let j = 0; j < dayTable.length; j++) {
 			if (dayTable[j].className != "time") {
 				let blocks = dayTable[j].querySelectorAll("div");
@@ -191,7 +206,10 @@ function clearTasks(){
  * Function to display the tasks that correspond to a selected day in its appropriate time slot
  */
 function addNewTasks(){
-	
+	let tasks = localStorage.getItem('tasklist');
+	for (task in tasks) {
+
+	}
 }
 /**
  * Function to add upcoming tasks to the Upcoming Tasks section
