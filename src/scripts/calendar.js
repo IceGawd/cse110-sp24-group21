@@ -1,126 +1,5 @@
-let daysArray = [];
+import { formatDate, clearTasks, getTaskMap, addNewTasks} from "./calendar_task_display.js"
 
-// Function to generate a range of 
-// years for the year select input
-function generate_year_range(start, end) {
-	let years = "";
-	for (let year = start; year <= end; year++) {
-		years += "<option value='" +
-			year + "'>" + year + "</option>";
-	}
-	return years;
-}
-
-// Initialize date-related letiables
-today = new Date();
-currentMonth = today.getMonth();
-currentYear = today.getFullYear();
-selectYear = document.getElementById("year");
-selectMonth = document.getElementById("month");
-
-createYear = generate_year_range(1970, 2050);
-
-document.getElementById("year").innerHTML = createYear;
-
-const calendar = document.getElementById("calendar");
-
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-$dataHead = "<tr>";
-for (dhead in days) {
-	$dataHead += "<th data-days='" +
-		days[dhead] + "'>" +
-		days[dhead] + "</th>";
-}
-$dataHead += "</tr>";
-
-document.getElementById("thead-month").innerHTML = $dataHead;
-
-monthAndYear = document.getElementById("month-and-year");
-
-// Function to navigate between next/prev months
-function next() {
-	currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
-	currentMonth = (currentMonth + 1) % 12;
-	showCalendar(currentMonth, currentYear);
-}
-
-function previous() {
-	currentYear = currentMonth === 0 ?
-		currentYear - 1 : currentYear;
-	currentMonth = currentMonth === 0 ?
-		11 : currentMonth - 1;
-	showCalendar(currentMonth, currentYear);
-}
-
-// Function to jump to a specific month and year
-function jump() {
-	currentYear = parseInt(selectYear.value);
-	currentMonth = parseInt(selectMonth.value);
-	showCalendar(currentMonth, currentYear);
-}
-
-// Filled Cell Function used as a sub-function of showCalendar
-function addFilledCell(j, date,row, year, month) {
-	cell = document.createElement("td");
-	cell.setAttribute("data-date", date);
-	cell.setAttribute("data-month", month + 1);
-	cell.setAttribute("data-year", year);
-	cell.setAttribute("data-month_name", months[month]);
-	cell.setAttribute('data-day_of_week', j + 1);
-	cell.className = "date-picker";
-	cell.innerHTML = "<span>" + date + "</span";
-	if (
-		date === today.getDate() && 
-		year === today.getFullYear() &&
-		month === today.getMonth() && document.querySelector(".date-picker.selected") == null
-	) {
-		cell.className = "date-picker selected";
-	}
-	row.appendChild(cell);
-}
-
-// Function to display the calendar
-function showCalendar(month, year) {
-	let firstDay = new Date(year, month, 1).getDay();
-	tbl = document.getElementById("calendar-body");
-	tbl.innerHTML = "";
-	monthAndYear.innerHTML = months[month] + " " + year;
-	selectYear.value = year;
-	selectMonth.value = month;
-
-	let date = 1;
-	for (let i = 0; i < 6; i++) {
-		let row = document.createElement("tr");
-		for (let j = 0; j < 7; j++) {
-			if (i === 0 && j < firstDay) {
-				cell = document.createElement("td");
-				cellText = document.createTextNode("");
-				cell.appendChild(cellText);
-				row.appendChild(cell);
-			} else if (date > daysInMonth(month, year)) {
-				break;
-			} else {
-				addFilledCell(j, date, row, year, month);
-				date++;
-			}
-		}
-		tbl.appendChild(row);
-	}
-	// let datesForWeek = getDatesForWeek();
-	// changeDateHeader(datesForWeek);
-	datesIntoButtons();
-	//addNewTasks(datesForWeek);
-}
-
-// display calendar
-showCalendar(currentMonth, currentYear);
-
-// Function to get the number of days in a month
-function daysInMonth(iMonth, iYear) {
-	return 32 - new Date(iYear, iMonth, 32).getDate();
-}
 /**
  * Function to make every valid date cell of the calendar a button
  */
@@ -139,15 +18,6 @@ function datesIntoButtons(){
 		});
 	}
 }
-function formatDate(month, day, year){
-	month = JSON.stringify(month);
-	year = JSON.stringify(year);
-	day = JSON.stringify(day);
-	let formatMonth = month < 10 ? 0 + month : month;
-	let formatDay = day < 10 ? 0 + day : day;
-	let formatDate = formatMonth + '/' + formatDay+ '/' + year;
-	return formatDate;
-}
 /**
  * Function to add a date in the correct format to the date array that contains the dates of a given week to display
  */
@@ -158,218 +28,45 @@ function addDateArr(datesArr, year, month, day){
 		date : dateFormatted
 	});
 }
-
 /**
- * Function get the dates for a specific week to display
+ * Function to get the dates for a specific week to display, 
+ * or the case some of the dates for the week include the prior month
  */
-function getDatesForWeek(){ 
-	let dateSelected = document.querySelector(".date-picker.selected");
-	let dofW = parseInt(dateSelected.dataset['day_of_week'], 10);
-	let offset = 7 - dofW;
-	let date = parseInt(dateSelected.dataset['date'], 10);
-	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
-	let yearSelected = parseInt(dateSelected.dataset['year'],10);
-	let datesReturned = [];
-	if(date < dofW){ //case where begin columns are blank
-		let numBlank = dofW - date;
-		let prevMonth = monthSelected === 0 ?
+function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected){
+	let prevMonth = monthSelected === 0 ?
 		11 : monthSelected - 1;
+		console.log(monthSelected + " is current")
+		console.log(prevMonth + " is previous ")
 		let prevYear = monthSelected === 0 ?
 		yearSelected - 1 : yearSelected;
 		for(let i = numBlank; i > 0; i--){
 			let dateToAdd = daysInMonth(prevMonth, prevYear) - (i - 1);
-			addDateArr(datesReturned, prevYear, prevMonth, dateToAdd);
+			addDateArr(datesArr, prevYear, prevMonth, dateToAdd);
 		}
 		for(let i = 1; i <= 7 - numBlank; i++){
-			addDateArr(datesReturned, yearSelected, monthSelected, i);
+			addDateArr(datesArr, yearSelected, monthSelected, i);
 		}
-
-	} else{ //case where whole row is filled or last columns are empty
-		for(let i = 1; i <= dofW; i++){ //get dates previous to selected date in row
-			let dateToAdd = date - (dofW - i);
-			addDateArr(datesReturned, yearSelected, monthSelected, dateToAdd);
-		}
-		for(let i = dofW + 1; i <= 7; i++){
-			let dateToAdd = date + (i - dofW);
-			if((date + offset) > daysInMonth(monthSelected, yearSelected)){
-				dateToAdd = i - dofW;
-				yearSelected = monthSelected === 11 ? yearSelected + 1 : yearSelected;
-			}
-			addDateArr(datesReturned, yearSelected, monthSelected, dateToAdd);
-		}
-	}
-	return datesReturned;
 }
 /**
- * Function to change the date header to the selected day
+ * Function to get the dates for a specific week to display, 
+ * for the cases where all the dates of the week are in the current month or some are in the next month
  */
-
-function changeDateHeader(datesArr){
-	let tableHeaders = document.querySelectorAll('.day-detail');
-	for(let i = 0; i < 7 && i+1 < tableHeaders.length; i++){
-		let headerDate = tableHeaders[i+1].querySelectorAll('h2')[1];
-		headerDate.innerHTML = datesArr[i].dayOfMonth;
+function casePriorMonthExcluded(datesArr, yearSelected, monthSelected, dofW, date){
+	let offset = 7 - dofW;
+	let nextYear =  monthSelected === 11 ? yearSelected + 1 : yearSelected;
+	let nextMonth = monthSelected == 11 ? 0 : monthSelected + 1;
+	for(let i = 1; i <= dofW; i++){ //get dates previous to selected date in row
+		let dateToAdd = date - (dofW - i);
+		addDateArr(datesArr, yearSelected, monthSelected, dateToAdd);
 	}
-}
-/**
- * Function to clear the tasks that are being displayed for a selected date
- */
-function clearTasks(){
-	let allTasks = document.querySelectorAll(".task"); 
-	let allDayElems = document.getElementById("allday-tasks").querySelectorAll("th");
-	for(let i = 1; i < allDayElems.length; i++){
-		let pars = allDayElems[i].querySelectorAll("div");
-		for(let j = 0; j < pars.length; j++){
-			pars[j].innerHTML = "";
-			pars[j].style.backgroundColor = "lightgray";
-		}
-	}
-	if(!allTasks){
-		return;
-	}
-	let numTasks = allTasks.length;
-	for(let i = 0; i < numTasks; i++){
-		allTasks[i].remove();
-	}
-}
-function getTaskMap(){
-	let tMap = {};
-	let tasklist = localStorage.getItem('tasklist');
-	if(tasklist == null){
-		return tMap; //empty tMap
-	}
-	tMap = JSON.parse(tasklist);
-	return tMap;
-}
-
-/**
- * Function to get the tasks for a given week in the form of an array with seven elements,
- * each element containing an array with tasks for the corresponding day of the week
- */
-function getWeekTasks(datesArr){
-	let tasksArr = [];
-	let tMap = getTaskMap();
-	for(let i = 0; i < 7; i++){
-		tasksArr.push(tMap[datesArr[i]['date']]);
-	}
-	return tasksArr;
-}
-
-/**
- * Function to round a given time (in the format "00:00") to the nearest 30 minutes
- */
-function roundTimeBy30(timeUnrounded){
-	let [hr, min] = timeUnrounded.split(":").map(part => parseInt(part, 10));
-	if( min < 15){
-		min = 0;
-	} else if( min <= 30){
-		min = 30;
-	} else if(min < 45){
-		min = 30
-	} else{
-		min = 0;
-		hr += 1;
-	}
-	return [hr, min];
-}
-
-/**
- * Function to format the tasks for each day to be an array where each element is an object
- * containg the task, rounded start time, rounded end time
- */
-function roundedFormat(tasksForDay){
-	let roundedFormat = [];
-	if(!tasksForDay){
-		return;
-	}
-	for(let i = 0; i < tasksForDay.length; i++){
-		let singleTask = tasksForDay[i];
-		const timeStart = singleTask['startTime'];
-		let newStart = roundTimeBy30(timeStart);
-		const timeEnd = singleTask['endTime'];
-		let newEnd = roundTimeBy30(timeEnd);
-		let taskInfoObj = {
-			task: tasksForDay[i],
-			roundStart: newStart,
-			roundEnd: newEnd
-		}
-		roundedFormat.push(taskInfoObj);
-
-	}
-	return roundedFormat;
-}
-
-/**
- * Function to get the number of rows a given task that will be displayed
- */
-function mathRowLength(singularTask){
-	const startHr = singularTask['roundStart'][0];
-	const startMin = singularTask['roundStart'][1];
-	const endHr = singularTask['roundEnd'][0];
-	const endMin = singularTask['roundEnd'][1];
-	const result = 2 * (endHr - startHr) + (Math.abs(startMin - endMin) / 30);//calculate number of rows
-	return result; //multiply the result by 40 to get the exact number length of a task in pixels (one row is 40 pixels)
-}
-
-/**
- * Function to compare if a given tasks is after another task (or has an later start time) 
- * useful because you want to populate calendar in backwards chronological order for overlapping 
- */
-function compareIsAfter(task1, task2){
-	const hour1 = task1['roundStart'][0];
-	const minute1 = task1['roundStart'][1];
-	const hour2 = task2['roundStart'][0];
-	const minute2 = task2['roundStart'][1];
-	if (hour1 < hour2 || (hour1 === hour2 && minute1 < minute2)) {
-		return -1; //task 1 is after
-	} else if (hour1 > hour2 || (hour1 === hour2 && minute1 > minute2)) {
-		return 1; //task 2 is after
-	} else {
-		return 0; //they have same start time
-	}
-}
-
-/**
- * Function to sort the tasks array by earliest start time
- */
-function sortTasks(tasksForDay){ 
-	if(!tasksForDay){
-		return;
-	}
-	for(let i = 1; i < tasksForDay.length; i++){
-		let curr = tasksForDay[i];
-		let j = i -1;
-		while(j >= 0 && compareIsAfter(tasksForDay[j], curr) > 0){
-			tasksForDay[j + 1] = tasksForDay[j];
-			j--;
-		}
-		tasksForDay[j+1] = curr;
-	}
-	return tasksForDay;
-}
-/**
- * Function to display tasks for a given week on the grid
- */
-async function addNewTasks(datesArr){
-	let tasksForWeek = getWeekTasks(datesArr);
-	if(!tasksForWeek){
-		return;
-	}
-	for(let i = 0; i < tasksForWeek.length; i++){
-		let tasksForDay = tasksForWeek[i];
-		if(!tasksForDay){
+	for(let i = dofW + 1; i <= 7; i++){
+		let dateToAdd = date + (i - dofW);
+		if((date + offset) > daysInMonth(monthSelected, yearSelected)){
+			dateToAdd = i - dofW;
+			addDateArr(datesArr, nextYear, nextMonth, dateToAdd);
 			continue;
 		}
-		tasksForDay = roundedFormat(tasksForDay);
-		tasksForDay = sortTasks(tasksForDay);
-		for(let j = 0; j < tasksForDay.length; j++){
-			let taskLen = mathRowLength(tasksForDay[j]);
-			let hr = tasksForDay[j]['roundStart'][0] < 10 ? "0" + JSON.stringify(tasksForDay[j]['roundStart'][0]) : JSON.stringify(tasksForDay[j]['roundStart'][0]);
-			let min = tasksForDay[j]['roundStart'][1] === 0 ? "00" : "30";
-			let rowId = "r" + hr + min;
-			displaytaskCalendar(rowId, i + 1, tasksForDay[j]['task'], taskLen);
-		}
-
+		addDateArr(datesArr, yearSelected, monthSelected, dateToAdd);
 	}
 }
 
@@ -437,75 +134,66 @@ function populateUpcoming(){
 
 	}
 }
+/**
+ * Function get the dates for a specific week to display
+ */
+function getDatesForWeek(){ 
+	let dateSelected = document.querySelector(".date-picker.selected");
+	let dofW = parseInt(dateSelected.dataset['day_of_week'], 10);
+	let offset = 7 - dofW;
+	let date = parseInt(dateSelected.dataset['date'], 10);
+	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
+	let yearSelected = parseInt(dateSelected.dataset['year'],10);
+	let datesReturned = [];
+	console.log("getting dates for week")
+	if(date < dofW){ //case where begin columns are blank (so some of the dates come from prior month)
+		let numBlank = dofW - date;
+		console.log("case prev include")
+		casePriorMonthIncluded(datesReturned, numBlank, monthSelected, yearSelected);
+
+	} else{ //case where whole row is filled or last columns are empty
+		console.log("case prev excluded")
+		casePriorMonthExcluded(datesReturned, yearSelected, monthSelected, dofW, date);
+	}
+	console.log(datesReturned)
+	return datesReturned;
+}
+/**
+ * Function to change the date header to the selected day
+ */
+
+function changeDateHeader(datesArr){
+	let tableHeaders = document.querySelectorAll('.day-detail');
+	for(let i = 0; i < 7 && i+1 < tableHeaders.length; i++){
+		let headerDate = tableHeaders[i+1].querySelectorAll('h2')[1];
+		headerDate.innerHTML = datesArr[i].dayOfMonth;
+	}
+}
 document.addEventListener("DOMContentLoaded",()=>{
 	populateUpcoming();
 	let datesForWeek = getDatesForWeek();
 	changeDateHeader(datesForWeek);
+	datesIntoButtons();
 	addNewTasks(datesForWeek);
-
-});
-function updateTaskPos(newElem, cell, len){
-	const rect = cell.getBoundingClientRect();
-    newElem.style.top = `${rect.top}px`;
-    newElem.style.left = `${rect.left}px`; 
-	newElem.style.width = `${rect.width}px`;
-	newElem.style.height = `${rect.height * len}px`;
-}
-/**
- * Function to display a singular task to its correct location on the grid
- */
-function displaytaskCalendar(rowId, col, task,len) {
-	if(len == 0){
-		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
-	}
-	if(len == 48){ //all day task
-		let allDayElems = document.getElementById("allday-tasks").querySelectorAll("th");
-		let newPar = document.createElement("div");
-		if(!newPar){
-			console.log("failed to create p element for all day task");
-			return;
-		}
-		newPar.innerHTML = task['title'];
-		newPar.style.backgroundColor = "red"; //default to red
-		if(task['color'] != null){
-			newPar.style.backgroundColor = task['color'];
-		}
-		newPar.style.color = "white";
-		allDayElems[col].append(newPar);
-		return;
-	}
-    const rCont = document.querySelector(".right-container");
-    let newElem = document.createElement("div");
-	if(!newElem){
-		console.log("creating new div for task to be displayed failed")
-		return;
-	}
-    newElem.className = "task";
-    newElem.style.position = "absolute";
-    newElem.textContent = task['title']; 
-	if(task['color'] != null){
-		newElem.style.backgroundColor = task['color'];
-	}
-    rCont.appendChild(newElem);
-    let row = document.getElementById(rowId);
-    let cells = row.querySelectorAll("td");
-    let cell = cells[col]; 
-
-	updateTaskPos(newElem, cell, len);
-
-    // Update the position on scroll
-    rCont.addEventListener("scroll", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	//Update the position on page resizing
-	window.addEventListener("resize", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	let minBar = document.querySelector(".minimized");
-	let sR = minBar.shadowRoot;
-	let minButton = sR.getElementById('minimize-btn');
-	//Update the position when side bar is minimized
-	minButton.addEventListener("click", () => {
-		updateTaskPos(newElem, cell, len);
+	let nextButton = document.getElementById("next");
+	nextButton.addEventListener("click", () => {
+		next();
+		datesIntoButtons();
 	});
-}
+	let prevButton = document.getElementById("previous");
+	prevButton.addEventListener("click", ()=>{
+		previous();
+		datesIntoButtons();
+	});
+	let monthButton = document.getElementById("month");
+	monthButton.addEventListener("change", ()=>{
+		jump();
+		datesIntoButtons();
+	});
+	let yearButton = document.getElementById("year");
+	yearButton.addEventListener("change", ()=>{
+		jump();
+		datesIntoButtons();
+	});
+	
+});

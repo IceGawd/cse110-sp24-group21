@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/calendar.css">
     <script src="../components/navbar.js" type="module"></script>
     <script src="../components/settings-popups.js" type="module"></script>
-
+    <script src="../scripts/calendar.js" type="module"></script>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
@@ -23,8 +23,8 @@
                 <div id="mini-calendar">
                     <h3 id="month-and-year"></h3>
                     <div class="button-container-calendar">
-                        <button id="previous" onclick="previous()">Prev</button>
-                        <button id="next" onclick="next()">Next</button>
+                        <button id="previous" >Prev</button>
+                        <button id="next">Next</button>
                     </div>
                     <table class="table-calendar" id="calendar" data-lang="en">
                         <thead id="thead-month"></thead>
@@ -33,7 +33,7 @@
                     <div class="footer-container-calendar">
                     <label for="month">Jump To: </label>
                         <!-- Dropdowns to select a specific month and year -->
-                        <select id="month" onchange="jump()">
+                        <select id="month" >
                             <option value="0">Jan</option>
                             <option value="1">Feb</option>
                             <option value="2">Mar</option>
@@ -48,7 +48,7 @@
                             <option value="11">Dec</option>
                         </select>
                         <!-- Dropdown to select a specific year -->
-                        <select id="year" onchange="jump()"></select>
+                        <select id="year"></select>
                     </div>
                 </div>
                 <div id="upcoming-container">
@@ -598,6 +598,6 @@
             </div>
         </div>
     </main>
-    <script src="../scripts/calendar.js"></script>
+    <script src="../scripts/calendar_creation.js"></script>
 </body>
 </html>
