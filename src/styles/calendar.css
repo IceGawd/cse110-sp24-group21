@@ -117,7 +117,7 @@ th.day-detail {
 	background-color: lightgray;
 }
 
-#tue-allday {
+/* #tue-allday {
 	background-color: red;
 	color: white;
 }
@@ -125,7 +125,7 @@ th.day-detail {
 #sat-allday {
 	background-color: #00BCD4;
 	color: white;
-}
+} */
 
 /* Test task coloring */
 .task{
