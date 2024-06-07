@@ -387,6 +387,9 @@ function populateUpcoming(){
 	let tasksArr = taskMap[date];
 	if(!tasksArr){
 		let upcomingHdr = document.getElementById("upcoming-header");
+		if(!upcomingHdr){
+			return;
+		}
 		upcomingHdr.innerHTML = "No Tasks For Today";
 		return;
 	}
@@ -463,21 +466,25 @@ function displaytaskCalendar(rowId, col, task,len) {
 			return;
 		}
 		newPar.innerHTML = task['title'];
-		newPar.style.backgroundColor = task['color'];
+		newPar.style.backgroundColor = "red"; //default to red
+		if(task['color'] != null){
+			newPar.style.backgroundColor = task['color'];
+		}
 		newPar.style.color = "white";
 		allDayElems[col].append(newPar);
 		return;
 	}
     const rCont = document.querySelector(".right-container");
     let newElem = document.createElement("div");
-    newElem.className = "task";
-    newElem.style.position = "absolute";
-    newElem.textContent = task['title']; 
-	newElem.style.backgroundColor = task['color'];
-	//newElem.style.width = dimensions[0]; //gets width of element
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
 		return;
+	}
+    newElem.className = "task";
+    newElem.style.position = "absolute";
+    newElem.textContent = task['title']; 
+	if(task['color'] != null){
+		newElem.style.backgroundColor = task['color'];
 	}
     rCont.appendChild(newElem);
     let row = document.getElementById(rowId);
