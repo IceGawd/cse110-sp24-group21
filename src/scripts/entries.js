@@ -230,7 +230,7 @@ function entryItemSetup(item, date) {
 
     // Set basic properties to the element
     item.id = date;
-    item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
+    item.addEventListener('click', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
     item.href = '#';
     item = item.appendChild(document.createElement('div'));
