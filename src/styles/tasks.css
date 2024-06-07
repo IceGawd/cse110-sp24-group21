@@ -1,4 +1,21 @@
 /* CSS for just the tasks page */
+:root,
+[data-selected-theme="light"] {
+    --background: #f0f0f0;
+    --button-background: #e1e1e1;
+    --weekchange-color: #d9d9d9;
+    --task-hover: #f0f0f0;
+    --text-color: #1e1e1e;
+}
+
+[data-selected-theme="dark"] {
+    --background: #565656;
+    --button-background: #bdbdbd;
+    --weekchange-color: #909090;
+    --task-hover: #c0bfbf;
+    --text-color: #cccccc;
+}
+
 body {
   font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
@@ -7,7 +24,7 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: var(--background);
   /*------ This set the main absolute position --------*/
   position: absolute; 
   right: 0;
@@ -22,7 +39,7 @@ main {
   justify-content: flex-start; /* Align items to the start */
   align-items: center;
   padding: 3px;
-  background-color: #f0f0f0; 
+  background-color: var(--weekchange-color); 
   border-bottom: 1px solid #ddd;
   gap: 10px; /* Space between buttons */
 }
@@ -33,7 +50,7 @@ main {
   font-size: 1.1rem;  /* Increased font size */
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #f2f2f2;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds shadow */
 }
@@ -68,7 +85,7 @@ main {
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background: #555; 
+  background: #a7a7a7; 
   border-radius: 6px; /* Rounded corners */
 }
 
@@ -82,7 +99,7 @@ main {
   width: 450px; /* Set the width */
   margin-right: 20px; /* Spacing between day-containers */
   padding: 20px; 
-  background-color: #f4f4f4;
+  background-color: var(--button-background);
   border: 1px solid #ddd;
   border-radius: 15px; /* Add rounded edges */
   box-sizing: border-box;
@@ -133,7 +150,7 @@ main {
 .add-task {
   background: none; 
   border: none; 
-  color: #827F7F;
+  color: #545454;
   font-size: 1.2rem; 
   display: flex; 
   align-items: center; 
