@@ -383,6 +383,7 @@ function populateUpcoming(){
 	let yearSelected = today.getFullYear();
 	date = formatDate(monthSelected, date, yearSelected);
 	//get tasks for that day
+	let taskMap = getTaskMap();
 	let tasksArr = taskMap[date];
 	if(!tasksArr){
 		let upcomingHdr = document.getElementById("upcoming-header");
