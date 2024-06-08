@@ -1,8 +1,22 @@
+/**
+ * ----------------------------------------------------------------
+ * Deprecated, Functions have been merged into entries.js
+ * ----------------------------------------------------------------
+ */
+
 // labeling.js
-// Handles all the things related to adding label, changing label, grouping tasks by labels, etc.
+/**
+ * Features Requirement: 
+ *    Adding labels to tasks and journal entries.
+ *    Changing labels to tasks and journal entries.
+ *    Deleting labels to tasks and journal entries.
+ *    Group tasks by labels.
+ *    Search entries by labels.
+ *    Each labels correspond to an unique label id
+ */
+
 
 import { storage } from './storage.js';
-//import {saveTask } from './tasks.js';
 let entriesURL = '../assets/json/entries.json';
 
 
@@ -52,6 +66,7 @@ function displayEntries(entries) {
 
 /**
  * Search Journal Entries by Label Name
+ * @returns void
  */
 function searchEntriesByLabel() {
   const searchInput = document.getElementById('search');

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/labeling.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/labeling.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * ----------------------------------------------------------------
+ * Deprecated, Functions have been merged into entries.js
+ * ----------------------------------------------------------------
+ */
+
+// labeling.js
+/**
+ * Features Requirement: 
+ *    Adding labels to tasks and journal entries.
+ *    Changing labels to tasks and journal entries.
+ *    Deleting labels to tasks and journal entries.
+ *    Group tasks by labels.
+ *    Search entries by labels.
+ *    Each labels correspond to an unique label id
+ */
+
+
+import { storage } from './storage.js';
+let entriesURL = '../assets/json/entries.json';
+
+
+
+/**
+ * Helper function of fetching journal entries from lcoal json file
+ */
+async function fetchEntries() {
+  try {
+    const response = await fetch(entriesURL);
+    const entries = await response.json();
+
+    // There's some bug when calling updateItem in storage.js: TypeError: currItems.findIndex is not a function
+    //storage.updateItem('entries', entries); 
+
+    localStorage.setItem('entries', JSON.stringify(entries));
+  } catch (error) {
+    console.error('Error fetching entries:', error);
+  }
+}
+
+/**
+ * Display entries in the current entry-list
+ * @param {Object} entries - The entries to display
+ */
+function displayEntries(entries) {
+  const entryList = document.querySelector('.entry-list');
+  entryList.innerHTML = ''; // Clear the current entries
+
+  // Sort entries by date in descending order
+  const sortedDates = Object.keys(entries).sort((a, b) => new Date(b) - new Date(a));
+
+  // Re-append sorted entries into entry-list
+  sortedDates.forEach(date => {
+    const entry = entries[date];
+    const entryItem = document.createElement('li');
+    entryItem.innerHTML = `
+      &lt;a href="#">&lt;details open="true">
+        &lt;summary>&lt;b>${entry.title}&lt;/b>&lt;/summary>
+        &lt;p>${entry.entry}&lt;/p>
+        &lt;h6>${new Date(date).toLocaleDateString()}&lt;/h6>
+      &lt;/details>&lt;/a>
+    `;
+    entryList.appendChild(entryItem);
+  });
+}
+
+/**
+ * Search Journal Entries by Label Name
+ * @returns void
+ */
+function searchEntriesByLabel() {
+  const searchInput = document.getElementById('search');
+
+  searchInput.addEventListener('input', () => {
+    const queryLabel = searchInput.value.trim().toLowerCase();
+    const entries = storage.getItems('entries');
+
+    if (queryLabel === '') {
+      displayEntries(entries); // Display all entries if the search bar is empty
+    } else {
+      // Filter entries by the label and display them
+      const filteredEntries = Object.keys(entries).filter(date => {
+        const entry = entries[date];
+        return entry.labels &amp;&amp; entry.labels.some(l => l.toLowerCase().includes(queryLabel));
+      }).reduce((acc, date) => {
+        acc[date] = entries[date];
+        return acc;
+      }, {});
+
+      displayEntries(filteredEntries);
+    }
+  });
+
+  // Display all entries initially
+  const entries = storage.getItems('entries');
+  displayEntries(entries);
+}
+
+
+// Initialize the functions when the DOM is loaded
+window.addEventListener('DOMContentLoaded', async () => {
+  await fetchEntries();
+  searchEntriesByLabel();
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
