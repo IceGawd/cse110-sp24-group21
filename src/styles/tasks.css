@@ -183,8 +183,8 @@ textarea {
   border-radius: 10px 10px 0 0;
 }
 
-/* Task tags style */
-.tags {
+/* Task labels style */
+.labels {
   border-radius: 0 0 10px 10px;
 }
 
