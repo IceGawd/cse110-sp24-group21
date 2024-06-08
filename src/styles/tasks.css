@@ -1,7 +1,7 @@
 /* CSS for just the tasks page */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --button-background: #e1e1e1;
     --weekchange-color: #d9d9d9;
     --task-hover: #f0f0f0;

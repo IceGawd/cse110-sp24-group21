@@ -66,7 +66,7 @@ const settingStyle = `
 /* Settings popup styling */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --text-color: #1e1e1e;
     --settings-header: #333;
 }

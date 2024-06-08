@@ -1,11 +1,12 @@
 /* CSS for just the home page */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --delete-background: #999999;
     --add-task-color: #909090;
     --task-hover: #f0f0f0;
     --text-color: #1e1e1e;
+    --gradient-start: ;
 }
 
 [data-selected-theme="dark"] {
@@ -13,7 +14,13 @@
     --delete-background: #999999;
     --add-task-color: #d9d9d9;
     --task-hover: #c0bfbf;
-    --text-color: #cccccc;
+    --text-color: #f9f9f9;
+    --gradient-start: rgba(37, 37, 37, 0);
+    --gradient-middle: rgba(86, 86, 86, 0.5);
+    --gradient-middle2: rgba(86, 86, 86, 0.9);
+    --gradient-middle3: rgba(86, 86, 86, 0.95);
+    --gradient-end: rgba(86, 86, 86, 1);
+
 }
 
 #bottom {
@@ -28,8 +35,12 @@
     height: 100%;
     right: 5%;
     top: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.9) 80%, rgba(255, 255, 255, 0.95) 90%, rgba(255, 255, 255, 1) 100%);
+    
+    /* background: linear-gradient(to right, rgba(86, 86, 86, 0) 0%, rgba(86, 86, 86, 0.5) 50%,
+    rgba(86, 86, 86, 0.9) 80%, rgba(86, 86, 86, 0.95) 90%, rgba(86, 86, 86, 1) 100%); */
+    
+    background: linear-gradient(to right, var(--gradient-start) 0%, var(--gradient-middle) 50%, 
+    var(--gradient-middle2) 80%, var(--gradient-middle3) 90%, var(--gradient-end) 100%);
 }
 
 h1 {
@@ -163,7 +174,7 @@ ul li {
   /* Plus icon styles */
 .add-task::before {
     content: '+'; 
-    color: #909090; 
+    color: #ff0000; 
     font-size: 3rem; 
     margin-right: 10px; 
     margin-bottom: 8px;
