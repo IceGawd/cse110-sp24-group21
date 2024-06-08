@@ -58,6 +58,23 @@ h1 {
     height: 80%;
 }
 
+.task-search-container {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    margin-top: 0.5rem;
+    width: 50%;
+}
+
+#task-search {
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0.5rem;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
 /* Style and transition animation for main */
 main {
     display: flex;
@@ -119,6 +136,10 @@ main {
     #top-right {
         width: 90%;
         margin: auto;
+    }
+
+    .task-search-container {
+        width: 100%;
     }
 }
 
@@ -191,6 +212,7 @@ ul li {
     font-family: 'Radio Canada', sans-serif;
     margin-top: 0px; 
     width: 20VW;
+    border-radius: 10px;
   }
 
   /* Plus icon styles */
@@ -198,8 +220,12 @@ ul li {
     content: '+'; 
     color: #ff0000; 
     font-size: 3rem; 
-    margin-right: 10px; 
     margin-bottom: 8px;
+    margin-left: 1rem;
+  }
+
+  .add-task:hover, .add-task:focus {
+    background-color: var(--task-hover);
   }
 
 .delete-btn {
@@ -236,7 +262,7 @@ ul li {
     padding: 5px;
 }
 
-.task:hover {
+.home-task:hover {
     background-color: var(--task-hover);
     cursor: pointer;
 }

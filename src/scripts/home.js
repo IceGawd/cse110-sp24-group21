@@ -10,7 +10,7 @@ function populateTaskList() {
 
     taskEntries.forEach(task => {
         const taskElement = createTaskElement(task);
-        taskList.insertBefore(taskElement, taskList.querySelector('.add-task').parentElement);
+        taskList.insertBefore(taskElement, taskList.querySelector('#end-of-tasks'));
     });
 }
 

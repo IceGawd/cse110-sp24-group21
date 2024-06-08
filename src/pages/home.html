@@ -13,20 +13,6 @@
     <script src="../components/settings-popups.js" type="module"></script>
     <script src="../components/task-display.js" type="module"></script>
     <script src="../scripts/home-entries.js" type="module"></script>
-    <style>
-        .task-search-container {
-            display: inline-block;
-            margin-left: 20px;
-            vertical-align: middle;
-        }
-
-        #task-search {
-            border-radius: 20px;  /* More rounded corners */
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
@@ -88,13 +74,11 @@
         <section id="bottom">
             <ul id="list">
                 <h1 class="title">My Tasks</h1>
-                <div class="task-search-container">
-                    <input type="text" id="task-search" placeholder="Search by tag/label">
-                </div>
                 <hr/>
-                <li class="home-task">
+                <div class="task-search-container">
+                    <input type="text" id="task-search" placeholder="Search by label">
                     <button class="add-task">Add Task</button>
-                </li>
+                </div>
             </ul>
         </section>
     </main>
