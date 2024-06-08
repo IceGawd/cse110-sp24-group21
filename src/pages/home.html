@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/calendar.css">
+    <link href="https://fonts.googleapis.com/css?family=Radio Canada" rel="stylesheet">
     <script src="../components/navbar.js" type="module"></script>
     <script src="../components/settings-popups.js" type="module"></script>
     <script src="../components/task-display.js" type="module"></script>
+    <script src="../scripts/home-entries.js" type="module"></script>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
@@ -20,71 +22,17 @@
             <section id="top-left">
                 <h1 class="title">Entries</h1>
                 <hr/>
+                <div id="fade-left"></div>
                 <div id="entries-container">
                     <button class="entry" 
                     style=" display: flex;
                     align-items: center;
-                    justify-content: center;">
+                    justify-content: center;"><a href="entries.html?date=new">
                         <img src="../assets/icons/plus.svg" alt="Add Entry" id="add-entry-icon"/>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
+                    </a>
                     </button>
                 </div>
-                <div id="fade-out"></div>
+                <div id="fade-right"></div>
             </section>
             <section id="top-right">
                 <h1 class="title">Calendar</h1>
@@ -139,9 +87,18 @@
                     </button>
                 </li>
                 <li class="task">
-                    <svg height="40" width="40">
-                        <circle r="18" cx="20" cy="20" fill="red" stroke="black" stroke-width="3" />
-                    </svg>
+                    <!-- up to three max tasks -->
+                    <div>
+                        <svg height="40" width="40">
+                            <circle r="18" cx="20" cy="20" fill="red" stroke="black" stroke-width="3" />
+                        </svg>
+                        <svg height="40" width="40">
+                            <circle r="18" cx="20" cy="20" fill="yellow" stroke="black" stroke-width="3" />
+                        </svg>
+                        <svg height="40" width="40">
+                            <circle r="18" cx="20" cy="20" fill="purple" stroke="black" stroke-width="3" />
+                        </svg>
+                    </div>
                     <h3 class="task-name">Task 2</h3>
                     <p class="due-date">Apr 24, 2024</p>
                     <button class="delete-btn">

@@ -1,10 +1,60 @@
 const settingHTML = `
 <div class="settings-container" id="setting-container"> 
     <div class="settings-box">
-        <h1>Hello</h1>
+        <h1>User Settings</h1>
         <p>
-            Hello world! This is a test. 
+            Color Theme: 
         </p>
+        <div id="themes">
+            <button id="light" data-theme="light" aria-pressed="true">Light</button>
+            <button id="dark" data-theme="dark" aria-pressed="false">Dark</button>
+        </div>
+        <p>
+            Choose Time Zone:
+        </p>
+        <select name="timezone_offset" id="timezone-offset" class="span5">
+            <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
+            <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
+            <option value="-10:00">(GMT -10:00) Hawaii</option>
+            <option value="-09:50">(GMT -9:30) Taiohae</option>
+            <option value="-09:00">(GMT -9:00) Alaska</option>
+            <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+            <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+            <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+            <option value="-05:00">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+            <option value="-04:50">(GMT -4:30) Caracas</option>
+            <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+            <option value="-03:50">(GMT -3:30) Newfoundland</option>
+            <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+            <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
+            <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
+            <option value="+00:00" selected="selected">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+            <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+            <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
+            <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+            <option value="+03:50">(GMT +3:30) Tehran</option>
+            <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+            <option value="+04:50">(GMT +4:30) Kabul</option>
+            <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+            <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+            <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
+            <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+            <option value="+06:50">(GMT +6:30) Yangon, Mandalay</option>
+            <option value="+07:00">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+            <option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+            <option value="+08:75">(GMT +8:45) Eucla</option>
+            <option value="+09:00">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+            <option value="+09:50">(GMT +9:30) Adelaide, Darwin</option>
+            <option value="+10:00">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+            <option value="+10:50">(GMT +10:30) Lord Howe Island</option>
+            <option value="+11:00">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+            <option value="+11:50">(GMT +11:30) Norfolk Island</option>
+            <option value="+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+            <option value="+12:75">(GMT +12:45) Chatham Islands</option>
+            <option value="+13:00">(GMT +13:00) Apia, Nukualofa</option>
+            <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
+        </select>
+
         <button class="close-btn" id="close-button">
             Done
         </button>
@@ -14,6 +64,19 @@ const settingHTML = `
 
 const settingStyle = `
 /* Settings popup styling */
+:root,
+[data-selected-theme="light"] {
+    --background: #f0f0f0;
+    --text-color: #1e1e1e;
+    --settings-header: #333;
+}
+
+[data-selected-theme="dark"] {
+    --background: #565656;
+    --text-color: #cccccc;
+    --settings-header: #d9d9d9;
+}
+
 .settings-container {
     position: fixed; /* Cover the whole screen */
     top: 0;
@@ -26,7 +89,7 @@ const settingStyle = `
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
     z-index: 10000;
 }
 
@@ -37,28 +100,59 @@ const settingStyle = `
 
 .settings-box {
     width: 500px;
-    background: #ffffff; /* Corrected spelling */
+    background: var(--background);
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     padding: 30px;
     transform: scale(0);
-    transition: transform 0.4s ease;
+    transition: transform 0.25s ease;
 }
 
 .settings-container.active .settings-box {
     transform: scale(1);
-    transition-delay: .25s;
+    transition-delay: .2s;
 }
 
 .settings-box h1 {
-    color: #333; /* Added missing hash for color */
+    color: var(--text-color); 
     line-height: 1;
 }
 
 .settings-box p {
-    color: #333; /* Added missing hash for color */
+    color: var(--text-color); /* Added missing hash for color #333 */
+    margin: 12px 0 10px;
+}
+
+.settings-box button {
+    width: 20%;
+    height: 45px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.settings-box button#light {
+    background: #e0e0e0;
+}
+
+.settings-box button#dark {
+    background: #a6abb3;
+}
+
+.settings-box button[aria-pressed="true"] {
+    background-color: var(--text-color);
+    color: var(--background);
+}
+
+}
+.settings-box select {
     margin: 12px 0 20px;
 }
+
 
 .settings-box .close-btn {
     width: 100%;
@@ -71,6 +165,7 @@ const settingStyle = `
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
+    margin: 12px 0 5px;
 }
 
 /* End of Setting Pop-up Styling */
@@ -96,9 +191,9 @@ class MySettings extends HTMLElement {
         shadow.appendChild(styleElem);
 
         // Add event listener for settings button
-        const showPopup = document.querySelector("my-navbar").shadowRoot.getElementById('settings-btn');
-        const popupContainer = document.querySelector("my-settings").shadowRoot.querySelector('#setting-container');
-        const closePopup = document.querySelector("my-settings").shadowRoot.querySelector('#close-button');
+        const showPopup = document.querySelector('my-navbar').shadowRoot.getElementById('settings-btn');
+        const popupContainer = document.querySelector('my-settings').shadowRoot.querySelector('#setting-container');
+        const closePopup = document.querySelector('my-settings').shadowRoot.querySelector('#close-button');
 
         // Click setting button in nav bar
         showPopup.addEventListener('click', () => {
@@ -116,7 +211,26 @@ class MySettings extends HTMLElement {
                 popupContainer.classList.remove('active');
             }
         });
+
+        // Handles the selection of the theme
+        const handleThemeSelection = (event) => {
+            const theme = event.target.getAttribute('data-theme');
+            document.documentElement.setAttribute("data-selected-theme", theme);
+
+            const previouslyPressedButton = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
+            previouslyPressedButton.setAttribute('aria-pressed', false);
+            event.target.setAttribute('aria-pressed', 'true');
+        }
+
+        const themeSwitcher = document.querySelector('my-settings').shadowRoot.getElementById('themes');
+        const buttons = themeSwitcher.querySelectorAll('button');
+
+        /* Adds the handleThemeSelection as a click handler to each of the buttons */
+        buttons.forEach((button) => {
+            button.addEventListener('click', handleThemeSelection);
+        });
     }
+
 }
 
 customElements.define('my-settings', MySettings);
