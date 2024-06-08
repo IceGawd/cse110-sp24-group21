@@ -1,14 +1,19 @@
 /* CSS for just the entries page */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
+/* Style and transition animation for main */
 main {
     display: flex;
-}
-
-h3 {
-    text-align: center;
+    flex-direction: row;
+    background-color: white;
+    /*------ This set the main absolute position --------*/
+    position: absolute; 
+    right: 0;
+    /*------ If something wrong might be this --------*/
+    transition: width 0.3s ease;
+    height: 100%;
 }
 
 .scrollable-entries {
@@ -23,11 +28,23 @@ h3 {
     display: none;
 }
 
+/* handle responsiveness through a media query */
+@media only screen and (max-width: 940px) {
+    .scrollable-entries {
+        width: 100%;
+    }
+
+    main {
+        flex-direction: column;
+    }
+}
+
+
 .header-entries {
     position: relative;
     display: block;
-    top: 15px;
-    left: 10px;
+    top: 1rem;
+    left: 1rem;
 }
 
 #add-button {
@@ -43,7 +60,6 @@ h3 {
 
 #search {
     border-radius: 5px;
-    border: none;
     font-size: 18px;
     margin: auto;
     text-align: center;
@@ -105,20 +121,6 @@ details {
 .entry-container.active {
     display: block;
 }
-
-
-
-/* #delete-entry {
-    position: relative;
-    border-radius: 5px;
-    background-color: #A6A6A6;
-    font-size: 15px;
-    width: 10%;
-    left: 90%;
-    top: 22vw;
-    height: 25px;
-    cursor: pointer;
-} */
 
 #popup {
     visibility: hidden;
@@ -225,10 +227,120 @@ details {
 }
 
 #new-entry > input, textarea {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     padding: 4px;
     border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
     border: inset;
+    width: 100%;
+}
+
+
+/* Markdown formatting fixes, blockquotes, */
+
+h1 {
+    margin: .67em 0;
+    font-weight: var(--base-text-weight-semibold, 600);
+    padding-bottom: .3em;
+    font-size: 2em;
+    border-bottom: 1px solid hsla(210, 18%, 87%, 1);
+}
+
+h2 {
+    font-weight: var(--base-text-weight-semibold, 600);
+    padding-bottom: .3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid hsla(210, 18%, 87%, 1);
+}
+
+h3 {
+    font-weight: var(--base-text-weight-semibold, 600);
+    font-size: 1.25em;
+}
+
+h6 {
+    font-size: .85em;
+    color: #656d76;
+}
+
+p {
+    margin: 1em;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    text-indent: initial;
+    unicode-bidi: isolate;
+    border-color: gray;
+}
+
+table tr {
+    background-color: #ffffff;
+    border-top: 1px solid hsla(210, 18%, 87%, 1);
+}
+
+table th {
+    padding: 6px 13px;
+    border: 1px solid #d0d7de;
+    font-weight: var(--base-text-weight-semibold, 600);
+}
+
+tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+table td {
+    padding: 6px 13px;
+    border: 1px solid #d0d7de;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    unicode-bidi: isolate;
+    border-color: inherit;
+}
+
+ol {
+    padding-left: 2em;
+    
+}
+
+blockquote {
+    margin: 0;
+    padding: 0 1em;
+    border-left: .25em solid #30363d;
+}
+
+blockquote > p {
+    color: #848d97;
+}
+
+pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    color: #e6edf3;
+    background-color: #161b22;
+    border-radius: 6px; 
+}
+
+p > code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 100%;
+    white-space: break-spaces;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
 }
