@@ -8,14 +8,20 @@ describe('e2e testing for Home page', () => {
         await page.goto('http://localhost:3000', {waitUntil: 'networkidle2'});
     });
 
+    /* Check the number of entries and tasks */
+    async function getItemLength(key) {
+        console.log('Getting the number of items...', key);
+        const items = await page.evaluate(async (key) => {
+            return await JSON.parse(localStorage.getItem(key));
+        }, key);
+        return items ? Object.keys(items).length : 0;
+    }
+
     /* Check that the number of entries is equal to the number in local storage
     or 5 at max */
     it('Check the number of entries', async () => {
         console.log('Checking the number of entries...');
-        const localEntries = await page.evaluate(async () => {
-            return await JSON.parse(localStorage.getItem('entries'));
-        });
-        const localEntriesLength = localEntries ? Object.keys(localEntries).length : 0;
+        const localEntriesLength = await getItemLength('entries');
         const entries = await page.evaluate(async () => {
             const entries = document.querySelectorAll('.entry');
             return Array.from(entries).map(e => e.innerHTML);
@@ -28,9 +34,7 @@ describe('e2e testing for Home page', () => {
     or 8 at max */
     it('Check the number of tasks', async () => {
         console.log('Checking the number of tasks...');
-        const localTasks = await page.evaluate(() => JSON.parse(localStorage.getItem("tasklist")));
-        //console.log('local tasks: ', localTasks);
-        const localTasksLength = localTasks ? Object.keys(localTasks).length : 0;
+        const localTasksLength = await getItemLength('tasklist');
         const tasks = await page.evaluate(async () => {
             const tasks = document.querySelectorAll('.task');
             return Array.from(tasks).map(e => e.innerHTML);
