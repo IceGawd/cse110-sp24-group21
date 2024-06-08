@@ -181,7 +181,7 @@ function newTask(day) {
     startTime: "00:00",
     endTime: "23:59",
     description: "",
-    tags: [],
+    labels: [],
     priority: 'low'
   };
 

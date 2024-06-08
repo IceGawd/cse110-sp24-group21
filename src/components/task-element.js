@@ -28,8 +28,8 @@ textarea {
   border-radius: 10px 10px 0 0;
 }
 
-/* Task tags style */
-.tags {
+/* Task labels style */
+.labels {
   border-radius: 0 0 10px 10px;
 }
 
@@ -143,13 +143,13 @@ class TaskElement extends HTMLElement {
     return timeDiv;
   }
 
-  // Create tag text by taking tags from arrays and adding spaces in between each tag
-  createTags(arr) {
-    const tags = document.createElement('textarea');
-    tags.classList.add('tags');
-    tags.value = arr.join(' ');
-    tags.placeholder = "Task Tags";
-    return tags;
+  // Create tag text by taking labels from arrays and adding spaces in between each tag
+  createLabels(arr) {
+    const labels = document.createElement('textarea');
+    labels.classList.add('labels');
+    labels.value = arr.join(' ');
+    labels.placeholder = "Task Labels";
+    return labels;
   }
 
   createPriorityDropdown(priority) {
@@ -190,7 +190,7 @@ class TaskElement extends HTMLElement {
     const title = this.createTextarea(data.title, "Task Title", 'title');
     const description = this.createTextarea(data.description, "Task Description", 'description');
     const time = this.createTimeDiv(data.startTime, data.endTime);
-    const tags = this.createTags(data.tags);
+    const labels = this.createLabels(data.labels);
     const priorityDropdown = this.createPriorityDropdown(data.priority);
     const buttons = this.createButtons();
 
@@ -199,10 +199,10 @@ class TaskElement extends HTMLElement {
     this.addSaveEventListener(time.querySelector('.start-time'), 'startTime');
     this.addSaveEventListener(time.querySelector('.end-time'), 'endTime');
     this.addSaveEventListener(time.querySelector('.all-day'), 'allDay');
-    this.addSaveEventListener(tags, 'tags');
+    this.addSaveEventListener(labels, 'labels');
     this.addSaveEventListener(priorityDropdown, 'priority');
 
-    wrapper.append(title, description, time, tags, priorityDropdown, buttons);
+    wrapper.append(title, description, time, labels, priorityDropdown, buttons);
     this.shadowRoot.append(styles, wrapper);
   }
 
@@ -212,8 +212,8 @@ class TaskElement extends HTMLElement {
 
   addSaveEventListener(element, field) {
     element.addEventListener('input', () => {
-      if (field === 'tags') {
-        this.json.tags = element.value.split(' ');
+      if (field === 'labels') {
+        this.json.labels = element.value.split(' ');
       } else if (field === 'priority') {
         this.json.priority = element.value;
         this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
