@@ -56,7 +56,13 @@ async function fetchTasks() {
 }
 
 /**
- * Adds the fetched tasks to the webpage -> UI Task
+ * Adds the fetched tasks to the webpage's UI.
+ * 
+ * This function retrieves tasks from the local storage, checks if there are any tasks available, 
+ * and then populates the UI with these tasks. It identifies the visible dates on the webpage,
+ * finds tasks corresponding to these dates, and adds them to the appropriate day containers.
+ * 
+ * @return void
  */
 function populatePage() {
   tasks = JSON.parse(localStorage.getItem('tasklist'));
@@ -78,7 +84,7 @@ function populatePage() {
 }
 
 /**
- * Binds the add task button to each day
+ * Binds the add task button to each day and sets up task-related events.
  * Binds task events
  */
 function bindUpdates() {

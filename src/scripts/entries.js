@@ -42,8 +42,13 @@ function init(){
 }
 
 /**
- * Opens up the entry-editing popup and fills it with information as necessary
- * @param {string} date YYYY-MM-DD string corresponding to the date of the entry to be edited, or an empty string for a new entry
+ * Displays a popup form to create or edit a journal entry.
+ * 
+ * If the provided `id` is an empty string, the function initializes the form for creating a new entry 
+ * with default values for the title, date, entry content, and labels.
+ * If an `id` is provided, it fills the form with the corresponding entry's data.
+ * 
+ * @param {string} id - YYYY-MM-DD string also used as the entry id
  */
 function editEntry(id){
     //if is new entry, then date is an empty string
@@ -91,8 +96,13 @@ function search(queryLabel){
 }
 
 /**
- * Populates page by filling sidebar and displaying the most recent entry
- * @returns nothing
+ * Populates the page with journal entries.
+ * 
+ * If there are no entries, the page remains in its default state. Otherwise, it populates the entry list
+ * in the sidebar with the existing entries in chronological order, from least recent to most recent.
+ * The most recent entry is set as the focus in the entry container.
+ * 
+ * @returns void
  */
 function populatePage(){
     //If no entries, leave page in default state
@@ -112,7 +122,7 @@ function populatePage(){
 }
 
 /**
- * Takes in a date (?), sets the focused entry (the one in entry-container) to the entry of that date
+ * Takes in a date/id, sets the focused entry (the one in entry-container) to the entry of that date
  * If no date is selected, set to nothing
  * @param {string} id - YYYY-MM-DD string also used as the entry id
  */

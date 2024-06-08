@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/storage.js</title>
+    <title>JSDoc: Class: MySettings</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,71 +17,148 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/storage.js</h1>
+    <h1 class="page-title">Class: MySettings</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>// storage.js
+        <h2><span class="attribs"><span class="type-signature"></span></span>MySettings<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-// Create a wrapper object to hold all of the storage functions
-// for easy exporting
-export const storage = {};
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * Returns an array with all of the elements currently stored
- * @returns {Array} An array of elements from the feature
- */
-storage.getItems = function (feature) {
-  // localStorage only stores strings so you must JSON.parse() any arrays
-  return JSON.parse(localStorage.getItem(feature)) || [];
-};
+    
 
-/**
- * Adds an item to the corresponding feature list
- */
-storage.addItem = function (feature, object) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Add the new item to the list
-  currItems.push(object);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};
+    
+    <h4 class="name" id="MySettings"><span class="type-signature"></span>new MySettings<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
-/**
- * Removes an item from storage by id
- */
-storage.removeItem = function (feature, id) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Get the index of the item to remove
-  let indexOfId = currItems.findIndex((element) => element.id == id);
-  // Remove that index of the item to remove from the list
-  if (indexOfId > -1) currItems.splice(indexOfId, 1);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};
+    
 
-/**
- * Updates an item from the corresponding feature list
- */
-storage.updateItem = function (feature, object) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Get the index of the item to update
-  let indexOfId = currItems.findIndex((element) => element.id == object.id);
-  // Overwrite current item in storage with new object
-  (indexOfId != -1) ? currItems[indexOfId] = object : currItems.push(object);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};</code></pre>
-        </article>
-    </section>
+
+
+<div class="description">
+    Represents a custom setting element.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_settings-popups.js.html">components/settings-popups.js</a>, <a href="components_settings-popups.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>HTMLElement</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
