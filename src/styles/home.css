@@ -146,7 +146,6 @@ main {
     min-width: 200px;
     height: 300px;
     background-color: #D9D9D9;
-    padding: 10px;
     margin-left: 2em;
     margin-top: 1em;
     margin-bottom: 1em;
@@ -155,6 +154,20 @@ main {
     border: none;
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
+
+#add-entry-button{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+#add-entry-icon{
+    display: flex;
+    align-items: center;
+}
+
+
 
 .entry:focus, .entry:hover {
     background-color: #C0C0C0;
