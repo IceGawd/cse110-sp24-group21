@@ -9,6 +9,11 @@ let deleteIconAlt = 'Delete this entry';
 
 window.addEventListener('DOMContentLoaded', init);
 
+/* helper function to get the id from the date */
+function getId(date){
+    return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+}
+
 /**
  * init function, fetches the entries, populates page, adds necessary listeners
  */
@@ -57,7 +62,7 @@ function editEntry(id){
     let form = document.getElementById('new-entry');
     document.getElementById('popup').style.visibility = 'visible';
     var date = new Date();
-    let dateID = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    let dateID = getId(date);
     // check if entry of that date already exists
     if(dateID in entries || id != '') {
         let entry;
@@ -140,7 +145,7 @@ function populatePage(){
 function setFocus(id){
     if(id == ""){
         let date = new Date();
-        id = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        id = getId(date);
         let entryContainer = document.getElementsByClassName('entry-container')[0];
         entryContainer.style.color = '#ABABAB';
         entryContainer.querySelector('#title').innerHTML = 'Title...';
