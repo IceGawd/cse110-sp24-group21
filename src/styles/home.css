@@ -58,6 +58,23 @@ h1 {
     height: 80%;
 }
 
+.task-search-container {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    margin-top: 0.5rem;
+    width: 50%;
+}
+
+#task-search {
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0.5rem;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
 /* Style and transition animation for main */
 main {
     display: flex;
@@ -119,6 +136,10 @@ main {
     #top-right {
         width: 90%;
         margin: auto;
+    }
+
+    .task-search-container {
+        width: 100%;
     }
 }
 
@@ -202,6 +223,10 @@ ul li {
     margin-bottom: 8px;
   }
 
+  .add-task:hover, .add-task:focus {
+    background-color: var(--task-hover);
+  }
+
 .delete-btn {
     background-color: transparent;
     border: none;
@@ -236,7 +261,7 @@ ul li {
     padding: 5px;
 }
 
-.task:hover {
+.home-task:hover {
     background-color: var(--task-hover);
     cursor: pointer;
 }
