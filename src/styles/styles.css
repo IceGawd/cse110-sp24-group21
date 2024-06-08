@@ -21,3 +21,9 @@
 main {
     width: 80vw;
 }
+
+@media only screen and (max-width: 940px) {
+    main {
+        overflow-y: scroll;
+    }
+}
