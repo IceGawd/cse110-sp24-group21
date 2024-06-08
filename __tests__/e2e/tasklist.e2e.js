@@ -42,8 +42,8 @@ describe('Basic user flow for Website', () => {
             await startTimeHandle.type(String(i + 1).padStart(2, '0') + ':00');
             endTimeHandle = await taskHandles[i].$('.end-time');
             await endTimeHandle.type(String(i + 2).padStart(2, '0') + ':00');
-            tagsHandle = await taskHandles[i].$('.tags')
-            await tagsHandle.type('Tag_' + (i+1).toString());
+            labelsHandle = await taskHandles[i].$('.labels')
+            await labelsHandle.type('Label_' + (i+1).toString());
             priorityHandle = await taskHandles[i].$('.priority-dropdown');
             await priorityHandle.select(i % 3 === 0 ? 'low' : (i % 3 === 1 ? 'medium' : 'high'));
         }
