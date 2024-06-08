@@ -143,7 +143,7 @@ class TaskElement extends HTMLElement {
     return timeDiv;
   }
 
-  // Create tag text by taking labels from arrays and adding spaces in between each tag
+  // Create label text by taking labels from arrays and adding spaces in between each label
   createLabels(arr) {
     const labels = document.createElement('textarea');
     labels.classList.add('labels');
