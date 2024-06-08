@@ -27,48 +27,7 @@
                     justify-content: center;">
                         <img src="../assets/icons/plus.svg" alt="Add Entry" id="add-entry-icon"/>
                     </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
-                    <button class="entry">
-                        <div class="entry-header">
-                            <h3>Building C+++</h3> 
-                            <h3>2/13/2030</h3>
-                        </div>
-                        <h3>What I Did</h3>
-                        <p>I built a new programming language that is faster than assembly and
-                            easier to use than Python. It's called "C+++".
-                        </p>
-                        <h3>What I Learned</h3>
-                        <p>How to build a programming language from scratch.</p>
-                        <h3>Other</h3>
-                        <p>It was a lot of fun! Perhaps sometime in the future I will release it out into the public</p>
-                    </button>
+                    <!-- Example Entries -->
                     <button class="entry">
                         <div class="entry-header">
                             <h3>Building C+++</h3> 
@@ -89,7 +48,7 @@
             <section id="top-right">
                 <h1 class="title">Calendar</h1>
                 <hr/>
-                <!-- I basically just took the calendar html and put it in here-->
+                <!-- Calendar HTML -->
                 <div id="mini-calendar">
                     <h3 id="month-and-year"></h3>
                     <div class="button-container-calendar">
@@ -101,8 +60,7 @@
                         <tbody id="calendar-body"></tbody>
                     </table>
                     <div class="footer-container-calendar">
-                    <label for="month">Jump To: </label>
-                        <!-- Dropdowns to select a specific month and year -->
+                        <label for="month">Jump To: </label>
                         <select id="month" onchange="jump()">
                             <option value="0">Jan</option>
                             <option value="1">Feb</option>
@@ -117,7 +75,6 @@
                             <option value="10">Nov</option>
                             <option value="11">Dec</option>
                         </select>
-                        <!-- Dropdown to select a specific year -->
                         <select id="year" onchange="jump()"></select>
                     </div>
                 </div>
@@ -129,50 +86,11 @@
                 <h1 class="title">My Tasks</h1>
                 <hr/>
                 <li class="task">
-                    <svg height="40" width="40">
-                        <circle r="18" cx="20" cy="20" fill="blue" stroke="black" stroke-width="3" />
-                    </svg>
-                    <h3 class="task-name">Task 1</h3>
-                    <p class="due-date">Apr 24, 2024</p>
-                    <button class="delete-btn">
-                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
-                    </button>
-                </li>
-                <li class="task">
-                    <svg height="40" width="40">
-                        <circle r="18" cx="20" cy="20" fill="red" stroke="black" stroke-width="3" />
-                    </svg>
-                    <h3 class="task-name">Task 2</h3>
-                    <p class="due-date">Apr 24, 2024</p>
-                    <button class="delete-btn">
-                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
-                    </button>
-                </li>
-                <li class="task">
-                    <svg height="40" width="40">
-                        <circle r="18" cx="20" cy="20" fill="green" stroke="black" stroke-width="3" />
-                    </svg>
-                    <h3 class="task-name">Task 3</h3>
-                    <p class="due-date">Apr 24, 2024</p>
-                    <button class="delete-btn">
-                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
-                    </button>
-                </li>
-                <li class="task">
-                    <svg height="40" width="40">
-                        <circle r="18" cx="20" cy="20" fill="orange" stroke="black" stroke-width="3" />
-                    </svg>
-                    <h3 class="task-name">Task 4</h3>
-                    <p class="due-date">Apr 24, 2024</p>
-                    <button class="delete-btn">
-                        <img src="../assets/icons/delete.svg" alt="Delete Task" />
-                    </button>
-                </li>
-                <li class="task">
                     <button class="add-task">Add Task</button>
                 </li>
             </ul>
         </section>
     </main>
+    <script src="../scripts/home.js"></script>
 </body>
 </html>
