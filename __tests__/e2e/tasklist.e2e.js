@@ -1,7 +1,7 @@
 describe('Basic user flow for Website', () => {
     // First, visit the lab 8 website
     beforeAll(async () => {
-      await page.goto('http://127.0.0.1:5502/src/pages/tasks.html');
+      await page.goto('http://localhost:3000/src/pages/tasks.html');
     });
 
     it('Add new tasks', async () => {
