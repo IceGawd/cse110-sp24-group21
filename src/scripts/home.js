@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function createTaskElement(task) {
     const li = document.createElement('li');
-    li.classList.add('task');
+    li.classList.add('home-task');
   
     const priorityColors = {
       low: 'green',
