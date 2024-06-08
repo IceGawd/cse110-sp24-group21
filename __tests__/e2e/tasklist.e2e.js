@@ -9,6 +9,14 @@ describe('Basic user flow for Website', () => {
       await delay(1000);
     });
 
+    // Make reload page checking a reusable fucntion to avoid code climate issues
+    const reloadAndCheckTasks = async (expectedCount) => {
+        console.log(`Checking that the tasks persist after reloading the page`);
+        await page.reload();
+        const tasks = await page.$$('task-element');
+        expect(tasks.length).toBe(expectedCount);
+    };
+
     it('Add new tasks', async () => {
         console.log('Checking that seven add-task buttons are clicked and task elements are created');
         // Query select all of the <add-task> elements and return the length of that array
@@ -21,10 +29,7 @@ describe('Basic user flow for Website', () => {
     });
 
     it('Reload page after adding new tasks', async () => {
-        console.log('Checking that the tasks persist after reloading the page');
-        await page.reload();
-        const tasks = await page.$$('task-element');
-        expect(tasks.length).toBe(7);
+        await reloadAndCheckTasks(7);
     });
 
     it('Edit tasks', async () => { 
@@ -51,10 +56,7 @@ describe('Basic user flow for Website', () => {
     }, 60000);
 
     it('Reload page after editing tasks', async () => {
-        console.log('Checking that the tasks persist after reloading the page');
-        await page.reload();
-        const tasks = await page.$$('task-element');
-        expect(tasks.length).toBe(7);
+        await reloadAndCheckTasks(7);
     });
 
     it('Delete tasks', async () => {
@@ -70,10 +72,7 @@ describe('Basic user flow for Website', () => {
     });
 
     it('Reload page after deleting tasks', async () => {
-        console.log('Checking that the tasks deleted after reloading the page');
-        await page.reload();
-        const tasks = await page.$$('task-element');
-        expect(tasks.length).toBe(0);
+        await reloadAndCheckTasks(0);
     });
 
 });
