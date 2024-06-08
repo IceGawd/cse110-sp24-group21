@@ -1,7 +1,7 @@
 import { formatDate, clearTasks, getTaskMap, addNewTasks} from "./calendar_task_display.js"
 
 /**
- * Function to make every valid date cell of the calendar a button
+ * Function to make every valid   date cell of the calendar a button 
  */
 function datesIntoButtons(){
 	let dates = document.querySelectorAll(".date-picker");
