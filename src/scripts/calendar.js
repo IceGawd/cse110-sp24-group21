@@ -35,17 +35,15 @@ function addDateArr(datesArr, year, month, day){
 function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected){
 	let prevMonth = monthSelected === 0 ?
 		11 : monthSelected - 1;
-		console.log(monthSelected + " is current")
-		console.log(prevMonth + " is previous ")
-		let prevYear = monthSelected === 0 ?
+	let prevYear = monthSelected === 0 ?
 		yearSelected - 1 : yearSelected;
-		for(let i = numBlank; i > 0; i--){
-			let dateToAdd = daysInMonth(prevMonth, prevYear) - (i - 1);
-			addDateArr(datesArr, prevYear, prevMonth, dateToAdd);
-		}
-		for(let i = 1; i <= 7 - numBlank; i++){
-			addDateArr(datesArr, yearSelected, monthSelected, i);
-		}
+	for(let i = numBlank; i > 0; i--){
+		let dateToAdd = daysInMonth(prevMonth, prevYear) - (i - 1);
+		addDateArr(datesArr, prevYear, prevMonth, dateToAdd);
+	}
+	for(let i = 1; i <= 7 - numBlank; i++){
+		addDateArr(datesArr, yearSelected, monthSelected, i);
+	}
 }
 /**
  * Function to get the dates for a specific week to display, 
@@ -145,17 +143,13 @@ function getDatesForWeek(){
 	let monthSelected = parseInt(dateSelected.dataset['month'],10) - 1;
 	let yearSelected = parseInt(dateSelected.dataset['year'],10);
 	let datesReturned = [];
-	console.log("getting dates for week")
 	if(date < dofW){ //case where begin columns are blank (so some of the dates come from prior month)
 		let numBlank = dofW - date;
-		console.log("case prev include")
 		casePriorMonthIncluded(datesReturned, numBlank, monthSelected, yearSelected);
 
 	} else{ //case where whole row is filled or last columns are empty
-		console.log("case prev excluded")
 		casePriorMonthExcluded(datesReturned, yearSelected, monthSelected, dofW, date);
 	}
-	console.log(datesReturned)
 	return datesReturned;
 }
 /**

@@ -43,16 +43,11 @@ export function getTaskMap(){
  * each element containing an array with tasks for the corresponding day of the week
  */
 function getWeekTasks(datesArr){
-    console.log("in get week tasks")
 	let tasksArr = [];
 	let tMap = getTaskMap();
-    console.group();
 	for(let i = 0; i < 7; i++){
-        console.log(datesArr[i]['date'])
 		tasksArr.push(tMap[datesArr[i]['date']]);
 	}
-    console.log(tasksArr)
-    console.groupEnd();
 	return tasksArr;
 }
 
@@ -152,8 +147,6 @@ export function sortTasks(tasksForDay){
  * Function to display tasks for a given week on the grid
  */
 export async function addNewTasks(datesArr){
-    console.log("addNewTasks");
-    console.log(datesArr)
 	let tasksForWeek = getWeekTasks(datesArr);
 	if(!tasksForWeek){
 		return;
@@ -170,7 +163,7 @@ export async function addNewTasks(datesArr){
 			let hr = tasksForDay[j]['roundStart'][0] < 10 ? "0" + JSON.stringify(tasksForDay[j]['roundStart'][0]) : JSON.stringify(tasksForDay[j]['roundStart'][0]);
 			let min = tasksForDay[j]['roundStart'][1] === 0 ? "00" : "30";
 			let rowId = "r" + hr + min;
-			displaytaskCalendar(rowId, i + 1, tasksForDay[j]['task'], taskLen);
+			displayTaskCalendar(rowId, i + 1, tasksForDay[j]['task'], taskLen);
 		}
 
 	}
@@ -210,19 +203,7 @@ function displayAllDayTask(col, task){
 		allDayElems[col].append(newAllDay);
 		return;
 }
-/**
- * Function to display a singular task to its correct location on the grid
- */
-export function displaytaskCalendar(rowId, col, task,len) {
-    console.log(task, len)
-	if(len == 0){
-		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
-	}
-	if(len == 48){ //all day task
-		displayAllDayTask(col, task);
-		return;
-	}
-    const rCont = document.querySelector(".right-container");
+function createTaskElement(rCont){
     let newElem = document.createElement("div");
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
@@ -233,6 +214,21 @@ export function displaytaskCalendar(rowId, col, task,len) {
     newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = getTaskColor(task['priority']);
     rCont.appendChild(newElem);
+    return newElem;
+}
+/**
+ * Function to display a singular task to its correct location on the grid
+ */
+export function displayTaskCalendar(rowId, col, task,len) {
+	if(len == 0){
+		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
+	}
+	if(len == 48){ //all day task
+		displayAllDayTask(col, task);
+		return;
+	}
+    const rCont = document.querySelector(".right-container");
+    let newElem = createTaskElement(rCont);
     let row = document.getElementById(rowId);
     let cells = row.querySelectorAll("td");
     let cell = cells[col]; 
