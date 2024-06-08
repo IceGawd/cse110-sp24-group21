@@ -174,16 +174,7 @@ function newTask(day) {
 
   const date = day.querySelector(".date").innerHTML;
 
-  let taskObject = {
-    id: inputId,
-    title: "",
-    date: date,
-    startTime: "00:00",
-    endTime: "23:59",
-    description: "",
-    labels: [],
-    priority: 'low'
-  };
+  let taskObject = { id: inputId, title: "", date: date, startTime: "00:00", endTime: "23:59", description: "", labels: [], priority: 'low' };
 
   createTask(day, taskObject);
 
