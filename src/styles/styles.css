@@ -21,9 +21,3 @@
 main {
     width: 80vw;
 }
-
-@media screen and (max-width: 940px) {
-    #main-page {
-        height: auto;
-    }
-}

@@ -20,7 +20,9 @@ main {
 	overflow: hidden;
 	padding-left: 15px;
 }
-
+#main-page{
+	overflow: hidden;
+}
 /* Calendar container */
 .left-container {
 	min-width: 20vw;
@@ -38,6 +40,18 @@ main {
     min-height: 90%;
 	align-items: center;
 	overflow: scroll;
+}
+
+/* media query for screen changes for responsiveness */
+@media only screen and (max-width: 940px) {
+	.container {
+		flex-direction: column;
+		overflow: unset;
+	}
+
+	.left-container {
+		min-height: unset;
+	}
 }
 
 #create-calendar-task {
@@ -60,6 +74,7 @@ main {
 	min-width: 50vw;
     padding-left: 10px;
 	overflow: scroll;
+
 }
 
 .day-header {
@@ -97,10 +112,14 @@ table {
 	text-align: center;
 }
 
-th.day-detail {
+
+#weekly-details thead {
 	position: sticky;
 	top: 0;
 	z-index: 10;
+}
+
+th.day-detail {
 	background-color: #e3e3e3;
 }
 
@@ -113,22 +132,34 @@ th.day-detail {
 	/* overflow-y: auto; */
 }
 
-/* #weekday-details td {
-	display: inline-block;
-	vertical-align: top;
-	background-size: cover;
-	background-position: center;
+#allday-tasks {
+	text-align: center;	
+	background-color: lightgray;
+}
+
+/* #tue-allday {
+	background-color: red;
+	color: white;
+}
+
+#sat-allday {
+	background-color: #00BCD4;
+	color: white;
 } */
 
 /* Test task coloring */
-.test-task {
-	border-radius: 5%;
-	background-color: red;
-	text-align: center;
-	color: white;
-	max-width: 50px;
-	background-size: cover;
-	background-position: center;
+.task{
+    border-radius: 5%;
+    background-color: red; /*default but shoudld be overwritten*/
+    text-align: center;
+    color: white;
+    width: 50px;  /*default but shoudld be overwritten*/
+    height: 40px; /*default but shoudld be overwritten*/
+	word-wrap: break-word; 
+    white-space: normal;  
+    overflow-wrap: break-word;
+	overflow: hidden;
+	border: 1px solid #e3e3e3;
 }
 
 .overlap-task {
@@ -139,13 +170,6 @@ th.day-detail {
 	max-width: 50px;
 }
 
-.task-2 {
-	border-radius: 5%;
-	background-color: green;
-	text-align: center;
-	color: white;
-	max-width: 100%;
-}
 
 #upcoming-container {
 	width: 100%;
