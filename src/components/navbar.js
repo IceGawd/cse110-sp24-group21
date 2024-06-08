@@ -51,7 +51,7 @@ const style = `
     color: #fff;
     display: inline-flex;
     flex-direction: column;
-    min-height: 100%;
+    height: 100vh;
     width: 20vw;
     margin-top: 0;
     justify-content: space-between;

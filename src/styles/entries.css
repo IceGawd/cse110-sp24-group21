@@ -47,12 +47,23 @@ main {
     display: none;
 }
 
+/* handle responsiveness through a media query */
+@media only screen and (max-width: 940px) {
+    .scrollable-entries {
+        width: 100%;
+    }
+
+    main {
+        flex-direction: column;
+    }
+}
+
 
 .header-entries {
     position: relative;
     display: block;
-    top: 15px;
-    left: 10px;
+    top: 1rem;
+    left: 1rem;
 }
 
 #add-button {
@@ -68,7 +79,6 @@ main {
 
 #search {
     border-radius: 5px;
-    border: none;
     font-size: 18px;
     margin: auto;
     text-align: center;
@@ -130,20 +140,6 @@ details {
 .entry-container.active {
     display: block;
 }
-
-
-
-/* #delete-entry {
-    position: relative;
-    border-radius: 5px;
-    background-color: #A6A6A6;
-    font-size: 15px;
-    width: 10%;
-    left: 90%;
-    top: 22vw;
-    height: 25px;
-    cursor: pointer;
-} */
 
 #popup {
     visibility: hidden;
@@ -257,6 +253,7 @@ details {
     margin-top: 5px;
     margin-bottom: 5px;
     border: inset;
+    width: 100%;
 }
 
 

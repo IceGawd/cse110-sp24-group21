@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/storage.js</title>
+    <title>JSDoc: Source: scripts/labeling.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/storage.js</h1>
+    <h1 class="page-title">Source: scripts/labeling.js</h1>
 
     
 
@@ -26,60 +26,111 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// storage.js
+            <pre class="prettyprint source linenums"><code>/**
+ * ----------------------------------------------------------------
+ * Deprecated, Functions have been merged into entries.js
+ * ----------------------------------------------------------------
+ */
 
-// Create a wrapper object to hold all of the storage functions
-// for easy exporting
-export const storage = {};
+// labeling.js
+/**
+ * Features Requirement: 
+ *    Adding labels to tasks and journal entries.
+ *    Changing labels to tasks and journal entries.
+ *    Deleting labels to tasks and journal entries.
+ *    Group tasks by labels.
+ *    Search entries by labels.
+ *    Each labels correspond to an unique label id
+ */
+
+
+import { storage } from './storage.js';
+let entriesURL = '../assets/json/entries.json';
+
+
 
 /**
- * Returns an array with all of the elements currently stored
- * @returns {Array} An array of elements from the feature
+ * Helper function of fetching journal entries from lcoal json file
  */
-storage.getItems = function (feature) {
-  // localStorage only stores strings so you must JSON.parse() any arrays
-  return JSON.parse(localStorage.getItem(feature)) || [];
-};
+async function fetchEntries() {
+  try {
+    const response = await fetch(entriesURL);
+    const entries = await response.json();
+
+    // There's some bug when calling updateItem in storage.js: TypeError: currItems.findIndex is not a function
+    //storage.updateItem('entries', entries); 
+
+    localStorage.setItem('entries', JSON.stringify(entries));
+  } catch (error) {
+    console.error('Error fetching entries:', error);
+  }
+}
 
 /**
- * Adds an item to the corresponding feature list
+ * Display entries in the current entry-list
+ * @param {Object} entries - The entries to display
  */
-storage.addItem = function (feature, object) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Add the new item to the list
-  currItems.push(object);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};
+function displayEntries(entries) {
+  const entryList = document.querySelector('.entry-list');
+  entryList.innerHTML = ''; // Clear the current entries
+
+  // Sort entries by date in descending order
+  const sortedDates = Object.keys(entries).sort((a, b) => new Date(b) - new Date(a));
+
+  // Re-append sorted entries into entry-list
+  sortedDates.forEach(date => {
+    const entry = entries[date];
+    const entryItem = document.createElement('li');
+    entryItem.innerHTML = `
+      &lt;a href="#">&lt;details open="true">
+        &lt;summary>&lt;b>${entry.title}&lt;/b>&lt;/summary>
+        &lt;p>${entry.entry}&lt;/p>
+        &lt;h6>${new Date(date).toLocaleDateString()}&lt;/h6>
+      &lt;/details>&lt;/a>
+    `;
+    entryList.appendChild(entryItem);
+  });
+}
 
 /**
- * Removes an item from storage by id
+ * Search Journal Entries by Label Name
+ * @returns void
  */
-storage.removeItem = function (feature, id) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Get the index of the item to remove
-  let indexOfId = currItems.findIndex((element) => element.id == id);
-  // Remove that index of the item to remove from the list
-  if (indexOfId > -1) currItems.splice(indexOfId, 1);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};
+function searchEntriesByLabel() {
+  const searchInput = document.getElementById('search');
 
-/**
- * Updates an item from the corresponding feature list
- */
-storage.updateItem = function (feature, object) {
-  // Get the current item list of the feature
-  const currItems = storage.getItems(feature);
-  // Get the index of the item to update
-  let indexOfId = currItems.findIndex((element) => element.id == object.id);
-  // Overwrite current item in storage with new object
-  (indexOfId != -1) ? currItems[indexOfId] = object : currItems.push(object);
-  // localStorage only stores strings so you must JSON.stringify() any arrays
-  localStorage.setItem(feature, JSON.stringify(currItems));
-};</code></pre>
+  searchInput.addEventListener('input', () => {
+    const queryLabel = searchInput.value.trim().toLowerCase();
+    const entries = storage.getItems('entries');
+
+    if (queryLabel === '') {
+      displayEntries(entries); // Display all entries if the search bar is empty
+    } else {
+      // Filter entries by the label and display them
+      const filteredEntries = Object.keys(entries).filter(date => {
+        const entry = entries[date];
+        return entry.labels &amp;&amp; entry.labels.some(l => l.toLowerCase().includes(queryLabel));
+      }).reduce((acc, date) => {
+        acc[date] = entries[date];
+        return acc;
+      }, {});
+
+      displayEntries(filteredEntries);
+    }
+  });
+
+  // Display all entries initially
+  const entries = storage.getItems('entries');
+  displayEntries(entries);
+}
+
+
+// Initialize the functions when the DOM is loaded
+window.addEventListener('DOMContentLoaded', async () => {
+  await fetchEntries();
+  searchEntriesByLabel();
+});
+</code></pre>
         </article>
     </section>
 

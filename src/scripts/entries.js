@@ -32,13 +32,23 @@ function init(){
                                                     });
     //set focus based on query in URL
     let query = new URL(window.location.href).searchParams;
-    if('date' in query)
-        setFocus(query[date]);
+    if(query.has('date')){
+        if(query.get('date') == 'new'){
+            editEntry('');
+        }
+        else
+            setFocus(query.get('date'));
+    }
 }
 
 /**
+ * Displays a popup form to create or edit a journal entry.
  * 
- * @param {string} date YYYY-MM-DD string corresponding to the 
+ * If the provided `id` is an empty string, the function initializes the form for creating a new entry 
+ * with default values for the title, date, entry content, and labels.
+ * If an `id` is provided, it fills the form with the corresponding entry's data.
+ * 
+ * @param {string} id - YYYY-MM-DD string also used as the entry id
  */
 function editEntry(id){
     //if is new entry, then date is an empty string
@@ -63,7 +73,7 @@ function editEntry(id){
 /**
  * Searches the entries by label and displays only the ones with tags containing the queryLabel
  * @param {string} queryLabel - Label string that we search for
- * @returns void
+ * @returns nothing
  */
 function search(queryLabel){
 
@@ -85,6 +95,15 @@ function search(queryLabel){
     }
 }
 
+/**
+ * Populates the page with journal entries.
+ * 
+ * If there are no entries, the page remains in its default state. Otherwise, it populates the entry list
+ * in the sidebar with the existing entries in chronological order, from least recent to most recent.
+ * The most recent entry is set as the focus in the entry container.
+ * 
+ * @returns void
+ */
 function populatePage(){
     //If no entries, leave page in default state
     if(Object.keys(entries).length == 0){
@@ -103,7 +122,7 @@ function populatePage(){
 }
 
 /**
- * Takes in a date (?), sets the focused entry (the one in entry-container) to the entry of that date
+ * Takes in a date/id, sets the focused entry (the one in entry-container) to the entry of that date
  * If no date is selected, set to nothing
  * @param {string} id - YYYY-MM-DD string also used as the entry id
  */
@@ -221,7 +240,7 @@ function entryItemSetup(item, date) {
 
     // Set basic properties to the element
     item.id = date;
-    item.addEventListener('dblclick', (event) => setFocus(event.currentTarget.id));
+    item.addEventListener('click', (event) => setFocus(event.currentTarget.id));
     item = item.appendChild(document.createElement('a'));
     item.href = '#';
     item = item.appendChild(document.createElement('div'));
@@ -290,15 +309,14 @@ function getDate(date){
 }
 
 /**
- * TODO: strips entry down to plaintext, then returns blurb-length beginning.
+ * Strips entry down to plaintext, then returns blurb-length beginning.
  * @param {string} entry is the md string 
  * @returns {string} (currently) first 45 characters of the first line of whatever you give it.
  */
 function getBlurb(entry){
-    let lines = entry.split('\n');
-    let line = lines[0];
-    if(lines[0] == '```')
-        line = lines[1];
+    let temp = document.createElement('div');
+    md2HTML(entry, temp);
+    let line = temp.innerText.split('\n')[0];
     return line.substring(0, Math.min(blurbLength, line.length));
 }
 /**

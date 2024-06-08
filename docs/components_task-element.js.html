@@ -32,14 +32,15 @@ const style = `
 .task {
   position: relative;
   flex: 0 0 auto;
-  margin-top: 0rem; 
-  padding: 0.5rem;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem; 
+  padding: 0.1rem;
   background-color: #f4f4f4;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  font-family: 'Radio Canada', sans-serif;
 }
 
 /* Task textarea style */
@@ -82,8 +83,8 @@ input {
 /* Task buttons style */
 .task-buttons {
   position: absolute;
-  bottom: 15px;
-  right: 20px; 
+  bottom: 5px;
+  right: 5px; 
   display: flex;
   flex-direction: row;
   margin-top: auto;
@@ -100,15 +101,6 @@ input {
   border-radius: 3px;
   cursor: pointer;
   transition: background 0.5s;
-}
-
-.save-task {
-  background-image: url(../assets/icons/save.svg);
-  background-size: 20px 20px;
-}
-
-.save-task:hover {
-  background-color: #d3d3d3;
 }
 
 .delete-task {
@@ -208,17 +200,12 @@ class TaskElement extends HTMLElement {
     const buttonWrapper = document.createElement('div');
     buttonWrapper.classList.add('task-buttons');
 
-    const savedEvent = new Event('saved', { bubbles: true, composed: true });
-    const saveButton = document.createElement('button');
-    saveButton.addEventListener('click', () => { this.dispatchEvent(savedEvent); });
-    saveButton.classList.add('save-task');
-
     const deletedEvent = new Event('deleted', { bubbles: true, composed: true });
     const deleteButton = document.createElement('button');
     deleteButton.addEventListener('click', () => { this.dispatchEvent(deletedEvent); });
     deleteButton.classList.add('delete-task');
 
-    buttonWrapper.append(saveButton, deleteButton);
+    buttonWrapper.append(deleteButton);
     return buttonWrapper;
   }
 
@@ -237,6 +224,9 @@ class TaskElement extends HTMLElement {
 
     this.addSaveEventListener(title, 'title');
     this.addSaveEventListener(description, 'description');
+    this.addSaveEventListener(time.querySelector('.start-time'), 'startTime');
+    this.addSaveEventListener(time.querySelector('.end-time'), 'endTime');
+    this.addSaveEventListener(time.querySelector('.all-day'), 'allDay');
     this.addSaveEventListener(tags, 'tags');
     this.addSaveEventListener(priorityDropdown, 'priority');
 
@@ -255,7 +245,13 @@ class TaskElement extends HTMLElement {
       } else if (field === 'priority') {
         this.json.priority = element.value;
         this.dispatchEvent(new Event('priority-changed', { bubbles: true, composed: true }));
-      } else {
+      } else if (field === 'allDay' &amp;&amp; element.checked) {
+        element.parentElement.parentElement.querySelector('.start-time').value = "00:00";
+        element.parentElement.parentElement.querySelector('.end-time').value = "23:59";
+        this.json.startTime = "00:00";
+        this.json.endTime = "23:59";
+      }
+      else {
         this.json[field] = element.value;
       }
       this.saveToLocalStorage();
@@ -263,18 +259,24 @@ class TaskElement extends HTMLElement {
   }
 
   saveToLocalStorage() {
-    const tasks = JSON.parse(localStorage.getItem('tasklist')) || [];
-    const taskIndex = tasks.findIndex(t => t.id === this.json.id);
+    const tasks = JSON.parse(localStorage.getItem('tasklist')) || {};
+    const date = this.json.date;
+
+    if (!tasks[date]) {
+      tasks[date] = [];
+    }
+    const taskIndex = tasks[date].findIndex(t => t.id === this.json.id);
     if (taskIndex >= 0) {
-      tasks[taskIndex] = this.json;
+      tasks[date][taskIndex] = this.json;
     } else {
-      tasks.push(this.json);
+      tasks[date].push(this.json);
     }
     localStorage.setItem('tasklist', JSON.stringify(tasks));
   }
 }
 
-customElements.define('task-element', TaskElement);</code></pre>
+customElements.define('task-element', TaskElement);
+</code></pre>
         </article>
     </section>
 
@@ -284,13 +286,13 @@ customElements.define('task-element', TaskElement);</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getTaskObjectFromTask">getTaskObjectFromTask</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue May 28 2024 12:37:35 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -176,14 +176,15 @@ main {
 .task {
   position: relative;
   flex: 0 0 auto;
-  margin-top: 0px; 
+  margin-top: 0rem;
+  margin-bottom: 0.5rem; 
   padding: 0.1rem;
   background-color: #f4f4f4;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  font-family: 'Radio Canada', sans-serif;
 }
 
 /* Task textarea style */
@@ -199,8 +200,8 @@ textarea {
   border-radius: 10px 10px 0 0;
 }
 
-/* Task tags style */
-.tags {
+/* Task labels style */
+.labels {
   border-radius: 0 0 10px 10px;
 }
 
@@ -226,8 +227,8 @@ input {
 /* Task buttons style */
 .task-buttons {
   position: absolute;
-  bottom: 15px;
-  right: 20px; 
+  bottom: 5px;
+  right: 5px; 
   display: flex;
   flex-direction: row;
   margin-top: auto;
@@ -246,15 +247,6 @@ input {
   transition: background 0.5s;
 }
 
-.save-task {
-  background-image: url(../assets/icons/save.svg);
-  background-size: 20px 20px;
-}
-
-.save-task:hover {
-  background-color: #d3d3d3;
-}
-
 .delete-task {
   background-image: url(../assets/icons/delete.svg);
   background-size: 35px 35px;
@@ -264,7 +256,15 @@ input {
   background-color: #d3d3d3;
 }
 
-/* Priority button styles */
+/* Priority dropdown style */
+.priority-dropdown {
+  margin-top: 10px;
+  width: 12.5%; /* Adjusted width to 1/8th of its current width */
+  border-radius: 15px;
+  border: 1px solid #827F7F; /* Set border color */
+  outline: none;
+}
+/* Priority dropdown options style
 .priority-task {
     background: none;
     border: none;
@@ -289,4 +289,4 @@ input {
 
 .priority-task[data-priority="low"] {
     color: green;
-}
+}*/

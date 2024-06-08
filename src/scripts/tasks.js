@@ -56,7 +56,13 @@ async function fetchTasks() {
 }
 
 /**
- * Adds the fetched tasks to the webpage -> UI Task
+ * Adds the fetched tasks to the webpage's UI.
+ * 
+ * This function retrieves tasks from the local storage, checks if there are any tasks available, 
+ * and then populates the UI with these tasks. It identifies the visible dates on the webpage,
+ * finds tasks corresponding to these dates, and adds them to the appropriate day containers.
+ * 
+ * @return void
  */
 function populatePage() {
   tasks = JSON.parse(localStorage.getItem('tasklist'));
@@ -78,7 +84,7 @@ function populatePage() {
 }
 
 /**
- * Binds the add task button to each day
+ * Binds the add task button to each day and sets up task-related events.
  * Binds task events
  */
 function bindUpdates() {
@@ -112,7 +118,6 @@ function createTask(day, data) {
   fields.forEach(field => {
     field.addEventListener('input', () => { field.style.height = 'auto'; field.style.height = field.scrollHeight + 'px'; });
   });
-  taskElement.addEventListener('saved', () => { saveTask(taskElement); });
   taskElement.addEventListener('deleted', () => { deleteTask(taskElement); });
   taskElement.addEventListener('priority-changed', () => { sortTasks(day); });
 
@@ -132,54 +137,6 @@ function sortTasks(day) {
     return priorities.indexOf(b.data.priority) - priorities.indexOf(a.data.priority);
   });
   tasks.forEach(task => day.insertBefore(task, day.querySelector('.add-task')));
-}
-
-/** 
- * Creates a save-able object from the HTML task element
- */
-function getTaskObjectFromTask(task) {
-  const wrapper = task.shadowRoot;
-  const inputTitle = wrapper.querySelector(".title").value;
-  const inputDate = task.parentElement.querySelector(".date").innerHTML;
-  const inputDescription = wrapper.querySelector(".description").value;
-  const inputStartTime = wrapper.querySelector(".start-time").value;
-  const inputEndTime = wrapper.querySelector(".end-time").value;
-  const allDayBox = wrapper.querySelector(".all-day").checked;
-  const inputTags = wrapper.querySelector(".tags").value;
-  const inputPriority = wrapper.querySelector('.priority-dropdown').value;
-
-  let taskObject = {
-    id: task.data.id,
-    title: inputTitle,
-    date: inputDate,
-    startTime: allDayBox ? "00:00" : inputStartTime,
-    endTime: allDayBox ? "23:59" : inputEndTime,
-    description: inputDescription,
-    tags: ((inputTags == '') ? [] : inputTags.split(' ')),
-    priority: inputPriority
-  };
-
-  return taskObject;
-}
-
-/**
- * Given the task element, save its current state
- */
-function saveTask(task) {
-  let taskObject = getTaskObjectFromTask(task);
-
-  if (!tasks[taskObject.date]) {
-    tasks[taskObject.date] = [];
-  }
-  const taskIndex = tasks[taskObject.date].findIndex(t => t.id === taskObject.id);
-  if (taskIndex >= 0) {
-    tasks[taskObject.date][taskIndex] = taskObject;
-  } else {
-    tasks[taskObject.date].push(taskObject);
-  }
-
-  localStorage.setItem('tasklist', JSON.stringify(tasks));
-  sortTasks(task.parentElement);
 }
 
 /**
@@ -203,8 +160,13 @@ function deleteTask(task) {
  * Given the day html element, add a task with date and id and other fields empty
  */
 function newTask(day) {
-  const taskElements = Array.from(document.querySelectorAll("task-element"));
-  const existingIds = new Set(taskElements.map(element => element.data.id));
+  tasks = JSON.parse(localStorage.getItem('tasklist'));
+  const existingIds = new Set();
+  Object.keys(tasks).forEach(date => {
+    tasks[date].forEach(task => {
+      existingIds.add(task.id);
+    });
+  });
   let inputId;
   do {
     inputId = Math.floor(Math.random() * 2000000);
@@ -212,16 +174,7 @@ function newTask(day) {
 
   const date = day.querySelector(".date").innerHTML;
 
-  let taskObject = {
-    id: inputId,
-    title: "",
-    date: date,
-    startTime: "00:00",
-    endTime: "23:59",
-    description: "",
-    tags: [],
-    priority: 'low'
-  };
+  let taskObject = { id: inputId, title: "", date: date, startTime: "00:00", endTime: "23:59", description: "", labels: [], priority: 'low' };
 
   createTask(day, taskObject);
 
