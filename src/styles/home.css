@@ -214,7 +214,7 @@ ul li {
 
 }
 
-.task {
+.home-task {
     display: grid;
     grid-template-columns: 10% 40% 40% 10%;
     width: 100%;
