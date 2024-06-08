@@ -36,6 +36,6 @@ describe('e2e testing for Home page', () => {
             return Array.from(tasks).map(e => e.innerHTML);
         });
         /* +1 comes from the add button */
-        expect(tasks.length).toBe(localTasksLength);
+        expect(tasks.length).toBe(localTasksLength + 1);
     });
 });
