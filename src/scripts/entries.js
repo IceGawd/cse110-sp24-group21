@@ -61,19 +61,17 @@ function editEntry(id){
     //if is new entry, then date is an empty string
     let form = document.getElementById('new-entry');
     document.getElementById('popup').style.visibility = 'visible';
-    var date = new Date();
+    let date = new Date();
     let dateID = getId(date);
+    //if the id is empty, then it's a new entry
+    if(id == ''){
+        id = dateID;
+    }
     // check if entry of that date already exists
-    if(dateID in entries || id != '') {
+    if(id in entries) {
         let entry;
-        if(id == ''){
-            entry = entries[dateID];
-            form.getElementsByTagName('input')[1].value = dateID;
-        }
-        else {
-            entry = entries[id];
-            form.getElementsByTagName('input')[1].value = id;
-        }
+        entry = entries[id];
+        form.getElementsByTagName('input')[1].value = id;
         form.getElementsByTagName('input')[0].value = entry.title;
         form.getElementsByTagName('textarea')[0].innerHTML = entry.entry;
         form.getElementsByTagName('input')[2].value = entry.labels;
