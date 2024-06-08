@@ -1,16 +1,24 @@
 body {
-    font-family: Arial, Helvetica, sans-serif
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
+/* Style and transition animation for main */
 main {
     display: flex;
-	justify-content:left;
-	width: auto;
+    flex-direction: column;
+    background-color: white;
+    /*------ This set the main absolute position --------*/
+    position: absolute; 
+    right: 0;
+    /*------ If something wrong might be this --------*/
+    transition: width 0.3s ease;
+	height: 100%;
 }
 
 .container {
 	display: flex;
 	overflow: hidden;
+	padding-left: 15px;
 }
 #main-page{
 	overflow: hidden;
@@ -22,7 +30,7 @@ main {
 	background: #ffffff;
 	padding: 15px;
 	width: 0.3w;
-	margin: 0 auto;
+	/* margin: 0 auto; */
 	/* overflow-y: hidden; */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	/* display: inline-block; */
@@ -32,6 +40,18 @@ main {
     min-height: 90%;
 	align-items: center;
 	overflow: scroll;
+}
+
+/* media query for screen changes for responsiveness */
+@media only screen and (max-width: 940px) {
+	.container {
+		flex-direction: column;
+		overflow: unset;
+	}
+
+	.left-container {
+		min-height: unset;
+	}
 }
 
 #create-calendar-task {
