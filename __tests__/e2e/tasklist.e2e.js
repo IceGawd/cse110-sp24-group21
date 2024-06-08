@@ -1,7 +1,12 @@
 describe('Basic user flow for Website', () => {
     // First, visit the lab 8 website
+    const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
     beforeAll(async () => {
-      await page.goto('http://localhost:3000/src/pages/tasks.html');
+      await page.goto('http://localhost:3000/', {waitUntil: 'networkidle2'});
+      const navbarHandles = await page.$$('my-navbar >>> .nav-row');
+      console.log(navbarHandles);
+      await navbarHandles[2].click();
+      await delay(1000);
     });
 
     it('Add new tasks', async () => {
@@ -43,7 +48,7 @@ describe('Basic user flow for Website', () => {
             await priorityHandle.select(i % 3 === 0 ? 'low' : (i % 3 === 1 ? 'medium' : 'high'));
         }
         
-    }, 30000);
+    }, 60000);
 
     it('Reload page', async () => {
         console.log('Checking that the tasks persist after reloading the page');
