@@ -20,6 +20,11 @@ function datesIntoButtons(){
 }
 /**
  * Function to add a date in the correct format to the date array that contains the dates of a given week to display
+ * 
+ * @param {Array} datesArr - The array of dates to add to
+ * @param {number} year - The year of the date
+ * @param {number} month - The month of the date
+ * @param {number} day - The day of the month
  */
 function addDateArr(datesArr, year, month, day){
 	let dateFormatted = formatDate(month + 1,day, year); //add one because months was previously used with january being 0
@@ -28,9 +33,15 @@ function addDateArr(datesArr, year, month, day){
 		date : dateFormatted
 	});
 }
+
 /**
  * Function to get the dates for a specific week to display, 
- * or the case some of the dates for the week include the prior month
+ * including the case where some of the dates for the week include the prior month
+ * 
+ * @param {Array} datesArr - The array to store the dates
+ * @param {number} numBlank - The number of blank cells at the beginning of the week
+ * @param {number} monthSelected - The selected month
+ * @param {number} yearSelected - The selected year
  */
 function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected){
 	let prevMonth = monthSelected === 0 ?
@@ -45,9 +56,16 @@ function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected)
 		addDateArr(datesArr, yearSelected, monthSelected, i);
 	}
 }
+
 /**
  * Function to get the dates for a specific week to display, 
  * for the cases where all the dates of the week are in the current month or some are in the next month
+ * 
+ * @param {Array} datesArr - The array to store the dates
+ * @param {number} yearSelected - The selected year
+ * @param {number} monthSelected - The selected month
+ * @param {number} dofW - The day of the week of the selected date
+ * @param {number} date - The selected date
  */
 function casePriorMonthExcluded(datesArr, yearSelected, monthSelected, dofW, date){
 	let offset = 7 - dofW;
@@ -132,8 +150,11 @@ function populateUpcoming(){
 
 	}
 }
+
 /**
- * Function get the dates for a specific week to display
+ * Function to get the dates for a specific week to display
+ * 
+ * @returns {Array} An array of date objects for the week
  */
 function getDatesForWeek(){ 
 	let dateSelected = document.querySelector(".date-picker.selected");
@@ -152,10 +173,12 @@ function getDatesForWeek(){
 	}
 	return datesReturned;
 }
+
 /**
  * Function to change the date header to the selected day
+ * 
+ * @param {Array} datesArr - An array of date objects for the week
  */
-
 function changeDateHeader(datesArr){
 	let tableHeaders = document.querySelectorAll('.day-detail');
 	for(let i = 0; i < 7 && i+1 < tableHeaders.length; i++){
