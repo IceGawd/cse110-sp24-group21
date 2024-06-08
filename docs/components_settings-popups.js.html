@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/settings-popups.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/settings-popups.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const settingHTML = `
+&lt;div class="settings-container" id="setting-container"> 
+    &lt;div class="settings-box">
+        &lt;h1>User Settings&lt;/h1>
+        &lt;p>
+            Color Theme: 
+        &lt;/p>
+        &lt;div id="themes">
+            &lt;button id="light" data-theme="light" aria-pressed="true">Light&lt;/button>
+            &lt;button id="dark" data-theme="dark" aria-pressed="false">Dark&lt;/button>
+        &lt;/div>
+        &lt;p>
+            Choose Time Zone:
+        &lt;/p>
+        &lt;select name="timezone_offset" id="timezone-offset" class="span5">
+            &lt;option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein&lt;/option>
+            &lt;option value="-11:00">(GMT -11:00) Midway Island, Samoa&lt;/option>
+            &lt;option value="-10:00">(GMT -10:00) Hawaii&lt;/option>
+            &lt;option value="-09:50">(GMT -9:30) Taiohae&lt;/option>
+            &lt;option value="-09:00">(GMT -9:00) Alaska&lt;/option>
+            &lt;option value="-08:00">(GMT -8:00) Pacific Time (US &amp;amp; Canada)&lt;/option>
+            &lt;option value="-07:00">(GMT -7:00) Mountain Time (US &amp;amp; Canada)&lt;/option>
+            &lt;option value="-06:00">(GMT -6:00) Central Time (US &amp;amp; Canada), Mexico City&lt;/option>
+            &lt;option value="-05:00">(GMT -5:00) Eastern Time (US &amp;amp; Canada), Bogota, Lima&lt;/option>
+            &lt;option value="-04:50">(GMT -4:30) Caracas&lt;/option>
+            &lt;option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz&lt;/option>
+            &lt;option value="-03:50">(GMT -3:30) Newfoundland&lt;/option>
+            &lt;option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown&lt;/option>
+            &lt;option value="-02:00">(GMT -2:00) Mid-Atlantic&lt;/option>
+            &lt;option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands&lt;/option>
+            &lt;option value="+00:00" selected="selected">(GMT) Western Europe Time, London, Lisbon, Casablanca&lt;/option>
+            &lt;option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris&lt;/option>
+            &lt;option value="+02:00">(GMT +2:00) Kaliningrad, South Africa&lt;/option>
+            &lt;option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg&lt;/option>
+            &lt;option value="+03:50">(GMT +3:30) Tehran&lt;/option>
+            &lt;option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi&lt;/option>
+            &lt;option value="+04:50">(GMT +4:30) Kabul&lt;/option>
+            &lt;option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent&lt;/option>
+            &lt;option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi&lt;/option>
+            &lt;option value="+05:75">(GMT +5:45) Kathmandu, Pokhara&lt;/option>
+            &lt;option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo&lt;/option>
+            &lt;option value="+06:50">(GMT +6:30) Yangon, Mandalay&lt;/option>
+            &lt;option value="+07:00">(GMT +7:00) Bangkok, Hanoi, Jakarta&lt;/option>
+            &lt;option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong&lt;/option>
+            &lt;option value="+08:75">(GMT +8:45) Eucla&lt;/option>
+            &lt;option value="+09:00">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk&lt;/option>
+            &lt;option value="+09:50">(GMT +9:30) Adelaide, Darwin&lt;/option>
+            &lt;option value="+10:00">(GMT +10:00) Eastern Australia, Guam, Vladivostok&lt;/option>
+            &lt;option value="+10:50">(GMT +10:30) Lord Howe Island&lt;/option>
+            &lt;option value="+11:00">(GMT +11:00) Magadan, Solomon Islands, New Caledonia&lt;/option>
+            &lt;option value="+11:50">(GMT +11:30) Norfolk Island&lt;/option>
+            &lt;option value="+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka&lt;/option>
+            &lt;option value="+12:75">(GMT +12:45) Chatham Islands&lt;/option>
+            &lt;option value="+13:00">(GMT +13:00) Apia, Nukualofa&lt;/option>
+            &lt;option value="+14:00">(GMT +14:00) Line Islands, Tokelau&lt;/option>
+        &lt;/select>
+
+        &lt;button class="close-btn" id="close-button">
+            Done
+        &lt;/button>
+    &lt;/div>
+&lt;/div>
+`;
+
+const settingStyle = `
+/* Settings popup styling */
+:root,
+[data-selected-theme="light"] {
+    --background: #f0f0f0;
+    --text-color: #1e1e1e;
+    --settings-header: #333;
+}
+
+[data-selected-theme="dark"] {
+    --background: #565656;
+    --text-color: #cccccc;
+    --settings-header: #d9d9d9;
+}
+
+.settings-container {
+    position: fixed; /* Cover the whole screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10000;
+}
+
+.settings-container.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.settings-box {
+    width: 500px;
+    background: var(--background);
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    padding: 30px;
+    transform: scale(0);
+    transition: transform 0.25s ease;
+}
+
+.settings-container.active .settings-box {
+    transform: scale(1);
+    transition-delay: .2s;
+}
+
+.settings-box h1 {
+    color: var(--text-color); 
+    line-height: 1;
+}
+
+.settings-box p {
+    color: var(--text-color); /* Added missing hash for color #333 */
+    margin: 12px 0 10px;
+}
+
+.settings-box button {
+    width: 20%;
+    height: 45px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.settings-box button#light {
+    background: #e0e0e0;
+}
+
+.settings-box button#dark {
+    background: #a6abb3;
+}
+
+.settings-box button[aria-pressed="true"] {
+    background-color: var(--text-color);
+    color: var(--background);
+}
+
+}
+.settings-box select {
+    margin: 12px 0 20px;
+}
+
+
+.settings-box .close-btn {
+    width: 100%;
+    height: 45px;
+    background: slategray; /* Corrected to 'slategray' */
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 12px 0 5px;
+}
+
+/* End of Setting Pop-up Styling */
+`;
+
+/**
+ * Represents a custom setting element.
+ * @class MySettings
+ * @extends HTMLElement
+ */
+class MySettings extends HTMLElement {
+
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        // add our HTML and CSS to the navbar shadow DOM
+        const template = document.createElement('template');
+        template.innerHTML = settingHTML;
+        const styleElem = document.createElement('style');
+        styleElem.textContent = settingStyle;
+        shadow.appendChild(template.content.cloneNode(true));
+        shadow.appendChild(styleElem);
+
+        // Add event listener for settings button
+        const showPopup = document.querySelector('my-navbar').shadowRoot.getElementById('settings-btn');
+        const popupContainer = document.querySelector('my-settings').shadowRoot.querySelector('#setting-container');
+        const closePopup = document.querySelector('my-settings').shadowRoot.querySelector('#close-button');
+
+        // Click setting button in nav bar
+        showPopup.addEventListener('click', () => {
+            popupContainer.classList.add('active')
+        });
+
+        // Click close button in setting pop-ups
+        closePopup.addEventListener('click', () => {
+            popupContainer.classList.remove('active');
+        });
+        
+        // Click outside of the setting pop-ups
+        popupContainer.addEventListener('click', (event) => {
+            if (event.target === popupContainer) {
+                popupContainer.classList.remove('active');
+            }
+        });
+
+        // Handles the selection of the theme
+        const handleThemeSelection = (event) => {
+            const theme = event.target.getAttribute('data-theme');
+            document.documentElement.setAttribute("data-selected-theme", theme);
+
+            const previouslyPressedButton = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
+            previouslyPressedButton.setAttribute('aria-pressed', false);
+            event.target.setAttribute('aria-pressed', 'true');
+        }
+
+        const themeSwitcher = document.querySelector('my-settings').shadowRoot.getElementById('themes');
+        const buttons = themeSwitcher.querySelectorAll('button');
+
+        /* Adds the handleThemeSelection as a click handler to each of the buttons */
+        buttons.forEach((button) => {
+            button.addEventListener('click', handleThemeSelection);
+        });
+    }
+
+}
+
+customElements.define('my-settings', MySettings);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
