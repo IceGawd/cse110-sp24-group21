@@ -17,15 +17,22 @@ describe('e2e testing for Home page', () => {
         return items ? Object.keys(items).length : 0;
     }
 
+    /* Get the elements of a selector */
+    async function getElements(selector) {
+        const elems = await page.evaluate(async (selector) => {
+            const selectedElems = document.querySelectorAll(selector);
+            return Array.from(selectedElems).map(e => e.innerHTML);
+        }, selector);
+        console.log('Elements:', elems);
+        return elems;
+    }
+
     /* Check that the number of entries is equal to the number in local storage
     or 5 at max */
     it('Check the number of entries', async () => {
         console.log('Checking the number of entries...');
         const localEntriesLength = await getItemLength('entries');
-        const entries = await page.evaluate(async () => {
-            const entries = document.querySelectorAll('.entry');
-            return Array.from(entries).map(e => e.innerHTML);
-        });
+        const entries = await getElements('.entry');
         /* +1 comes from the add button */
         expect(entries.length).toBe(localEntriesLength > 5 ? 6 : localEntriesLength + 1);
     });
@@ -35,10 +42,7 @@ describe('e2e testing for Home page', () => {
     it('Check the number of tasks', async () => {
         console.log('Checking the number of tasks...');
         const localTasksLength = await getItemLength('tasklist');
-        const tasks = await page.evaluate(async () => {
-            const tasks = document.querySelectorAll('.task');
-            return Array.from(tasks).map(e => e.innerHTML);
-        });
+        const tasks = await getElements('.task');
         /* +1 comes from the add button */
         expect(tasks.length).toBe(localTasksLength + 1);
     });
