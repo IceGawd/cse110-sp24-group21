@@ -132,11 +132,12 @@ const settingStyle = `
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .settings-box button#light {
-    background: #e0e0e0;
+    background: #978EEB;
+    color: #000000;
 }
 
 .settings-box button#dark {

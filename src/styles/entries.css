@@ -1,20 +1,22 @@
 /* CSS for just the entries page */
 :root,
 [data-selected-theme="light"] {
-    --background: #ffffff;
-    --delete-background: #999999;
-    --add-task-color: #909090;
-    --task-hover: #f0f0f0;
-    --text-color: #1e1e1e;
-	--navbar-color: #2196f7;
+    --background: #D0D7FF;
+    --entry-border: #978EEB;
+    --entry-hover: #ffffff;
+    --text-color: #000000;
+    --submit-color: #ffffff;
+    --side-border-color: #978EEB;
+	--navbar-color: #978EEB;
 }
 
 [data-selected-theme="dark"] {
     --background: #252525;
-    --delete-background: #999999;
-    --add-task-color: #d9d9d9;
-    --task-hover: #c0bfbf;
+    --entry-border: #999999;
+    --entry-hover: #c0bfbf;
     --text-color: #f4f4f4;
+    --submit-color: #ffffff;
+    --side-border-color: #978EEB;
 	--navbar-color: #1a3b57;
 }
 
@@ -26,7 +28,7 @@ body {
 main {
     display: flex;
     flex-direction: row;
-    background-color: white;
+    background-color: var(--background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
@@ -36,10 +38,11 @@ main {
 }
 
 .scrollable-entries {
+    border-right-color: var(--side-border-color);
     border-right-style: solid;
     overflow-y: scroll;
     width: 25%;
-    mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 1%);
+    mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 100%);
 }
 
 /*Make scrollbar invisible*/
@@ -70,7 +73,7 @@ main {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
@@ -101,10 +104,10 @@ details > summary {
 
 .scrollable-entries a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
     display: block;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 3px solid var(--entry-border);
     transition: background-color 0.3s;
 
 }
@@ -118,7 +121,7 @@ details {
 }
 
 .scrollable-entries a:hover {
-    background-color: #ffffff;
+    background-color: var(--entry-hover);
     border-radius: 5px;
 }
 
@@ -154,21 +157,23 @@ details {
 
 .new-entry-popup {
     margin: auto;
-    background-color: #fff;
+    background-color: var(--background);
     padding: 20px;
     border-radius: 5px;
     width: 55vw;
     height: 70%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid;
 }
 
 #submit {
     position: static;
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
     font-size: 18px;
+    color: var(--submit-color);
     width: 100%;
-    height: 30px;
+    height: 35px;
 }
 
 #delete-popup {
@@ -189,13 +194,13 @@ details {
     border-radius: 5px;
     width: 25vw;
     height: 25%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 #edit-entry {
     position: relative;
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
     font-size: 15px;
     width: 10%;
     left: 90%;
@@ -205,7 +210,7 @@ details {
 
 #delete {
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: #e41e1e;
     font-size: 14px;
     width: 40%;
     height: 40px;
@@ -236,6 +241,7 @@ details {
 
 .delete-entry{
     border: none;
+    background: transparent;
 }
 
 .delete-icon {
@@ -331,8 +337,7 @@ tbody {
 }
 
 ol {
-    padding-left: 2em;
-    
+    /* padding-left: 2em;    */
 }
 
 blockquote {

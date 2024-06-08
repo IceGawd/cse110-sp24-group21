@@ -6,7 +6,7 @@ const style = `
 
 :root,
 [data-selected-theme="light"] {
-    --navbar-color: #0580E6; 
+    --navbar-color: #978EEB; 
     --settings-header: #333;
 }
 

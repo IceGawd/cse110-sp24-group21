@@ -4,9 +4,13 @@
     --background: #ffffff;
     --delete-background: #999999;
     --add-task-color: #909090;
-    --task-hover: #f0f0f0;
+    --task-hover: #ce7a7a;
     --text-color: #1e1e1e;
-    --gradient-start: ;
+    --gradient-start: rgba(255, 255, 255, 0);
+    --gradient-middle: rgba(255, 255, 255, 0.2);
+    --gradient-middle2: rgba(255, 255, 255, 0.4);
+    --gradient-middle3: rgba(255, 255, 255, 0.95);
+    --gradient-end: rgba(255, 255, 255, 1);
 }
 
 [data-selected-theme="dark"] {
@@ -31,11 +35,11 @@
 
 #fade-left {
     position: absolute;
-    width: 9%; 
+    width: 20%; 
     height: 100%;
     left: 0;
     top: 0;
-    background: linear-gradient(to right, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
+    background: linear-gradient(to left, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
     var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
     z-index: 100;
@@ -43,11 +47,10 @@
 
 #fade-right {
     position: absolute;
-    width: 10%; 
+    width: 20%; 
     height: 100%;
     right: 0;
     top: 0;
-    
     background: linear-gradient(to right, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
     var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
@@ -70,7 +73,7 @@ h1 {
 main {
     display: flex;
     flex-direction: column;
-    background-color: var(--backgound);
+    background-color: var(--background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
