@@ -30,6 +30,8 @@ function init(){
                                                         document.getElementById('popup').style.visibility = 'hidden';
                                                         setFocus(data.get('date'));
                                                     });
+    // closing the popup when they don't wanna make
+    document.getElementById('close').addEventListener('click', () => document.getElementById('popup').style.visibility = 'hidden');
     //set focus based on query in URL
     let query = new URL(window.location.href).searchParams;
     if(query.has('date')){
@@ -54,19 +56,28 @@ function editEntry(id){
     //if is new entry, then date is an empty string
     let form = document.getElementById('new-entry');
     document.getElementById('popup').style.visibility = 'visible';
-    if(id == ''){
-        let date = new Date();
-        form.getElementsByTagName('input')[0].value = 'Title';
-        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
-        form.getElementsByTagName('input')[2].value = 'Labels';
-    }
-    else{
-        let entry = entries[id];
+    var date = new Date();
+    let dateID = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    // check if entry of that date already exists
+    if(dateID in entries || id != '') {
+        let entry;
+        if(id == ''){
+            entry = entries[dateID];
+            form.getElementsByTagName('input')[1].value = dateID;
+        }
+        else {
+            entry = entries[id];
+            form.getElementsByTagName('input')[1].value = id;
+        }
         form.getElementsByTagName('input')[0].value = entry.title;
-        form.getElementsByTagName('input')[1].value = id;
         form.getElementsByTagName('textarea')[0].innerHTML = entry.entry;
         form.getElementsByTagName('input')[2].value = entry.labels;
+    }
+    else{
+        form.getElementsByTagName('input')[0].value = 'Title';
+        form.getElementsByTagName('input')[1].value = dateID;
+        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
+        form.getElementsByTagName('input')[2].value = 'Labels';
     }
 }
 
