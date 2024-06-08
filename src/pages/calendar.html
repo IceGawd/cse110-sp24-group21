@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Radio Canada" rel="stylesheet">
     <script src="../components/navbar.js" type="module"></script>
     <script src="../components/settings-popups.js" type="module"></script>
+    <script src="../scripts/calendar.js" type="module"></script>
 </head>
 <body id="main-page">
     <my-navbar></my-navbar>
@@ -23,8 +24,8 @@
                 <div id="mini-calendar">
                     <h3 id="month-and-year"></h3>
                     <div class="button-container-calendar">
-                        <button id="previous" onclick="previous()">Prev</button>
-                        <button id="next" onclick="next()">Next</button>
+                        <button id="previous" >Prev</button>
+                        <button id="next">Next</button>
                     </div>
                     <table class="table-calendar" id="calendar" data-lang="en">
                         <thead id="thead-month"></thead>
@@ -33,7 +34,7 @@
                     <div class="footer-container-calendar">
                     <label for="month">Jump To: </label>
                         <!-- Dropdowns to select a specific month and year -->
-                        <select id="month" onchange="jump()">
+                        <select id="month" >
                             <option value="0">Jan</option>
                             <option value="1">Feb</option>
                             <option value="2">Mar</option>
@@ -48,22 +49,12 @@
                             <option value="11">Dec</option>
                         </select>
                         <!-- Dropdown to select a specific year -->
-                        <select id="year" onchange="jump()"></select>
+                        <select id="year"></select>
                     </div>
                 </div>
                 <div id="upcoming-container">
                     <h3 id="upcoming-header">Upcoming Tasks</h3>
                     <!-- Upcoming tasks go here -->
-                    <div class="upcoming">
-                        <h2>ASD</h2>
-                        <p class="upcoming-date">May 23, 2024</p>
-                        <p class="upcoming-desc">Some Description</p>
-                    </div>
-                    <div class="upcoming">
-                        <h2>Test Task HAHAH</h2>
-                        <p class="upcoming-date">May 23, 2024</p>
-                        <p class="upcoming-desc">Some Description</p>
-                    </div>
                 </div>
             </div>
             <div class="right-container">
@@ -101,8 +92,98 @@
                                     <h2 id="sat-date">25</h2>
                                 </th>
                             </tr>
+                            <tr id="allday-tasks">
+                                <th></th>
+                                <th id="sun-allday"></th>
+                                <th id="mon-allday"></th>
+                                <th id="tue-allday"></th>
+                                <th id="wed-allday"></th>
+                                <th id="thu-allday"></th>
+                                <th id="fri-allday"></th>
+                                <th id="sat-allday"></th>
+                            </tr>
                         </thead>
                         <tr id="time-filler">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="r0000">
+                            <td class="time">00:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr id="r0030">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="r0100">
+                            <td class="time">01:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr id="r0130">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="r0200">
+                            <td class="time">02:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr id="r0230">
+                            <td class="time"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="r0300">
+                            <td class="time">03:00</td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                            <td class="hour"></td>
+                        </tr>
+                        <tr id="r0330">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -152,7 +233,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="0600">
+                        <tr id="r0600">
                             <td class="time">06:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -162,7 +243,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="0630">
+                        <tr id="r0630">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -172,7 +253,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="0700">
+                        <tr id="r0700">
                             <td class="time">07:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -182,7 +263,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="0730">
+                        <tr id="r0730">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -192,7 +273,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="0800">
+                        <tr id="r0800">
                             <td class="time">08:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -202,7 +283,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="0830">
+                        <tr id="r0830">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -212,7 +293,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="0900">
+                        <tr id="r0900">
                             <td class="time">09:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -222,7 +303,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="0930">
+                        <tr id="r0930">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -232,7 +313,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1000">
+                        <tr id="r1000">
                             <td class="time">10:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -242,7 +323,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1030">
+                        <tr id="r1030">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -252,7 +333,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1100">
+                        <tr id="r1100">
                             <td class="time">11:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -262,7 +343,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1130">
+                        <tr id="r1130">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -272,7 +353,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1200">
+                        <tr id="r1200">
                             <td class="time">12:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -282,7 +363,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1230">
+                        <tr id="r1230">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -292,7 +373,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1300">
+                        <tr id="r1300">
                             <td class="time">13:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -302,7 +383,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1330">
+                        <tr id="r1330">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -312,7 +393,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1400">
+                        <tr id="r1400">
                             <td class="time">14:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -322,7 +403,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1430">
+                        <tr id="r1430">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -332,7 +413,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1500">
+                        <tr id="r1500">
                             <td class="time">15:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -342,7 +423,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1530">
+                        <tr id="r1530">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -352,21 +433,17 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1600">
+                        <tr id="r1600">
                             <td class="time">16:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
-                            <td class="hour overlap-task" rowspan="2">
-                                <div class="overlap">
-                                    ASD
-                                </div>
-                            </td>
+                            <td class="hour "></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1630">
+                        <tr id="r1630">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -376,11 +453,9 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1700">
+                        <tr id="r1700">
                             <td class="time">17:00</td>
-                            <td rowspan="2" class="test-task hour">
-                                Test task HAHAHAHAH check
-                            </td>
+                            <td class="hour"></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -388,7 +463,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1730">
+                        <tr id="r1730">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -398,7 +473,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1800">
+                        <tr id="r1800">
                             <td class="time">18:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -408,7 +483,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1830">
+                        <tr id="r1830">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -418,7 +493,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="1900">
+                        <tr id="r1900">
                             <td class="time">19:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -428,7 +503,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="1930">
+                        <tr id="r1930">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -438,7 +513,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="2000">
+                        <tr id="r2000">
                             <td class="time">20:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -448,7 +523,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="2030">
+                        <tr id="r2030">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -458,7 +533,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="2100">
+                        <tr id="r2100">
                             <td class="time">21:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -468,7 +543,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="2130">
+                        <tr id="r2130">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -478,7 +553,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="2200">
+                        <tr id="r2200">
                             <td class="time">22:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -488,7 +563,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="2230">
+                        <tr id="r2230">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -498,7 +573,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr id="2300">
+                        <tr id="r2300">
                             <td class="time">23:00</td>
                             <td class="hour"></td>
                             <td class="hour"></td>
@@ -508,7 +583,7 @@
                             <td class="hour"></td>
                             <td class="hour"></td>
                         </tr>
-                        <tr id="2330">
+                        <tr id="r2330">
                             <td class="time"></td>
                             <td></td>
                             <td></td>
@@ -524,6 +599,6 @@
             </div>
         </div>
     </main>
-    <script src="../scripts/calendar.js"></script>
+    <script src="../scripts/calendar_creation.js"></script>
 </body>
 </html>

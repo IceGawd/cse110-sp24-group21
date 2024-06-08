@@ -1,4 +1,7 @@
 describe('e2e testing for navbar', () => {
+
+    /* make sure to run `npm start` before running these tests 
+    so that puppeteer has a link to go to*/
     beforeAll(async () => {
         await page.goto('http://localhost:3000', {waitUntil: 'networkidle2'});
     });
