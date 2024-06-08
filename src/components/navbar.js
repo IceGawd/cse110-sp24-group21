@@ -4,6 +4,17 @@ const style = `
     width: 20vw;
 }
 
+:root,
+[data-selected-theme="light"] {
+    --navbar-color: #0580E6; 
+    --settings-header: #333;
+}
+
+[data-selected-theme="dark"] {
+    --navbar-color: #cccccc;
+    --settings-header: #d9d9d9;
+}
+
 .nav-group {
     width: 100%;
 }
@@ -36,7 +47,7 @@ const style = `
 }
 
 #sidebar {
-    background-color: #CAC9C9;
+    background-color: var(--navbar-color);
     color: #fff;
     display: inline-flex;
     flex-direction: column;

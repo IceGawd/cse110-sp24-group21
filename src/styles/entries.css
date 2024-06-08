@@ -1,4 +1,23 @@
 /* CSS for just the entries page */
+:root,
+[data-selected-theme="light"] {
+    --background: #ffffff;
+    --delete-background: #999999;
+    --add-task-color: #909090;
+    --task-hover: #f0f0f0;
+    --text-color: #1e1e1e;
+	--navbar-color: #2196f7;
+}
+
+[data-selected-theme="dark"] {
+    --background: #252525;
+    --delete-background: #999999;
+    --add-task-color: #d9d9d9;
+    --task-hover: #c0bfbf;
+    --text-color: #f4f4f4;
+	--navbar-color: #1a3b57;
+}
+
 body {
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
@@ -20,7 +39,7 @@ main {
     border-right-style: solid;
     overflow-y: scroll;
     width: 25%;
-    mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 100%);
+    mask-image: linear-gradient(to bottom, black calc(100% - 60px), transparent 1%);
 }
 
 /*Make scrollbar invisible*/
