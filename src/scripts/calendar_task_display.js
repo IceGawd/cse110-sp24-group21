@@ -203,7 +203,7 @@ function displayAllDayTask(col, task){
 		allDayElems[col].append(newAllDay);
 		return;
 }
-function createTaskElement(rCont){
+function createTaskElement(rCont, task){
     let newElem = document.createElement("div");
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
@@ -216,10 +216,31 @@ function createTaskElement(rCont){
     rCont.appendChild(newElem);
     return newElem;
 }
+function waitForElement(selector) {
+    return new Promise((resolve) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            resolve(element);
+        } else {
+            const observer = new MutationObserver(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    observer.disconnect();
+                    resolve(element);
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    });
+}
 /**
  * Function to display a singular task to its correct location on the grid
  */
-export function displayTaskCalendar(rowId, col, task,len) {
+export async function displayTaskCalendar(rowId, col, task,len) {
 	if(len == 0){
 		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
 	}
@@ -228,11 +249,10 @@ export function displayTaskCalendar(rowId, col, task,len) {
 		return;
 	}
     const rCont = document.querySelector(".right-container");
-    let newElem = createTaskElement(rCont);
+    let newElem = createTaskElement(rCont, task);
     let row = document.getElementById(rowId);
     let cells = row.querySelectorAll("td");
-    let cell = cells[col]; 
-
+    let cell = cells[col];
 	updateTaskPos(newElem, cell, len);
 
     // Update the position on scroll
@@ -243,9 +263,20 @@ export function displayTaskCalendar(rowId, col, task,len) {
 	window.addEventListener("resize", () => {
 		updateTaskPos(newElem, cell, len);
     });
-	let minBar = document.querySelector(".minimized");
-	let sR = minBar.shadowRoot;
+	let minBar;
+	let sR;
+
+	await waitForElement('.minimized')
+    .then(element => {
+        minBar = element;
+        sR = minBar.shadowRoot;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
 	let minButton = sR.getElementById('minimize-btn');
+	console.log(minButton);
 	//Update the position when side bar is minimized
 	minButton.addEventListener("click", () => {
 		updateTaskPos(newElem, cell, len);
