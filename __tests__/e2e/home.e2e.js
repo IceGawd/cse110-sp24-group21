@@ -42,7 +42,7 @@ describe('e2e testing for Home page', () => {
     it('Check the number of tasks', async () => {
         console.log('Checking the number of tasks...');
         const localTasksLength = await getItemLength('tasklist');
-        const tasks = await getElements('.task');
+        const tasks = await getElements('.home-task');
         /* +1 comes from the add button */
         expect(tasks.length).toBe(localTasksLength + 1);
     });
