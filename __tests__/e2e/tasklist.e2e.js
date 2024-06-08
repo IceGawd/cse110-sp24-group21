@@ -20,7 +20,7 @@ describe('Basic user flow for Website', () => {
         expect(tasks.length).toBe(7);
     });
 
-    it('Reload page', async () => {
+    it('Reload page after adding new tasks', async () => {
         console.log('Checking that the tasks persist after reloading the page');
         await page.reload();
         const tasks = await page.$$('task-element');
@@ -50,7 +50,7 @@ describe('Basic user flow for Website', () => {
         
     }, 60000);
 
-    it('Reload page', async () => {
+    it('Reload page after editing tasks', async () => {
         console.log('Checking that the tasks persist after reloading the page');
         await page.reload();
         const tasks = await page.$$('task-element');
@@ -69,7 +69,7 @@ describe('Basic user flow for Website', () => {
         expect(tasks.length).toBe(0);
     });
 
-    it('Reload page', async () => {
+    it('Reload page after deleting tasks', async () => {
         console.log('Checking that the tasks deleted after reloading the page');
         await page.reload();
         const tasks = await page.$$('task-element');
