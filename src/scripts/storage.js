@@ -15,6 +15,8 @@ storage.getItems = function (feature) {
 
 /**
  * Adds an item to the corresponding feature list
+ * @param {string} feature - The feature to add an item to
+ * @param {Object} object - The object to add to the feature list
  */
 storage.addItem = function (feature, object) {
   // Get the current item list of the feature
@@ -27,6 +29,8 @@ storage.addItem = function (feature, object) {
 
 /**
  * Removes an item from storage by id
+ * @param {string} feature - The feature to remove an item from
+ * @param {number} id - The id of the item to remove
  */
 storage.removeItem = function (feature, id) {
   // Get the current item list of the feature
@@ -41,6 +45,8 @@ storage.removeItem = function (feature, id) {
 
 /**
  * Updates an item from the corresponding feature list
+ * @param {string} feature - The feature to update an item from
+ * @param {Object} object - The object to update in the feature list
  */
 storage.updateItem = function (feature, object) {
   // Get the current item list of the feature
