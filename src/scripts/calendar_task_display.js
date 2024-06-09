@@ -241,20 +241,68 @@ function displayAllDayTask(col, task){
  * @param {HTMLElement} rCont - The container element where the task will be added
  * @returns {HTMLElement} The newly created task element
  */
-function createTaskElement(rCont){
-    let newElem = document.createElement("div");
+function createTaskElement(rCont, task){
+  let newElem = document.createElement("div");
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
 		return;
 	}
-    newElem.className = "task";
-    newElem.style.position = "absolute";
-    newElem.textContent = task['title']; 
+  newElem.className = "task";
+  newElem.style.position = "absolute";
+  newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = getTaskColor(task['priority']);
-    rCont.appendChild(newElem);
-    return newElem;
+  rCont.appendChild(newElem);
+  return newElem;
 }
 
+function waitForElement(selector) {
+    return new Promise((resolve) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            resolve(element);
+        } else {
+            const observer = new MutationObserver(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    observer.disconnect();
+                    resolve(element);
+                }
+            });
+          
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    });
+}
+
+async function adjustTasksResizing(rCont, newElem, cell, len){
+
+    // Update the position on scroll
+    rCont.addEventListener("scroll", () => {
+		updateTaskPos(newElem, cell, len);
+    });
+	//Update the position on page resizing
+	window.addEventListener("resize", () => {
+		updateTaskPos(newElem, cell, len);
+    });
+	let minBar, sR;
+
+	await waitForElement('.minimized')
+    .then(element => {
+        minBar = element;
+        sR = minBar.shadowRoot;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+	let minButton = sR.getElementById('minimize-btn');
+	//Update the position when side bar is minimized
+	minButton.addEventListener("click", () => {
+		updateTaskPos(newElem, cell, len);
+	});
+}
 /**
  * Function to display a singular task to its correct location on the grid
  */
@@ -266,27 +314,9 @@ export function displayTaskCalendar(rowId, col, task,len) {
 		displayAllDayTask(col, task);
 		return;
 	}
-    const rCont = document.querySelector(".right-container");
-    let newElem = createTaskElement(rCont);
-    let row = document.getElementById(rowId);
-    let cells = row.querySelectorAll("td");
-    let cell = cells[col]; 
-
+  const rCont = document.querySelector(".right-container");
+  let newElem = createTaskElement(rCont, task);
+  cell = document.getElementById(rowId).querySelectorAll('td')[col];
 	updateTaskPos(newElem, cell, len);
-
-    // Update the position on scroll
-    rCont.addEventListener("scroll", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	//Update the position on page resizing
-	window.addEventListener("resize", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	let minBar = document.querySelector(".minimized");
-	let sR = minBar.shadowRoot;
-	let minButton = sR.getElementById('minimize-btn');
-	//Update the position when side bar is minimized
-	minButton.addEventListener("click", () => {
-		updateTaskPos(newElem, cell, len);
-	});
+	adjustTasksResizing(rCont, newElem, cell, len);
 }
