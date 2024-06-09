@@ -19,11 +19,11 @@
     --add-task-color: #d9d9d9;
     --task-hover: #c0bfbf;
     --text-color: #f9f9f9;
-    --gradient-start: rgba(37, 37, 37, 0);
-    --gradient-middle: rgba(86, 86, 86, 0.2);
-    --gradient-middle2: rgba(86, 86, 86, 0.4);
-    --gradient-middle3: rgba(86, 86, 86, 0.95);
-    --gradient-end: rgba(86, 86, 86, 1);
+    --gradient-start: rgba(1, 0, 72, 0);
+    --gradient-middle: rgba(255,255,255, 0.0);
+    --gradient-middle2: rgba(255,255,255, 0.0);
+    --gradient-middle3: rgba(1, 0, 72, 0);
+    --gradient-end: rgba(1, 0, 72, 0);
 
 }
 
@@ -80,6 +80,8 @@ main {
     /*------ If something wrong might be this --------*/
     transition: width 0.3s ease;
     height: 100%;
+    color: var(--text-color);
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
 .title {
@@ -98,10 +100,12 @@ main {
 #top-left {
     width: 50%;
     padding-left: 3%;
+    margin-right: 3%;
     position: relative;
     padding: 1.5em;
     padding-bottom: 0;
 }
+
 
 #top-right {
     width: 40%;
@@ -234,7 +238,7 @@ ul li {
     display: block;
     margin: 5px;
     justify-self: end;
-    font-family: Inter;
+    /* font-family: Inter; */
 
 }
 
@@ -254,5 +258,5 @@ ul li {
 .task-name {
     padding-left: 1em;
     margin: 5px;
-    font-family: Inter;
+    /* font-family: Inter; */
 }

@@ -32,6 +32,7 @@ body {
 main {
     display: flex;
     flex-direction: column;
+	background-image: var(--dark-background);
     background-color: var(--background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
@@ -95,6 +96,10 @@ main {
 
 #create-calendar-task:hover {
 	background-color: darkgray;
+}
+
+#month-and-year {
+	color: var(--text-color);
 }
 
 .right-container {
