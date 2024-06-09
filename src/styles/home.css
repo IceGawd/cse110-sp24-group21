@@ -11,6 +11,7 @@
     --gradient-middle2: rgba(255, 255, 255, 0.4);
     --gradient-middle3: rgba(255, 255, 255, 0.95);
     --gradient-end: rgba(255, 255, 255, 1);
+    --navbar-select: #ffffff;
 }
 
 [data-selected-theme="dark"] {
@@ -24,7 +25,7 @@
     --gradient-middle2: rgba(255,255,255, 0.0);
     --gradient-middle3: rgba(1, 0, 72, 0);
     --gradient-end: rgba(1, 0, 72, 0);
-
+    --navbar-select: #1B2655;
 }
 
 #bottom {
