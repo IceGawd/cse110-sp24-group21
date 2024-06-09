@@ -31,6 +31,8 @@ function init(){
     //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     document.getElementById('submit').addEventListener('click', (e)=> {
                                                         let data = new FormData(document.getElementById('new-entry'));
+                                                        if(data.get('date') == '')
+                                                            return;
                                                         setEntry(data);
                                                         document.getElementById('popup').style.visibility = 'hidden';
                                                         setFocus(data.get('date'));
