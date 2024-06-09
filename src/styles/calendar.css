@@ -74,8 +74,8 @@ main {
 .right-container {
 	min-width: 50vw;
     padding-left: 10px;
-	overflow-y: scroll;
-	overflow-x: scroll;
+	overflow: scroll;
+	/* position: relative; */
 
 }
 
@@ -275,7 +275,6 @@ th.day-detail {
 	border-radius: 3px;
 	padding: 5px 1em;
 }
-
 .hourly-schedule {
 	margin-top: 5%;
     max-height: 80vh;

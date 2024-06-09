@@ -266,7 +266,7 @@ function createTaskElement(rCont, task){
   newElem.className = "task";
   newElem.style.position = "absolute";
   newElem.textContent = task['title']; 
-	newElem.style.backgroundColor = getTaskColor(task['priority']);
+  newElem.style.backgroundColor = getTaskColor(task['priority']);
   rCont.appendChild(newElem);
   return newElem;
 }
@@ -314,6 +314,10 @@ async function adjustTasksResizing(rCont, newElem, cell, len){
 	 document.querySelector("main").addEventListener("scroll", () => {
 		updateTaskPos(newElem, cell, len);
     });
+	 // Update the position on main section scroll
+	 window.addEventListener("scroll", () => {
+		updateTaskPos(newElem, cell, len);
+    });	
 	//Update the position on page resizing
 	window.addEventListener("resize", () => {
 		updateTaskPos(newElem, cell, len);
