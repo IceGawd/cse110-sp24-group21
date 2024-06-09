@@ -9,6 +9,7 @@
     --side-border-color: #978EEB;
 	--navbar-color: #978EEB;
     --curr-entry-color: white;
+    --date-color: #656d76;
 }
 
 [data-selected-theme="dark"] {
@@ -22,6 +23,7 @@
 	--navbar-color: #161E28;
     --header-background: rgb(255,255,255,0.7);
     --curr-entry-color: rgb(255,255,255,0.3);
+    --date-color: black;
 }
 
 body {
@@ -110,7 +112,7 @@ details > summary {
 
 .scrollable-entries a {
     text-decoration: none;
-    color: var(--text-color);
+    color: black;
     display: block;
     padding: 10px;
     border-bottom: 3px solid var(--entry-border);
@@ -207,6 +209,7 @@ details {
     position: relative;
     border-radius: 5px;
     background-color: var(--navbar-color);
+    color: var(--text-color);
     font-size: 15px;
     width: 10%;
     left: 90%;
@@ -293,7 +296,7 @@ h3 {
 
 h6 {
     font-size: .85em;
-    color: #656d76;
+    color: var(--date-color);
 }
 
 p {
