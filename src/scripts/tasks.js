@@ -7,7 +7,9 @@ let currDate = new Date();
 // Bind the init() function to run once the page loads
 window.addEventListener('DOMContentLoaded', init);
 
-/** Initializes every function, they all stem from here */
+/**
+ * Initializes every function, they all stem from here
+ */
 async function init() {
   // Attempt to fetch the task items
   try {
@@ -129,6 +131,7 @@ function createTask(day, data) {
 
 /**
  * Sorts tasks by priority within the specified day container
+ * @param {HTMLElement} day - The day container to sort tasks in
  */
 function sortTasks(day) {
   const tasks = Array.from(day.querySelectorAll('task-element'));
@@ -141,6 +144,7 @@ function sortTasks(day) {
 
 /**
  * Given the task element, delete it
+ * @param {HTMLElement} task - The task element to delete
  */
 function deleteTask(task) {
   const taskId = task.data.id;
@@ -158,6 +162,7 @@ function deleteTask(task) {
 
 /**
  * Given the day html element, add a task with date and id and other fields empty
+ * @param {HTMLElement} day - The day container to add the task to
  */
 function newTask(day) {
   tasks = JSON.parse(localStorage.getItem('tasklist'));
@@ -209,6 +214,10 @@ function setWeek(date) {
   populatePage();
 }
 
+/**
+ * Given a number of days, change the current date by that many days and set the week
+ * @param {number} days 
+ */
 function changeWeek(days) {
   currDate.setDate(currDate.getDate() + days);
   setWeek(currDate);
