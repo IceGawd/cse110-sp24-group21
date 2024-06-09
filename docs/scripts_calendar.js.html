@@ -48,6 +48,11 @@ function datesIntoButtons(){
 }
 /**
  * Function to add a date in the correct format to the date array that contains the dates of a given week to display
+ * 
+ * @param {Array} datesArr - The array of dates to add to
+ * @param {number} year - The year of the date
+ * @param {number} month - The month of the date
+ * @param {number} day - The day of the month
  */
 function addDateArr(datesArr, year, month, day){
 	let dateFormatted = formatDate(month + 1,day, year); //add one because months was previously used with january being 0
@@ -56,9 +61,15 @@ function addDateArr(datesArr, year, month, day){
 		date : dateFormatted
 	});
 }
+
 /**
  * Function to get the dates for a specific week to display, 
- * or the case some of the dates for the week include the prior month
+ * including the case where some of the dates for the week include the prior month
+ * 
+ * @param {Array} datesArr - The array to store the dates
+ * @param {number} numBlank - The number of blank cells at the beginning of the week
+ * @param {number} monthSelected - The selected month
+ * @param {number} yearSelected - The selected year
  */
 function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected){
 	let prevMonth = monthSelected === 0 ?
@@ -73,9 +84,16 @@ function casePriorMonthIncluded(datesArr, numBlank, monthSelected, yearSelected)
 		addDateArr(datesArr, yearSelected, monthSelected, i);
 	}
 }
+
 /**
  * Function to get the dates for a specific week to display, 
  * for the cases where all the dates of the week are in the current month or some are in the next month
+ * 
+ * @param {Array} datesArr - The array to store the dates
+ * @param {number} yearSelected - The selected year
+ * @param {number} monthSelected - The selected month
+ * @param {number} dofW - The day of the week of the selected date
+ * @param {number} date - The selected date
  */
 function casePriorMonthExcluded(datesArr, yearSelected, monthSelected, dofW, date){
 	let offset = 7 - dofW;
@@ -160,8 +178,11 @@ function populateUpcoming(){
 
 	}
 }
+
 /**
- * Function get the dates for a specific week to display
+ * Function to get the dates for a specific week to display
+ * 
+ * @returns {Array} An array of date objects for the week
  */
 function getDatesForWeek(){ 
 	let dateSelected = document.querySelector(".date-picker.selected");
@@ -180,10 +201,12 @@ function getDatesForWeek(){
 	}
 	return datesReturned;
 }
+
 /**
  * Function to change the date header to the selected day
+ * 
+ * @param {Array} datesArr - An array of date objects for the week
  */
-
 function changeDateHeader(datesArr){
 	let tableHeaders = document.querySelectorAll('.day-detail');
 	for(let i = 0; i &lt; 7 &amp;&amp; i+1 &lt; tableHeaders.length; i++){
@@ -228,13 +251,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 09 2024 02:07:39 GMT-0700 (北美太平洋夏令时间)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/home-entries.js</title>
+    <title>JSDoc: Source: scripts/home.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/home-entries.js</h1>
+    <h1 class="page-title">Source: scripts/home.js</h1>
 
     
 
@@ -26,72 +26,103 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { storage } from './storage.js';
-import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+            <pre class="prettyprint source linenums"><code>document.addEventListener('DOMContentLoaded', () => {
+    populateTaskList();
+    document.getElementById('task-search').addEventListener('input', filterTasks);
+});
 
-let entries;
-const numEntries = 5; //number of entries to load
-const titleLength = 14; //length of the title in characters
-
-window.addEventListener('DOMContentLoaded', initEntries);
 
 /**
- * Initialize entry list from the localstorage
+ * Populates the task list with tasks from local storage.
  */
-function initEntries(){
-    entries = storage.getItems('entries');
-    let addBtnHTML = document.getElementById('entries-container').querySelector('button').outerHTML;
-    document.getElementById("entries-container").innerHTML = addBtnHTML;
-    populateEntries();
+function populateTaskList() {
+    const taskList = document.getElementById('list');
+    const tasks = JSON.parse(localStorage.getItem('tasklist')) || {};
+    const taskEntries = Object.values(tasks).flat();
+    const addTaskButton = document.querySelector('.add-task');
+
+    taskEntries.forEach(task => {
+        const taskElement = createTaskElement(task);
+        taskList.insertBefore(taskElement, taskList.querySelector('#end-of-tasks'));
+    });
+
+    // Redirect to the tasks page if user clicks on the add task button at the home page
+    addTaskButton.addEventListener('click', () => {
+        window.location.href = './tasks.html';
+    });
+}
+
+/**
+ * Creates a task HTML element with the given task data.
+ *
+ * @param {*} task - The task object containing task details.
+ * @returns {*} - The created task list item element.
+ */
+function createTaskElement(task) {
+    const li = document.createElement('li');
+    li.classList.add('home-task');
+    li.dataset.labels = task.labels.join(' ');
+
+    const priorityColors = {
+        low: 'green',
+        medium: 'orange',
+        high: 'red'
+    };
+
+    li.innerHTML = `
+      &lt;svg height="40" width="40">
+        &lt;circle r="18" cx="20" cy="20" fill="${priorityColors[task.priority]}" stroke="black" stroke-width="3" />
+      &lt;/svg>
+      &lt;h3 class="task-name">${task.title}&lt;/h3>
+      &lt;p class="due-date">${new Date(task.date).toLocaleDateString()}&lt;/p>
+      &lt;button class="delete-btn">
+        &lt;img src="../assets/icons/delete.svg" alt="Delete Task" />
+      &lt;/button>
+    `;
+
+    li.querySelector('.delete-btn').addEventListener('click', () => {
+        deleteTask(task.id, task.date);
+        li.remove();
+    });
+
+    return li;
+}
+
+/**
+ * Delete a task in local storage task list based on task ID and date.
+ * 
+ * @param {*} taskId - The id of the task to be deleted.
+ * @param {*} taskDate - The date of the task to be deleted.
+ */
+function deleteTask(taskId, taskDate) {
+    const tasks = JSON.parse(localStorage.getItem('tasklist')) || {};
+    tasks[taskDate] = tasks[taskDate].filter(task => task.id !== taskId);
+
+    if (tasks[taskDate].length === 0) {
+        delete tasks[taskDate];
+    }
+
+    localStorage.setItem('tasklist', JSON.stringify(tasks));
 }
 
 
 /**
- * Populates the entries to the homepage.
- * Display the entries by chronological order. By click on each entry, it will redirect to the entries.html. 
+ * Filters tasks displayed on the home webpage based on the search query.
+ * Allows user to search tasks by label names in the home page. 
+ *
  */
-function populateEntries(){
-    let dates = Object.keys(entries).sort();
-    let container = document.getElementById("entries-container");
-    for(let i = dates.length-1; i>=0 &amp;&amp; container.children.length &lt; numEntries+1; --i){
-        let entry = entries[dates[i]];
-        let button = document.createElement('a');
-        button.href = 'entries.html?date=' + dates[i];
-        container.append(button);
-        button = button.appendChild(document.createElement('button'));
-        button.className = 'entry';
-        let content = document.createElement('p');
-        content.innerText = stripMd(entry.entry);
-        button.append(content);
+function filterTasks() {
+    const searchQuery = document.getElementById('task-search').value.toLowerCase();
+    const taskItems = document.querySelectorAll('.home-task');
 
-        let div = document.createElement('div');
-        div.className = 'entry-header';
-        let title = document.createElement('h3');
-        title.innerText = (entry.title.length &lt;= titleLength) ? entry.title : entry.title.substring(0,titleLength-3) + '...';
-        div.append(title);
-        let date = document.createElement('h3');
-        let ymd = dates[i].split('-');
-        date.innerText = ymd[1]+'/'+ymd[2]+'/'+ymd[0];
-        div.append(date);
-        button.prepend(div);
-    }
-}
-
-/**
- * Strips a markdown string of its formatting and returns it
- * @param {string} entry - markdown string to be stripped
- * @returns string containing stripped markdown.
- */
-function stripMd(entry){
-    try{
-        let temp = document.createElement('div');
-        temp.innerHTML = marked.parse(entry);
-        let ret = temp.innerText;
-        return ret;
-    }
-    catch (err) {
-        return entry;
-    }
+    taskItems.forEach(taskItem => {
+        const labels = taskItem.dataset.labels.toLowerCase();
+        if (labels.includes(searchQuery)) {
+            taskItem.style.display = '';
+        } else {
+            taskItem.style.display = 'none';
+        }
+    });
 }</code></pre>
         </article>
     </section>

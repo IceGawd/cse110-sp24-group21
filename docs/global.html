@@ -286,7 +286,7 @@
     
 
     
-    <h4 class="name" id="addDateArr"><span class="type-signature"></span>addDateArr<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addDateArr"><span class="type-signature"></span>addDateArr<span class="signature">(datesArr, year, month, day)</span><span class="type-signature"></span></h4>
     
 
     
@@ -303,6 +303,124 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>datesArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The array of dates to add to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The year of the date</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>month</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The month of the date</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>day</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The day of the month</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -338,7 +456,236 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line24">line 24</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addFilledCell"><span class="type-signature"></span>addFilledCell<span class="signature">(j, date, row, year, month)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Adds a filled cell to the calendar row with the specified dateThis function creates a table cell (`<td>`) element for a given date, setsvarious attributes to the cell (like date, month, year, etc.), and appends itto the provided row. It also marks the cell as "selected" if the date matchesthe current date.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>j</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The column index of the calendar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The date of the month</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The row to which the cell will be appended</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The year currently being viewed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>month</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The month currently being viewed</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -426,7 +773,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line149">line 149</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line167">line 167</a>
     </li></ul></dd>
     
 
@@ -550,7 +897,7 @@
     
 
     
-    <h4 class="name" id="casePriorMonthExcluded"><span class="type-signature"></span>casePriorMonthExcluded<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="casePriorMonthExcluded"><span class="type-signature"></span>casePriorMonthExcluded<span class="signature">(datesArr, yearSelected, monthSelected, dofW, date)</span><span class="type-signature"></span></h4>
     
 
     
@@ -569,6 +916,147 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>datesArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The array to store the dates</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yearSelected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The selected year</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>monthSelected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The selected month</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dofW</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The day of the week of the selected date</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The selected date</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -602,7 +1090,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line52">line 52</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -638,7 +1126,7 @@
     
 
     
-    <h4 class="name" id="casePriorMonthIncluded"><span class="type-signature"></span>casePriorMonthIncluded<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="casePriorMonthIncluded"><span class="type-signature"></span>casePriorMonthIncluded<span class="signature">(datesArr, numBlank, monthSelected, yearSelected)</span><span class="type-signature"></span></h4>
     
 
     
@@ -646,7 +1134,7 @@
 
 
 <div class="description">
-    Function to get the dates for a specific week to display, or the case some of the dates for the week include the prior month
+    Function to get the dates for a specific week to display, including the case where some of the dates for the week include the prior month
 </div>
 
 
@@ -657,6 +1145,124 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>datesArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The array to store the dates</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numBlank</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of blank cells at the beginning of the week</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>monthSelected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The selected month</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yearSelected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The selected year</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -690,7 +1296,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line35">line 35</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -726,7 +1332,7 @@
     
 
     
-    <h4 class="name" id="changeDateHeader"><span class="type-signature"></span>changeDateHeader<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="changeDateHeader"><span class="type-signature"></span>changeDateHeader<span class="signature">(datesArr)</span><span class="type-signature"></span></h4>
     
 
     
@@ -745,6 +1351,55 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>datesArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of date objects for the week</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -778,7 +1433,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line159">line 159</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line182">line 182</a>
     </li></ul></dd>
     
 
@@ -822,7 +1477,7 @@
 
 
 <div class="description">
-    Function to clear the tasks that are being displayed for a selected date
+    Removes all task elements from the calendar and resets the background colorof all day elements.
 </div>
 
 
@@ -866,7 +1521,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line13">line 13</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -954,7 +1609,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line114">line 114</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -1078,6 +1733,324 @@
     
 
     
+    <h4 class="name" id="createTaskElement"><span class="type-signature"></span>createTaskElement<span class="signature">(rCont)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a new task element to be displayed on the grid
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rCont</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The container element where the task will be added</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line244">line 244</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly created task element
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createTaskElement"><span class="type-signature"></span>createTaskElement<span class="signature">(task)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a task HTML element with the given task data.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>task</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task object containing task details.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home.js.html">scripts/home.js</a>, <a href="scripts_home.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The created task list item element.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="datesIntoButtons"><span class="type-signature"></span>datesIntoButtons<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -1155,6 +2128,188 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="daysInMonth"><span class="type-signature"></span>daysInMonth<span class="signature">(iMonth, iYear)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Helper function to get the number of days in specified monthCalculates the number of days in a given month and year
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>iMonth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the month for which to calculate the number of days</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iYear</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the year for which to calculate the number of days</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The number of days specified in the month
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1267,7 +2422,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line202">line 202</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line216">line 216</a>
     </li></ul></dd>
     
 
@@ -1302,6 +2457,166 @@
 
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deleteTask"><span class="type-signature"></span>deleteTask<span class="signature">(taskId, taskDate)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Delete a task in local storage task list based on task ID and date.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The id of the task to be deleted.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>taskDate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The date of the task to be deleted.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home.js.html">scripts/home.js</a>, <a href="scripts_home.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1502,7 +2817,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line279">line 279</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line293">line 293</a>
     </li></ul></dd>
     
 
@@ -1548,19 +2863,95 @@
     
 
     
-    <h4 class="name" id="displayAllDayTask"><span class="type-signature"></span>displayAllDayTask<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="displayAllDayTask"><span class="type-signature"></span>displayAllDayTask<span class="signature">(col, task)</span><span class="type-signature"></span></h4>
     
 
     
 
 
 
+<div class="description">
+    Displays an all-day task in the all-day task area
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The column index where the task should be displayed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>task</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task object containing task details</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1596,7 +2987,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line193">line 193</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line224">line 224</a>
     </li></ul></dd>
     
 
@@ -1821,7 +3212,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line222">line 222</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line309">line 309</a>
     </li></ul></dd>
     
 
@@ -1958,7 +3349,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line53">line 53</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -2118,7 +3509,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line238">line 238</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line252">line 252</a>
     </li></ul></dd>
     
 
@@ -2362,6 +3753,481 @@
     
 
     
+    <h4 class="name" id="filterTasks"><span class="type-signature"></span>filterTasks<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Filters tasks displayed on the home webpage based on the search query.Allows user to search tasks by label names in the home page.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home.js.html">scripts/home.js</a>, <a href="scripts_home.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="formatDate"><span class="type-signature"></span>formatDate<span class="signature">(month, day, year)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Formats a date given the month, day, and year into MM/DD/YYYY format
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>month</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The month to format</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>day</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The day of the month</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The year</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The formatted date string in MM/DD/YYYY format
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="generate_year_range"><span class="type-signature"></span>generate_year_range<span class="signature">(start, end)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generates the range of years between start and end boundaries
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the start year</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the end year</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    HTML DOM string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="getBlurb"><span class="type-signature"></span>getBlurb<span class="signature">(entry)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
@@ -2463,7 +4329,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line316">line 316</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line330">line 330</a>
     </li></ul></dd>
     
 
@@ -2618,7 +4484,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line306">line 306</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -2676,7 +4542,7 @@
     
 
     
-    <h4 class="name" id="getDatesForWeek"><span class="type-signature"></span>getDatesForWeek<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getDatesForWeek"><span class="type-signature"></span>getDatesForWeek<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -2684,7 +4550,7 @@
 
 
 <div class="description">
-    Function get the dates for a specific week to display
+    Function to get the dates for a specific week to display
 </div>
 
 
@@ -2728,7 +4594,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line138">line 138</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -2753,6 +4619,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An array of date objects for the week
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -2816,7 +4704,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line181">line 181</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line208">line 208</a>
     </li></ul></dd>
     
 
@@ -2841,6 +4729,116 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getTaskMap"><span class="type-signature"></span>getTaskMap<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This function gets the task list from localStorage and parses it into a map.If no task list is found, it returns an empty map.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The task map
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -2904,7 +4902,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line45">line 45</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -2992,7 +4990,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line15">line 15</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -3116,6 +5114,182 @@
     
 
     
+    <h4 class="name" id="initEntries"><span class="type-signature"></span>initEntries<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Initialize entry list from the localstorage
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home-entries.js.html">scripts/home-entries.js</a>, <a href="scripts_home-entries.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="jump"><span class="type-signature"></span>jump<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to navigate to jump to a specific month and yearCalls showCalendar function to display after navigation
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="mathRowLength"><span class="type-signature"></span>mathRowLength<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -3168,7 +5342,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line101">line 101</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -3328,7 +5502,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line329">line 329</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line343">line 343</a>
     </li></ul></dd>
     
 
@@ -3462,6 +5636,182 @@
     
 
     
+    <h4 class="name" id="next"><span class="type-signature"></span>next<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to navigate to next monthCalls showCalendar function to display after navigation
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="populateEntries"><span class="type-signature"></span>populateEntries<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Populates the entries to the homepage.Display the entries by chronological order. By click on each entry, it will redirect to the entries.html.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home-entries.js.html">scripts/home-entries.js</a>, <a href="scripts_home-entries.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="populatePage"><span class="type-signature"></span>populatePage<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -3514,7 +5864,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line107">line 107</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -3658,6 +6008,94 @@
     
 
     
+    <h4 class="name" id="populateTaskList"><span class="type-signature"></span>populateTaskList<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Populates the task list with tasks from local storage.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_home.js.html">scripts/home.js</a>, <a href="scripts_home.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="populateUpcoming"><span class="type-signature"></span>populateUpcoming<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -3710,7 +6148,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line74">line 74</a>
+        <a href="scripts_calendar.js.html">scripts/calendar.js</a>, <a href="scripts_calendar.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="previous"><span class="type-signature"></span>previous<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to navigate to previous monthCalls showCalendar function to display after navigation
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -3798,7 +6324,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line57">line 57</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -3886,7 +6412,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line76">line 76</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -4023,7 +6549,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line78">line 78</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -4268,7 +6794,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line170">line 170</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line184">line 184</a>
     </li></ul></dd>
     
 
@@ -4415,7 +6941,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line129">line 129</a>
+        <a href="scripts_entries.js.html">scripts/entries.js</a>, <a href="scripts_entries.js.html#line143">line 143</a>
     </li></ul></dd>
     
 
@@ -4552,7 +7078,167 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line201">line 201</a>
+        <a href="scripts_tasks.js.html">scripts/tasks.js</a>, <a href="scripts_tasks.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showCalendar"><span class="type-signature"></span>showCalendar<span class="signature">(month, year)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Displays a calendar for a given month and yearThis function generates a calendar for the specified month and year, anddisplays it in an HTML table with the ID "calendar-body". It updates the display to show the correct month and year, and fills in the calendar days.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>month</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The month for which to display the calendar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The year for which to display the calendar</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_creation.js.html">scripts/calendar_creation.js</a>, <a href="scripts_calendar_creation.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -4640,7 +7326,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line131">line 131</a>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line148">line 148</a>
     </li></ul></dd>
     
 
@@ -4865,7 +7551,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_home-entries.js.html">scripts/home-entries.js</a>, <a href="scripts_home-entries.js.html#line49">line 49</a>
+        <a href="scripts_home-entries.js.html">scripts/home-entries.js</a>, <a href="scripts_home-entries.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -4906,6 +7592,189 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="updateTaskPos"><span class="type-signature"></span>updateTaskPos<span class="signature">(newElem, cell, len)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Update position and dimension of a task element based on its corresponding cell
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newElem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task element to update</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cell</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The grid cell element where the task is located</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>len</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The length of the task in terms of grid cells</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_calendar_task_display.js.html">scripts/calendar_task_display.js</a>, <a href="scripts_calendar_task_display.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -4921,13 +7790,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 09 2024 02:07:39 GMT-0700 (北美太平洋夏令时间)
 </footer>
 
 <script> prettyPrint(); </script>

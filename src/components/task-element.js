@@ -103,6 +103,7 @@ class TaskElement extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
+  // Creates the text area for writing task content
   createTextarea(text, placeholderText, className) {
     const el = document.createElement('textarea');
     el.classList.add(className);
@@ -111,7 +112,7 @@ class TaskElement extends HTMLElement {
     return el;
   }
 
-  // Create time div
+  // Creates time div
   createTimeDiv(startTime, endTime) {
     const timeDiv = document.createElement('div');
     timeDiv.classList.add('time-div');
@@ -143,7 +144,10 @@ class TaskElement extends HTMLElement {
     return timeDiv;
   }
 
-  // Create label text by taking labels from arrays and adding spaces in between each label
+  /**
+   * Create label text by taking labels from arrays and adding spaces in between each label
+   * @param {*} arr - a text array of input labels
+   */
   createLabels(arr) {
     const labels = document.createElement('textarea');
     labels.classList.add('labels');
@@ -152,6 +156,12 @@ class TaskElement extends HTMLElement {
     return labels;
   }
 
+  /**
+   * Creates a dropdown selection menu for assigning different priority to a task
+   * 
+   * @param {*} priority - A selected priority level
+   * @returns - A created dropdown element with the priority options.
+   */
   createPriorityDropdown(priority) {
     const dropdown = document.createElement('select');
     dropdown.classList.add('priority-dropdown');
@@ -168,6 +178,10 @@ class TaskElement extends HTMLElement {
     return dropdown;
   }
 
+  /**
+   * Creates a wrapper containing task-related buttons.
+   * @returns - a wrapper containing task-related buttons.
+   */
   createButtons() {
     const buttonWrapper = document.createElement('div');
     buttonWrapper.classList.add('task-buttons');
@@ -210,6 +224,13 @@ class TaskElement extends HTMLElement {
     return this.json;
   }
 
+  /**
+ * Adds an event listener to an element to save changes to the task's JSON object and local storage, 
+ * which makes the task can be auto-saved any time and updated to the home page.
+ *
+ * @param {*} element - The HTML element to which the event listener is added.
+ * @param {*} field - The field in the task's JSON object that should be updated.
+ */
   addSaveEventListener(element, field) {
     element.addEventListener('input', () => {
       if (field === 'labels') {
@@ -230,6 +251,9 @@ class TaskElement extends HTMLElement {
     });
   }
 
+  /**
+   * Saves the task list to localstorage
+   */
   saveToLocalStorage() {
     const tasks = JSON.parse(localStorage.getItem('tasklist')) || {};
     const date = this.json.date;
