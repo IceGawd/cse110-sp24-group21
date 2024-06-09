@@ -127,10 +127,6 @@ main {
 	border-top: solid 0.5px;
 }
 
-/* table, tr, th, td {
-	border: 0.5px solid black;
-} */
-
 table {
 	border-collapse: collapse;
 }
