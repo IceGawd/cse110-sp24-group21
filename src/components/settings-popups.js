@@ -172,14 +172,15 @@ const settingStyle = `
 /* End of Setting Pop-up Styling */
 `;
 
-const iconPaths = {
+const iconData = {
     'light': {
         'Home': '../assets/icons/home.svg',
         'Calendar': '../assets/icons/calendar.svg',
         'Entries': '../assets/icons/entries.svg',
         'Tasks': '../assets/icons/tasks.svg',
         'Minimize': '../assets/icons/minimize.svg',
-        'Settings': '../assets/icons/settings.svg'
+        'Settings': '../assets/icons/settings.svg',
+        'text-color': 'black'
     },
     'dark': {
         'Home': '../assets/icons/home-dark.svg',
@@ -187,7 +188,8 @@ const iconPaths = {
         'Entries': '../assets/icons/entries-dark.svg',
         'Tasks': '../assets/icons/tasks-dark.svg',
         'Minimize': '../assets/icons/minimize-dark.svg',
-        'Settings': '../assets/icons/settings-dark.svg'
+        'Settings': '../assets/icons/settings-dark.svg',
+        'text-color': 'white'
     }
 };
 
@@ -256,11 +258,16 @@ class MySettings extends HTMLElement {
 
             if (navbarShadowRoot) {
                 const sidebarElem = navbarShadowRoot.querySelector('ul#sidebar');
+                // console.log(navbarShadowRoot);
+                const navbarStyle = navbarShadowRoot.querySelector('style');
+                console.log(navbarStyle);
                 let navbarElems = sidebarElem.querySelectorAll('.nav-row');
                 navbarElems.forEach((elem) => {
-                    const btnType = elem.querySelector('p').textContent;
+                    let btnType = elem.querySelector('p');
                     // Update image icons based on mapping defined above
-                    elem.querySelector('img').src = iconPaths[theme][btnType];
+                    elem.querySelector('img').src = iconData[theme][btnType.textContent];
+                    console.log(btnType.style);
+                    btnType.style.color = iconData[theme]['text-color'];
                 });
             }
             else {
