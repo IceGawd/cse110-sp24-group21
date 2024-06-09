@@ -8,16 +8,20 @@
     --submit-color: #ffffff;
     --side-border-color: #978EEB;
 	--navbar-color: #978EEB;
+    --curr-entry-color: white;
 }
 
 [data-selected-theme="dark"] {
     --background: #252525;
+    --dark-background: url('../assets/background-dark.png');
     --entry-border: #999999;
     --entry-hover: #c0bfbf;
     --text-color: #f4f4f4;
     --submit-color: #ffffff;
-    --side-border-color: #978EEB;
+    --side-border-color: #252525;
 	--navbar-color: #161E28;
+    --header-background: rgb(255,255,255,0.7);
+    --curr-entry-color: rgb(255,255,255,0.3);
 }
 
 body {
@@ -29,6 +33,7 @@ main {
     display: flex;
     flex-direction: row;
     background-color: var(--background);
+    background-image: var(--dark-background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
@@ -99,7 +104,8 @@ details > summary {
 .scrollable-entries li {
     list-style: none;
     margin-bottom: 5px;
-    
+    background-color: var(--header-background);
+    border-radius: 5%;
 }
 
 .scrollable-entries a {
@@ -128,7 +134,7 @@ details {
 .content {
     overflow-y: auto;
     margin: auto;
-    background-color: #fff;
+    background-color: var(--curr-entry-color);
     padding: 20px;
     border-radius: 5px;
     width: 65vw;
