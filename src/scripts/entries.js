@@ -9,6 +9,11 @@ let deleteIconAlt = 'Delete this entry';
 
 window.addEventListener('DOMContentLoaded', init);
 
+/* helper function to get the id from the date */
+function getId(date){
+    return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+}
+
 /**
  * init function, fetches the entries, populates page, adds necessary listeners
  */
@@ -30,6 +35,8 @@ function init(){
                                                         document.getElementById('popup').style.visibility = 'hidden';
                                                         setFocus(data.get('date'));
                                                     });
+    // closing the popup when they don't wanna make
+    document.getElementById('close').addEventListener('click', () => document.getElementById('popup').style.visibility = 'hidden');
     //set focus based on query in URL
     let query = new URL(window.location.href).searchParams;
     if(query.has('date')){
@@ -54,19 +61,26 @@ function editEntry(id){
     //if is new entry, then date is an empty string
     let form = document.getElementById('new-entry');
     document.getElementById('popup').style.visibility = 'visible';
+    let date = new Date();
+    let dateID = getId(date);
+    //if the id is empty, then it's a new entry
     if(id == ''){
-        let date = new Date();
-        form.getElementsByTagName('input')[0].value = 'Title';
-        form.getElementsByTagName('input')[1].value = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
-        form.getElementsByTagName('input')[2].value = 'Labels';
+        id = dateID;
     }
-    else{
-        let entry = entries[id];
-        form.getElementsByTagName('input')[0].value = entry.title;
+    // check if entry of that date already exists
+    if(id in entries) {
+        let entry;
+        entry = entries[id];
         form.getElementsByTagName('input')[1].value = id;
+        form.getElementsByTagName('input')[0].value = entry.title;
         form.getElementsByTagName('textarea')[0].innerHTML = entry.entry;
         form.getElementsByTagName('input')[2].value = entry.labels;
+    }
+    else{
+        form.getElementsByTagName('input')[0].value = 'Title';
+        form.getElementsByTagName('input')[1].value = dateID;
+        form.getElementsByTagName('textarea')[0].innerHTML = 'Entry here...';
+        form.getElementsByTagName('input')[2].value = 'Labels';
     }
 }
 
@@ -129,7 +143,7 @@ function populatePage(){
 function setFocus(id){
     if(id == ""){
         let date = new Date();
-        id = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        id = getId(date);
         let entryContainer = document.getElementsByClassName('entry-container')[0];
         entryContainer.style.color = '#ABABAB';
         entryContainer.querySelector('#title').innerHTML = 'Title...';
