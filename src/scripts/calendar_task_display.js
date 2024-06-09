@@ -237,23 +237,8 @@ function waitForElement(selector) {
         }
     });
 }
-/**
- * Function to display a singular task to its correct location on the grid
- */
-export async function displayTaskCalendar(rowId, col, task,len) {
-	if(len == 0){
-		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
-	}
-	if(len == 48){ //all day task
-		displayAllDayTask(col, task);
-		return;
-	}
-    const rCont = document.querySelector(".right-container");
-    let newElem = createTaskElement(rCont, task);
-    let row = document.getElementById(rowId);
-    let cells = row.querySelectorAll("td");
-    let cell = cells[col];
-	updateTaskPos(newElem, cell, len);
+
+async function adjustTasksResizing(rCont, newElem, cell, len){
 
     // Update the position on scroll
     rCont.addEventListener("scroll", () => {
@@ -263,8 +248,7 @@ export async function displayTaskCalendar(rowId, col, task,len) {
 	window.addEventListener("resize", () => {
 		updateTaskPos(newElem, cell, len);
     });
-	let minBar;
-	let sR;
+	let minBar, sR;
 
 	await waitForElement('.minimized')
     .then(element => {
@@ -274,11 +258,26 @@ export async function displayTaskCalendar(rowId, col, task,len) {
     .catch(error => {
         console.error('Error:', error);
     });
-
 	let minButton = sR.getElementById('minimize-btn');
-	console.log(minButton);
 	//Update the position when side bar is minimized
 	minButton.addEventListener("click", () => {
 		updateTaskPos(newElem, cell, len);
 	});
+}
+/**
+ * Function to display a singular task to its correct location on the grid
+ */
+export function displayTaskCalendar(rowId, col, task,len) {
+	if(len == 0){
+		len == 1; //if a task was less than 15 minutes long, make it still be displayed in 1 cell;
+	}
+	if(len == 48){ //all day task
+		displayAllDayTask(col, task);
+		return;
+	}
+    const rCont = document.querySelector(".right-container");
+    let newElem = createTaskElement(rCont, task);
+    cell = document.getElementById(rowId).querySelectorAll('td')[col];
+	updateTaskPos(newElem, cell, len);
+	adjustTasksResizing(rCont, newElem, cell, len);
 }
