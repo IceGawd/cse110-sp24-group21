@@ -26,7 +26,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>export function formatDate(month, day, year){
+            <pre class="prettyprint source linenums"><code>/**
+ * Formats a date given the month, day, and year into MM/DD/YYYY format
+ * 
+ * @param {number} month - The month to format
+ * @param {number} day - The day of the month
+ * @param {number} year - The year
+ * @returns {string} The formatted date string in MM/DD/YYYY format
+ */
+export function formatDate(month, day, year){
 	month = JSON.stringify(month);
 	year = JSON.stringify(year);
 	day = JSON.stringify(day);
@@ -35,8 +43,10 @@
 	let formatDate = formatMonth + '/' + formatDay+ '/' + year;
 	return formatDate;
 }
+
 /**
- * Function to clear the tasks that are being displayed for a selected date
+ * Removes all task elements from the calendar and resets the background color
+ * of all day elements.
  */
 export function clearTasks(){
 	let allTasks = document.querySelectorAll(".task"); 
@@ -56,6 +66,13 @@ export function clearTasks(){
 		allTasks[i].remove();
 	}
 }
+
+/**
+ * This function gets the task list from localStorage and parses it into a map.
+ * If no task list is found, it returns an empty map.
+ * 
+ * @returns {Object} The task map
+ */
 export function getTaskMap(){
 	let tMap = {};
 	let tasklist = localStorage.getItem('tasklist');
@@ -171,6 +188,7 @@ export function sortTasks(tasksForDay){
 	}
 	return tasksForDay;
 }
+
 /**
  * Function to display tasks for a given week on the grid
  */
@@ -196,6 +214,14 @@ export async function addNewTasks(datesArr){
 
 	}
 }
+
+/**
+ * Update position and dimension of a task element based on its corresponding cell
+ * 
+ * @param {HTMLElement} newElem - The task element to update
+ * @param {HTMLElement} cell - The grid cell element where the task is located
+ * @param {number} len - The length of the task in terms of grid cells
+ */
 function updateTaskPos(newElem, cell, len){
 	const rect = cell.getBoundingClientRect();
     newElem.style.top = `${rect.top}px`;
@@ -203,6 +229,7 @@ function updateTaskPos(newElem, cell, len){
 	newElem.style.width = `${rect.width}px`;
 	newElem.style.height = `${rect.height * len}px`;
 }
+
 /**
  * Function to get task background color
  */
@@ -215,8 +242,12 @@ function getTaskColor(priority){
 		return "red";
 	}
 }
+
 /**
+ * Displays an all-day task in the all-day task area
  * 
+ * @param {number} col - The column index where the task should be displayed
+ * @param {Object} task - The task object containing task details
  */
 function displayAllDayTask(col, task){
 	let allDayElems = document.getElementById("allday-tasks").querySelectorAll("th");
@@ -231,18 +262,74 @@ function displayAllDayTask(col, task){
 		allDayElems[col].append(newAllDay);
 		return;
 }
-function createTaskElement(rCont){
-    let newElem = document.createElement("div");
+
+/**
+ * Creates a new task element to be displayed on the grid
+ * 
+ * @param {HTMLElement} rCont - The container element where the task will be added
+ * @returns {HTMLElement} The newly created task element
+ */
+function createTaskElement(rCont, task){
+  let newElem = document.createElement("div");
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
 		return;
 	}
-    newElem.className = "task";
-    newElem.style.position = "absolute";
-    newElem.textContent = task['title']; 
+  newElem.className = "task";
+  newElem.style.position = "absolute";
+  newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = getTaskColor(task['priority']);
-    rCont.appendChild(newElem);
-    return newElem;
+  rCont.appendChild(newElem);
+  return newElem;
+}
+
+function waitForElement(selector) {
+    return new Promise((resolve) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            resolve(element);
+        } else {
+            const observer = new MutationObserver(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    observer.disconnect();
+                    resolve(element);
+                }
+            });
+          
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    });
+}
+
+async function adjustTasksResizing(rCont, newElem, cell, len){
+
+    // Update the position on scroll
+    rCont.addEventListener("scroll", () => {
+		updateTaskPos(newElem, cell, len);
+    });
+	//Update the position on page resizing
+	window.addEventListener("resize", () => {
+		updateTaskPos(newElem, cell, len);
+    });
+	let minBar, sR;
+
+	await waitForElement('.minimized')
+    .then(element => {
+        minBar = element;
+        sR = minBar.shadowRoot;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+	let minButton = sR.getElementById('minimize-btn');
+	//Update the position when side bar is minimized
+	minButton.addEventListener("click", () => {
+		updateTaskPos(newElem, cell, len);
+	});
 }
 /**
  * Function to display a singular task to its correct location on the grid
@@ -255,29 +342,11 @@ export function displayTaskCalendar(rowId, col, task,len) {
 		displayAllDayTask(col, task);
 		return;
 	}
-    const rCont = document.querySelector(".right-container");
-    let newElem = createTaskElement(rCont);
-    let row = document.getElementById(rowId);
-    let cells = row.querySelectorAll("td");
-    let cell = cells[col]; 
-
+  const rCont = document.querySelector(".right-container");
+  let newElem = createTaskElement(rCont, task);
+  cell = document.getElementById(rowId).querySelectorAll('td')[col];
 	updateTaskPos(newElem, cell, len);
-
-    // Update the position on scroll
-    rCont.addEventListener("scroll", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	//Update the position on page resizing
-	window.addEventListener("resize", () => {
-		updateTaskPos(newElem, cell, len);
-    });
-	let minBar = document.querySelector(".minimized");
-	let sR = minBar.shadowRoot;
-	let minButton = sR.getElementById('minimize-btn');
-	//Update the position when side bar is minimized
-	minButton.addEventListener("click", () => {
-		updateTaskPos(newElem, cell, len);
-	});
+	adjustTasksResizing(rCont, newElem, cell, len);
 }
 </code></pre>
         </article>
@@ -289,13 +358,13 @@ export function displayTaskCalendar(rowId, col, task,len) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri Jun 07 2024 21:54:21 GMT-0700 (北美太平洋夏令时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 09 2024 02:07:39 GMT-0700 (北美太平洋夏令时间)
 </footer>
 
 <script> prettyPrint(); </script>
