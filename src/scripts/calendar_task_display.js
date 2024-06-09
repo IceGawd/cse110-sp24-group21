@@ -306,8 +306,12 @@ function waitForElement(selector) {
  */
 async function adjustTasksResizing(rCont, newElem, cell, len){
 
-    // Update the position on scroll
+    // Update the position on (right container) scroll
     rCont.addEventListener("scroll", () => {
+		updateTaskPos(newElem, cell, len);
+    });
+	 // Update the position on main section scroll
+	 document.querySelector("main").addEventListener("scroll", () => {
 		updateTaskPos(newElem, cell, len);
     });
 	//Update the position on page resizing
@@ -349,6 +353,7 @@ export function displayTaskCalendar(rowId, col, task,len) {
   const rCont = document.querySelector(".right-container");
   let newElem = createTaskElement(rCont, task);
   cell = document.getElementById(rowId).querySelectorAll('td')[col];
-	updateTaskPos(newElem, cell, len);
-	adjustTasksResizing(rCont, newElem, cell, len);
+
+  updateTaskPos(newElem, cell, len);
+  adjustTasksResizing(rCont, newElem, cell, len);
 }
