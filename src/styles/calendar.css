@@ -103,7 +103,7 @@ main {
 }
 
 .right-container {
-	min-width: 50vw;
+	min-width: 55vw;
     padding-left: 10px;
 	overflow: scroll;
 	color: var(--text-color);
@@ -157,11 +157,6 @@ th.day-detail {
 
 .day-detail {
 	min-width: 8vw;
-}
-
-.weekly-container {
-	padding-top: 2%;
-	/* overflow-y: auto; */
 }
 
 #allday-tasks {
