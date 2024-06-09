@@ -172,6 +172,27 @@ const settingStyle = `
 /* End of Setting Pop-up Styling */
 `;
 
+const iconPaths = {
+    'light': {
+        'Home': '../assets/icons/home.svg',
+        'Calendar': '../assets/icons/calendar.svg',
+        'Entries': '../assets/icons/entries.svg',
+        'Tasks': '../assets/icons/tasks.svg',
+        'Minimize': '../assets/icons/minimize.svg',
+        'Settings': '../assets/icons/settings.svg'
+    },
+    'dark': {
+        'Home': '../assets/icons/home-dark.svg',
+        'Calendar': '../assets/icons/calendar-dark.svg',
+        'Entries': '../assets/icons/entries-dark.svg',
+        'Tasks': '../assets/icons/tasks-dark.svg',
+        'Minimize': '../assets/icons/minimize-dark.svg',
+        'Settings': '../assets/icons/settings-dark.svg'
+    }
+};
+
+
+
 /**
  * Represents a custom setting element.
  * @class MySettings
@@ -228,6 +249,23 @@ class MySettings extends HTMLElement {
             document.documentElement.setAttribute("data-selected-theme", theme);
             document.querySelector('my-settings').shadowRoot.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
             target.setAttribute('aria-pressed', 'true');
+
+            // Update navbar dynamically here
+            const navbarElem = document.querySelector('my-navbar');
+            const navbarShadowRoot = navbarElem.shadowRoot;
+
+            if (navbarShadowRoot) {
+                const sidebarElem = navbarShadowRoot.querySelector('ul#sidebar');
+                let navbarElems = sidebarElem.querySelectorAll('.nav-row');
+                navbarElems.forEach((elem) => {
+                    const btnType = elem.querySelector('p').textContent;
+                    // Update image icons based on mapping defined above
+                    elem.querySelector('img').src = iconPaths[theme][btnType];
+                });
+            }
+            else {
+                console.error("Navbar Shadow Root not found");
+            }
         };
 
         // Handles the selection of the theme
