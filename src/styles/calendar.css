@@ -1,20 +1,27 @@
 :root,
 [data-selected-theme="light"] {
     --background: #D0D7FF;
+	--left-background: white;
     --date-background: #bac5ff;
     --add-task-color: #909090;
     --task-hover: #f0f0f0;
     --text-color: #1e1e1e;
 	--navbar-color: #978EEB;
+	--calendar-color: #ECECEC;
+	--calendar-nav-button: grey;
 }
 
 [data-selected-theme="dark"] {
     --background: #252525;
-    --date-background: #999999;
+	--left-background: #1B2655;
+	--dark-background: url('../assets/background-dark.png');
+    --date-background: rgb(0, 3, 53);
     --add-task-color: #d9d9d9;
     --task-hover: #c0bfbf;
     --text-color: #f4f4f4;
 	--navbar-color: #1a3b57;
+	--upcoming-color: #161E28;
+	--calendar-nav-button: rgb(0, 3, 53);
 }
 
 body {
@@ -34,7 +41,8 @@ main {
 	height: 100%;
 }
 
-.container {
+.calendar-container {
+	background-image: var(--dark-background);
 	display: flex;
 	overflow: hidden;
 	padding-left: 15px;
@@ -45,8 +53,7 @@ main {
 /* Calendar container */
 .left-container {
 	min-width: 20vw;
-    background-color: white;
-	background: #ffffff;
+	background: var(--left-background);
 	padding: 15px;
 	width: 0.3w;
 	/* margin: 0 auto; */
@@ -59,6 +66,7 @@ main {
     min-height: 90%;
 	align-items: center;
 	overflow: scroll;
+	color: var(--text-color);
 }
 
 /* media query for screen changes for responsiveness */
@@ -93,7 +101,7 @@ main {
 	min-width: 50vw;
     padding-left: 10px;
 	overflow: scroll;
-
+	color: var(--text-color);
 }
 
 .day-header {
@@ -111,7 +119,7 @@ main {
 }
 
 .hour {
-	border-top: solid 0.5px black;
+	border-top: solid 0.5px;
 }
 
 /* table, tr, th, td {
@@ -153,18 +161,8 @@ th.day-detail {
 
 #allday-tasks {
 	text-align: center;	
-	background-color: #978EEB; 
+	background-color: var(--navbar-color);
 }
-
-/* #tue-allday {
-	background-color: red;
-	color: white;
-}
-
-#sat-allday {
-	background-color: #00BCD4;
-	color: white;
-} */
 
 /* Test task coloring */
 .task{
@@ -202,6 +200,7 @@ th.day-detail {
 	text-align: center;
 	font-size: small;
 	margin-bottom: 2%;
+	background-color: var(--upcoming-color);
 }
 
 .left-container h3 {
@@ -212,7 +211,7 @@ th.day-detail {
 /* Buttons in the calendar */
 .button-container-calendar button {
 	cursor: pointer;
-	background: grey;
+	background: var(--calendar-nav-button);
 	color: #fff;
 	border: 1px solid grey;
 	border-radius: 4px;
@@ -221,6 +220,8 @@ th.day-detail {
 
 /* Calendar table */
 .table-calendar {
+	background-color: var(--calendar-color);
+	color: black;
 	border-collapse: collapse;
 	width: 100%;
 }
