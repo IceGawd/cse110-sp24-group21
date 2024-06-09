@@ -27,11 +27,11 @@ main {
     flex-direction: column;
     background-color: var(--background);
     /*------ This set the main absolute position --------*/
-    position: absolute; 
-    right: 0;
+    /* position: absolute; 
+    right: 0; */
     /*------ If something wrong might be this --------*/
-    transition: width 0.3s ease;
-	height: 100%;
+    /* transition: width 0.3s ease;
+	height: 100%; */ 
 }
 
 .container {
@@ -62,7 +62,7 @@ main {
 }
 
 /* media query for screen changes for responsiveness */
-@media only screen and (max-width: 940px) {
+ /* @media only screen and (max-width: 940px) {
 	.container {
 		flex-direction: column;
 		overflow: unset;
@@ -71,7 +71,7 @@ main {
 	.left-container {
 		min-height: unset;
 	}
-}
+}  */
 
 #create-calendar-task {
 	background-color: lightgray;

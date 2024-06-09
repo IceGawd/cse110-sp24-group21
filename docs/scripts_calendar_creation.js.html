@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/calendar_creation.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/calendar_creation.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let daysArray = [];
+
+/**
+ * Generates the range of years between start and end boundaries
+ * 
+ * @param {number} start - the start year
+ * @param {number} end - the end year
+ * @returns {string} HTML DOM string
+ */
+function generate_year_range(start, end) {
+	let years = "";
+	for (let year = start; year &lt;= end; year++) {
+		years += "&lt;option value='" +
+			year + "'>" + year + "&lt;/option>";
+	}
+	return years;
+}
+
+// Initialize date-related letiables
+today = new Date();
+currentMonth = today.getMonth();
+currentYear = today.getFullYear();
+selectYear = document.getElementById("year");
+selectMonth = document.getElementById("month");
+
+createYear = generate_year_range(1970, 2050);
+
+document.getElementById("year").innerHTML = createYear;
+
+const calendar = document.getElementById("calendar");
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+$dataHead = "&lt;tr>";
+for (dhead in days) {
+	$dataHead += "&lt;th data-days='" +
+		days[dhead] + "'>" +
+		days[dhead] + "&lt;/th>";
+}
+$dataHead += "&lt;/tr>";
+
+document.getElementById("thead-month").innerHTML = $dataHead;
+
+monthAndYear = document.getElementById("month-and-year");
+
+/**
+ * Function to navigate to next month
+ * 
+ * Calls showCalendar function to display after navigation
+ */
+function next() {
+	currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+	currentMonth = (currentMonth + 1) % 12;
+	showCalendar(currentMonth, currentYear);
+}
+
+/**
+ * Function to navigate to previous month
+ * 
+ * Calls showCalendar function to display after navigation
+ */
+function previous() {
+	currentYear = currentMonth === 0 ?
+		currentYear - 1 : currentYear;
+	currentMonth = currentMonth === 0 ?
+		11 : currentMonth - 1;
+	showCalendar(currentMonth, currentYear);
+}
+
+/**
+ * Function to navigate to jump to a specific month and year
+ * 
+ * Calls showCalendar function to display after navigation
+ */
+function jump() {
+	currentYear = parseInt(selectYear.value);
+	currentMonth = parseInt(selectMonth.value);
+	showCalendar(currentMonth, currentYear);
+}
+
+/**
+ * Adds a filled cell to the calendar row with the specified date
+ * 
+ * This function creates a table cell (`&lt;td>`) element for a given date, sets
+ * various attributes to the cell (like date, month, year, etc.), and appends it
+ * to the provided row. It also marks the cell as "selected" if the date matches
+ * the current date.
+ * 
+ * @param {number} j - The column index of the calendar
+ * @param {number} date - The date of the month
+ * @param {HTMLElement} row - The row to which the cell will be appended
+ * @param {number} year - The year currently being viewed
+ * @param {number} month - The month currently being viewed
+ */
+function addFilledCell(j, date,row, year, month) {
+	cell = document.createElement("td");
+	cell.setAttribute("data-date", date);
+	cell.setAttribute("data-month", month + 1);
+	cell.setAttribute("data-year", year);
+	cell.setAttribute("data-month_name", months[month]);
+	cell.setAttribute('data-day_of_week', j + 1);
+	cell.className = "date-picker";
+	cell.innerHTML = "&lt;span>" + date + "&lt;/span";
+	if (
+		date === today.getDate() &amp;&amp; 
+		year === today.getFullYear() &amp;&amp;
+		month === today.getMonth() &amp;&amp; document.querySelector(".date-picker.selected") == null
+	) {
+		cell.className = "date-picker selected";
+	}
+	row.appendChild(cell);
+}
+
+/**
+ * Displays a calendar for a given month and year
+ * 
+ * This function generates a calendar for the specified month and year, and
+ * displays it in an HTML table with the ID "calendar-body". It updates the 
+ * display to show the correct month and year, and fills in the calendar days.
+ * 
+ * @param {number} month - The month for which to display the calendar
+ * @param {number} year - The year for which to display the calendar
+ */
+function showCalendar(month, year) {
+	let firstDay = new Date(year, month, 1).getDay();
+	tbl = document.getElementById("calendar-body");
+	tbl.innerHTML = "";
+	monthAndYear.innerHTML = months[month] + " " + year;
+	selectYear.value = year;
+	selectMonth.value = month;
+
+	let date = 1;
+	for (let i = 0; i &lt; 6; i++) {
+		let row = document.createElement("tr");
+		for (let j = 0; j &lt; 7; j++) {
+			if (i === 0 &amp;&amp; j &lt; firstDay) {
+				cell = document.createElement("td");
+				cellText = document.createTextNode("");
+				cell.appendChild(cellText);
+				row.appendChild(cell);
+			} else if (date > daysInMonth(month, year)) {
+				break;
+			} else {
+				addFilledCell(j, date, row, year, month);
+				date++;
+			}
+		}
+		tbl.appendChild(row);
+	}
+}
+// display calendar
+showCalendar(currentMonth, currentYear);
+
+/**
+ * Helper function to get the number of days in specified month
+ * 
+ * Calculates the number of days in a given month and year
+ * 
+ * @param {number} iMonth - the month for which to calculate the number of days
+ * @param {number} iYear - the year for which to calculate the number of days
+ * @returns {number} The number of days specified in the month
+ */
+function daysInMonth(iMonth, iYear) {
+	return 32 - new Date(iYear, iMonth, 32).getDate();
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 09 2024 02:07:39 GMT-0700 (北美太平洋夏令时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

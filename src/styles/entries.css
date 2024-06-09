@@ -171,6 +171,16 @@ details {
     height: 30px;
 }
 
+#close-popup {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#close-popup-row {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
 #delete-popup {
     visibility: hidden;
     position: absolute;
