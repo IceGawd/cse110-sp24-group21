@@ -1,3 +1,11 @@
+/**
+ * Formats a date given the month, day, and year into MM/DD/YYYY format
+ * 
+ * @param {number} month - The month to format
+ * @param {number} day - The day of the month
+ * @param {number} year - The year
+ * @returns {string} The formatted date string in MM/DD/YYYY format
+ */
 export function formatDate(month, day, year){
 	month = JSON.stringify(month);
 	year = JSON.stringify(year);
@@ -7,8 +15,10 @@ export function formatDate(month, day, year){
 	let formatDate = formatMonth + '/' + formatDay+ '/' + year;
 	return formatDate;
 }
+
 /**
- * Function to clear the tasks that are being displayed for a selected date
+ * Removes all task elements from the calendar and resets the background color
+ * of all day elements.
  */
 export function clearTasks(){
 	let allTasks = document.querySelectorAll(".task"); 
@@ -28,6 +38,13 @@ export function clearTasks(){
 		allTasks[i].remove();
 	}
 }
+
+/**
+ * This function gets the task list from localStorage and parses it into a map.
+ * If no task list is found, it returns an empty map.
+ * 
+ * @returns {Object} The task map
+ */
 export function getTaskMap(){
 	let tMap = {};
 	let tasklist = localStorage.getItem('tasklist');
@@ -143,6 +160,7 @@ export function sortTasks(tasksForDay){
 	}
 	return tasksForDay;
 }
+
 /**
  * Function to display tasks for a given week on the grid
  */
@@ -168,6 +186,14 @@ export async function addNewTasks(datesArr){
 
 	}
 }
+
+/**
+ * Update position and dimension of a task element based on its corresponding cell
+ * 
+ * @param {HTMLElement} newElem - The task element to update
+ * @param {HTMLElement} cell - The grid cell element where the task is located
+ * @param {number} len - The length of the task in terms of grid cells
+ */
 function updateTaskPos(newElem, cell, len){
 	const rect = cell.getBoundingClientRect();
     newElem.style.top = `${rect.top}px`;
@@ -175,6 +201,7 @@ function updateTaskPos(newElem, cell, len){
 	newElem.style.width = `${rect.width}px`;
 	newElem.style.height = `${rect.height * len}px`;
 }
+
 /**
  * Function to get task background color
  */
@@ -187,8 +214,12 @@ function getTaskColor(priority){
 		return "red";
 	}
 }
+
 /**
+ * Displays an all-day task in the all-day task area
  * 
+ * @param {number} col - The column index where the task should be displayed
+ * @param {Object} task - The task object containing task details
  */
 function displayAllDayTask(col, task){
 	let allDayElems = document.getElementById("allday-tasks").querySelectorAll("th");
@@ -203,19 +234,27 @@ function displayAllDayTask(col, task){
 		allDayElems[col].append(newAllDay);
 		return;
 }
+
+/**
+ * Creates a new task element to be displayed on the grid
+ * 
+ * @param {HTMLElement} rCont - The container element where the task will be added
+ * @returns {HTMLElement} The newly created task element
+ */
 function createTaskElement(rCont, task){
-    let newElem = document.createElement("div");
+  let newElem = document.createElement("div");
 	if(!newElem){
 		console.log("creating new div for task to be displayed failed")
 		return;
 	}
-    newElem.className = "task";
-    newElem.style.position = "absolute";
-    newElem.textContent = task['title']; 
+  newElem.className = "task";
+  newElem.style.position = "absolute";
+  newElem.textContent = task['title']; 
 	newElem.style.backgroundColor = getTaskColor(task['priority']);
-    rCont.appendChild(newElem);
-    return newElem;
+  rCont.appendChild(newElem);
+  return newElem;
 }
+
 function waitForElement(selector) {
     return new Promise((resolve) => {
         const element = document.querySelector(selector);
@@ -229,7 +268,7 @@ function waitForElement(selector) {
                     resolve(element);
                 }
             });
-
+          
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
@@ -275,9 +314,9 @@ export function displayTaskCalendar(rowId, col, task,len) {
 		displayAllDayTask(col, task);
 		return;
 	}
-    const rCont = document.querySelector(".right-container");
-    let newElem = createTaskElement(rCont, task);
-    cell = document.getElementById(rowId).querySelectorAll('td')[col];
+  const rCont = document.querySelector(".right-container");
+  let newElem = createTaskElement(rCont, task);
+  cell = document.getElementById(rowId).querySelectorAll('td')[col];
 	updateTaskPos(newElem, cell, len);
 	adjustTasksResizing(rCont, newElem, cell, len);
 }
