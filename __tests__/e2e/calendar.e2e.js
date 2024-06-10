@@ -48,7 +48,7 @@ describe('e2e testing for calendar', () => {
             const date = currDate.toLocaleDateString("en", options);
             console.log("Date: ", date);
 
-            let taskObject = { id: inputId, title: "test", date: date, startTime: "00:00", endTime: "23:59", description: "test", labels: [], priority: 'low' };
+            let taskObject = { id: inputId, title: "test", date: date, startTime: "10:00", endTime: "20:30", description: "test", labels: [], priority: 'low', "allDay":"off"};
 
             if (!taskMap[date]) {
                 taskMap[date] = [];
