@@ -2,9 +2,7 @@ const settingHTML = `
 <div class="settings-container" id="setting-container"> 
     <div class="settings-box">
         <h1>User Settings</h1>
-        <p>
-            Color Theme: 
-        </p>
+        <p>Color Theme: </p>
         <div id="themes">
             <button id="light" data-theme="light" aria-pressed="true">Light</button>
             <button id="dark" data-theme="dark" aria-pressed="false">Dark</button>
@@ -55,9 +53,7 @@ const settingHTML = `
             <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
         </select>
 
-        <button class="close-btn" id="close-button">
-            Done
-        </button>
+        <button class="close-btn" id="close-button">Done</button>
     </div>
 </div>
 `;
@@ -170,10 +166,7 @@ const settingStyle = `
     font-size: 18px;
     font-weight: 500;
     margin: 12px 0 5px;
-}
-
-/* End of Setting Pop-up Styling */
-`;
+}`;
 
 const iconData = {
     'light': {
