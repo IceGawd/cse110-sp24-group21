@@ -1,6 +1,23 @@
 <!DOCTYPE html>
-<!-- This is used to run the server using npm serve for CI/CD puppeteer tests-->
-<meta charset="utf-8">
-<title>Redirecting to homepage</title>
-<meta http-equiv="refresh" content="0; URL=./pages/home.html">
-<link rel="canonical" href="./pages/home.html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>Redirecting to homepage</title>
+    <meta http-equiv="refresh" content="0; URL=./pages/home.html">
+    <link rel="canonical" href="./pages/home.html">
+</head>
+<body>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch((error) => {
+                console.error('Service Worker registration failed:', error);
+            });
+        }
+    </script>
+</body>
+</html>
