@@ -66,7 +66,7 @@ const style = `
 
 /* Hovering stuff */
 .nav-row:hover {
-    background-color: #FFFFFF;
+    background-color: var(--navbar-select);
     cursor: pointer;
 }
 

@@ -9,6 +9,7 @@
 	--navbar-color: #978EEB;
 	--calendar-color: #ECECEC;
 	--calendar-nav-button: grey;
+	--navbar-select: #ffffff;
 }
 
 [data-selected-theme="dark"] {
@@ -22,6 +23,7 @@
 	--navbar-color: #161E28;
 	--upcoming-color: #161E28;
 	--calendar-nav-button: rgb(0, 3, 53);
+	--navbar-select: #1B2655;
 }
 
 body {
@@ -103,7 +105,7 @@ main {
 }
 
 .right-container {
-	min-width: 50vw;
+	min-width: 55vw;
     padding-left: 10px;
 	overflow: scroll;
 	color: var(--text-color);
@@ -126,10 +128,6 @@ main {
 .hour {
 	border-top: solid 0.5px;
 }
-
-/* table, tr, th, td {
-	border: 0.5px solid black;
-} */
 
 table {
 	border-collapse: collapse;
@@ -157,11 +155,6 @@ th.day-detail {
 
 .day-detail {
 	min-width: 8vw;
-}
-
-.weekly-container {
-	padding-top: 2%;
-	/* overflow-y: auto; */
 }
 
 #allday-tasks {

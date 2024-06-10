@@ -9,6 +9,7 @@
     --navbar-color: #978EEB;
     --task-elem-background: white;
     --task-elem-text-color: black;
+    --navbar-select: #ffffff;
 }
 
 [data-selected-theme="dark"] {
@@ -21,6 +22,7 @@
     --navbar-color: #161E28;
     --task-elem-background: #161E28;
     --task-elem-text-color: white;
+    --navbar-select: #1B2655;
 }
 
 body {

@@ -11,6 +11,8 @@
     --gradient-middle2: rgba(255, 255, 255, 0.4);
     --gradient-middle3: rgba(255, 255, 255, 0.95);
     --gradient-end: rgba(255, 255, 255, 1);
+    --navbar-select: #ffffff;
+    --fade-height: 320px;
 }
 
 [data-selected-theme="dark"] {
@@ -20,11 +22,12 @@
     --task-hover: #c0bfbf;
     --text-color: #f9f9f9;
     --gradient-start: rgba(1, 0, 72, 0);
-    --gradient-middle: rgba(255,255,255, 0.0);
-    --gradient-middle2: rgba(255,255,255, 0.0);
-    --gradient-middle3: rgba(1, 0, 72, 0);
-    --gradient-end: rgba(1, 0, 72, 0);
-
+    --gradient-middle: rgba(1, 0, 72, 0.1);
+    --gradient-middle2: rgba(1, 0, 72, 0.2);
+    --gradient-middle3: rgba(1, 0, 72, 0.4);
+    --gradient-end: rgba(1, 0, 72, 0.6);
+    --navbar-select: #1B2655;
+    --fade-height: 320px;
 }
 
 #bottom {
@@ -38,22 +41,23 @@
     width: 20%; 
     height: 100%;
     left: 0;
-    top: 0;
     background: linear-gradient(to left, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
     var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
     z-index: 100;
+    height: var(--fade-height);
 }
 
 #fade-right {
     position: absolute;
-    width: 20%; 
+    width: 15%; 
     height: 100%;
     right: 0;
-    top: 0;
     background: linear-gradient(to right, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
     var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
+    height: var(--fade-height);
+    z-index: 101;
 }
 
 h1 {
@@ -87,7 +91,7 @@ main {
 .title {
     margin-bottom: 5px;
     position: relative;
-    z-index: 10000;
+    z-index: 100;
     margin-left: 1rem;
 }
 
@@ -102,7 +106,6 @@ main {
     padding-left: 3%;
     margin-right: 3%;
     position: relative;
-    padding: 1.5em;
     padding-bottom: 0;
 }
 
