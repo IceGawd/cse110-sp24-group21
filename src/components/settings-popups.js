@@ -90,7 +90,7 @@ const settingStyle = `
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    z-index: 10000;
+    z-index: 100000;
 }
 
 .settings-container.active {
@@ -106,11 +106,13 @@ const settingStyle = `
     padding: 30px;
     transform: scale(0);
     transition: transform 0.25s ease;
+    z-index: 100000;
 }
 
 .settings-container.active .settings-box {
     transform: scale(1);
     transition-delay: .2s;
+    z-index: 100000;
 }
 
 .settings-box h1 {

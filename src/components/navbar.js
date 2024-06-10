@@ -6,12 +6,14 @@ const style = `
 
 :root,
 [data-selected-theme="light"] {
-    --navbar-color: #978EEB; 
+    --navbar-color: #978EEB;
+    --text-color: #1e1e1e; 
     --settings-header: #333;
 }
 
 [data-selected-theme="dark"] {
     --navbar-color: #cccccc;
+    --text-color: #cccccc;
     --settings-header: #d9d9d9;
 }
 
@@ -25,7 +27,7 @@ const style = `
 }
 
 .nav-label {
-    color: #2B2B2B;
+    color: var(--text-color);
     font-size: 20px;
     padding-left: 10px;
     padding-bottom: 6px;
