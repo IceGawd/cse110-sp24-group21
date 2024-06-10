@@ -2,9 +2,7 @@ const settingHTML = `
 <div class="settings-container" id="setting-container"> 
     <div class="settings-box">
         <h1>User Settings</h1>
-        <p>
-            Color Theme: 
-        </p>
+        <p>Color Theme: </p>
         <div id="themes">
             <button id="light" data-theme="light" aria-pressed="true">Light</button>
             <button id="dark" data-theme="dark" aria-pressed="false">Dark</button>
@@ -55,9 +53,7 @@ const settingHTML = `
             <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
         </select>
 
-        <button class="close-btn" id="close-button">
-            Done
-        </button>
+        <button class="close-btn" id="close-button">Done</button>
     </div>
 </div>
 `;
@@ -66,13 +62,13 @@ const settingStyle = `
 /* Settings popup styling */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --text-color: #1e1e1e;
     --settings-header: #333;
 }
 
 [data-selected-theme="dark"] {
-    --background: #565656;
+    --background: #161E28;
     --text-color: #cccccc;
     --settings-header: #d9d9d9;
 }
@@ -90,7 +86,7 @@ const settingStyle = `
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    z-index: 10000;
+    z-index: 100000;
 }
 
 .settings-container.active {
@@ -106,11 +102,13 @@ const settingStyle = `
     padding: 30px;
     transform: scale(0);
     transition: transform 0.25s ease;
+    z-index: 100000;
 }
 
 .settings-container.active .settings-box {
     transform: scale(1);
     transition-delay: .2s;
+    z-index: 100000;
 }
 
 .settings-box h1 {
@@ -119,7 +117,7 @@ const settingStyle = `
 }
 
 .settings-box p {
-    color: var(--text-color); /* Added missing hash for color #333 */
+    color: var(--text-color); 
     margin: 12px 0 10px;
 }
 
@@ -132,15 +130,17 @@ const settingStyle = `
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .settings-box button#light {
-    background: #e0e0e0;
+    background: #978EEB;
+    color: #000000;
 }
 
 .settings-box button#dark {
-    background: #a6abb3;
+    background: #161E28;
+    color: #cccccc;
 }
 
 .settings-box button[aria-pressed="true"] {
@@ -157,7 +157,7 @@ const settingStyle = `
 .settings-box .close-btn {
     width: 100%;
     height: 45px;
-    background: slategray; /* Corrected to 'slategray' */
+    background: #978EEB;
     border-radius: 6px;
     border: none;
     outline: none;
@@ -166,10 +166,30 @@ const settingStyle = `
     font-size: 18px;
     font-weight: 500;
     margin: 12px 0 5px;
-}
+}`;
 
-/* End of Setting Pop-up Styling */
-`;
+const iconData = {
+    'light': {
+        'Home': '../assets/icons/home.svg',
+        'Calendar': '../assets/icons/calendar.svg',
+        'Entries': '../assets/icons/entries.svg',
+        'Tasks': '../assets/icons/tasks.svg',
+        'Minimize': '../assets/icons/minimize.svg',
+        'Settings': '../assets/icons/settings.svg',
+        'text-color': 'black'
+    },
+    'dark': {
+        'Home': '../assets/icons/home-dark.svg',
+        'Calendar': '../assets/icons/calendar-dark.svg',
+        'Entries': '../assets/icons/entries-dark.svg',
+        'Tasks': '../assets/icons/tasks-dark.svg',
+        'Minimize': '../assets/icons/minimize-dark.svg',
+        'Settings': '../assets/icons/settings-dark.svg',
+        'text-color': 'white'
+    }
+};
+
+
 
 /**
  * Represents a custom setting element.
@@ -212,18 +232,75 @@ class MySettings extends HTMLElement {
             }
         });
 
-        // Handles the selection of the theme
-        const handleThemeSelection = (event) => {
-            const theme = event.target.getAttribute('data-theme');
-            document.documentElement.setAttribute("data-selected-theme", theme);
-
-            const previouslyPressedButton = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
-            previouslyPressedButton.setAttribute('aria-pressed', false);
-            event.target.setAttribute('aria-pressed', 'true');
-        }
-
+        // Constants we will reuse for theme changing
+        const pressedButtonSelector = '[data-theme][aria-pressed="true"]';
         const themeSwitcher = document.querySelector('my-settings').shadowRoot.getElementById('themes');
         const buttons = themeSwitcher.querySelectorAll('button');
+
+        // Gets the saved theme
+        const savedTheme = localStorage.getItem('selected-theme');
+        const defaultTheme = 'light';
+
+        // Applies the given theme
+        const applyTheme = (theme) => {
+            const target = document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${theme}"]`);
+            document.documentElement.setAttribute("data-selected-theme", theme);
+            document.querySelector('my-settings').shadowRoot.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
+            target.setAttribute('aria-pressed', 'true');
+
+            // Update navbar dynamically here
+            const navbarElem = document.querySelector('my-navbar');
+            const navbarShadowRoot = navbarElem.shadowRoot;
+
+            if (navbarShadowRoot) {
+                const sidebarElem = navbarShadowRoot.querySelector('ul#sidebar');
+                // console.log(navbarShadowRoot);
+                const navbarStyle = navbarShadowRoot.querySelector('style');
+                console.log(navbarStyle);
+                let navbarElems = sidebarElem.querySelectorAll('.nav-row');
+                navbarElems.forEach((elem) => {
+                    let btnType = elem.querySelector('p');
+                    // Update image icons based on mapping defined above
+                    elem.querySelector('img').src = iconData[theme][btnType.textContent];
+                    console.log(btnType.style);
+                    btnType.style.color = iconData[theme]['text-color'];
+                });
+            }
+            else {
+                console.error("Navbar Shadow Root not found");
+            }
+        };
+
+        // Handles the selection of the theme
+        const handleThemeSelection = (event) => {
+            const target = event.target;
+            const isPressed = target.getAttribute('aria-pressed');
+            const theme = target.getAttribute('data-theme'); 
+
+            if(isPressed !== "true") {
+                applyTheme(theme);
+                localStorage.setItem('selected-theme', theme);
+            }
+        }
+
+        if (savedTheme && savedTheme !== defaultTheme) {
+            const prevBtn = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
+            prevBtn.setAttribute('aria-pressed', false);
+            
+            document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${savedTheme}"]`).setAttribute('aria-pressed', true);
+            
+            document.documentElement.setAttribute("data-selected-theme", savedTheme);
+        }
+
+        // Making sure the theme is set correctly 
+        const setInitialTheme = () => {
+            const savedTheme = localStorage.getItem('selected-theme');
+            if(savedTheme && savedTheme !== defaultTheme) {
+              applyTheme(savedTheme);
+            }
+        };
+          
+        setInitialTheme();
 
         /* Adds the handleThemeSelection as a click handler to each of the buttons */
         buttons.forEach((button) => {

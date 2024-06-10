@@ -1,4 +1,33 @@
 /* CSS for just the entries page */
+:root,
+[data-selected-theme="light"] {
+    --background: #D0D7FF;
+    --entry-border: #978EEB;
+    --entry-hover: #ffffff;
+    --text-color: #000000;
+    --submit-color: #ffffff;
+    --side-border-color: #978EEB;
+	--navbar-color: #978EEB;
+    --curr-entry-color: white;
+    --date-color: #656d76;
+    --navbar-select: #ffffff;
+}
+
+[data-selected-theme="dark"] {
+    --background: #252525;
+    --dark-background: url('../assets/background-dark.png');
+    --entry-border: #999999;
+    --entry-hover: #c0bfbf;
+    --text-color: #f4f4f4;
+    --submit-color: #ffffff;
+    --side-border-color: #252525;
+	--navbar-color: #161E28;
+    --header-background: rgb(255,255,255,0.7);
+    --curr-entry-color: rgb(255,255,255,0.3);
+    --date-color: black;
+    --navbar-select: #1B2655;
+}
+
 body {
     font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
@@ -7,7 +36,8 @@ body {
 main {
     display: flex;
     flex-direction: row;
-    background-color: white;
+    background-color: var(--background);
+    background-image: var(--dark-background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
@@ -17,6 +47,7 @@ main {
 }
 
 .scrollable-entries {
+    border-right-color: var(--side-border-color);
     border-right-style: solid;
     overflow-y: scroll;
     width: 25%;
@@ -51,7 +82,7 @@ main {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
@@ -77,15 +108,16 @@ details > summary {
 .scrollable-entries li {
     list-style: none;
     margin-bottom: 5px;
-    
+    background-color: var(--header-background);
+    border-radius: 5%;
 }
 
 .scrollable-entries a {
     text-decoration: none;
-    color: #333;
+    color: black;
     display: block;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 3px solid var(--entry-border);
     transition: background-color 0.3s;
 
 }
@@ -99,14 +131,14 @@ details {
 }
 
 .scrollable-entries a:hover {
-    background-color: #ffffff;
+    background-color: var(--entry-hover);
     border-radius: 5px;
 }
 
 .content {
     overflow-y: auto;
     margin: auto;
-    background-color: #fff;
+    background-color: var(--curr-entry-color);
     padding: 20px;
     border-radius: 5px;
     width: 65vw;
@@ -134,21 +166,23 @@ details {
 
 .new-entry-popup {
     margin: auto;
-    background-color: #fff;
+    background-color: var(--background);
     padding: 20px;
     border-radius: 5px;
     width: 55vw;
     height: 70%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid;
 }
 
 #submit {
     position: static;
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
     font-size: 18px;
+    color: var(--submit-color);
     width: 100%;
-    height: 30px;
+    height: 35px;
 }
 
 #close-popup {
@@ -179,13 +213,14 @@ details {
     border-radius: 5px;
     width: 25vw;
     height: 25%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 #edit-entry {
     position: relative;
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: var(--navbar-color);
+    color: var(--text-color);
     font-size: 15px;
     left: 90%;
     height: 25px;
@@ -194,7 +229,7 @@ details {
 
 #delete {
     border-radius: 5px;
-    background-color: #A6A6A6;
+    background-color: #e41e1e;
     font-size: 14px;
     width: 40%;
     height: 40px;
@@ -225,6 +260,7 @@ details {
 
 .delete-entry{
     border: none;
+    background: transparent;
 }
 
 .delete-icon {
@@ -270,7 +306,7 @@ h3 {
 
 h6 {
     font-size: .85em;
-    color: #656d76;
+    color: var(--date-color);
 }
 
 p {
@@ -317,11 +353,6 @@ tbody {
     vertical-align: middle;
     unicode-bidi: isolate;
     border-color: inherit;
-}
-
-ol {
-    padding-left: 2em;
-    
 }
 
 blockquote {

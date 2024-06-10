@@ -1,19 +1,33 @@
 /* CSS for just the home page */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --delete-background: #999999;
     --add-task-color: #909090;
-    --task-hover: #f0f0f0;
+    --task-hover: #ce7a7a;
     --text-color: #1e1e1e;
+    --gradient-start: rgba(255, 255, 255, 0);
+    --gradient-middle: rgba(255, 255, 255, 0.2);
+    --gradient-middle2: rgba(255, 255, 255, 0.4);
+    --gradient-middle3: rgba(255, 255, 255, 0.95);
+    --gradient-end: rgba(255, 255, 255, 1);
+    --navbar-select: #ffffff;
+    --fade-height: 320px;
 }
 
 [data-selected-theme="dark"] {
-    --background: #565656;
+    --background: #142f51;
     --delete-background: #999999;
     --add-task-color: #d9d9d9;
     --task-hover: #c0bfbf;
-    --text-color: #cccccc;
+    --text-color: #f9f9f9;
+    --gradient-start: rgba(1, 0, 72, 0);
+    --gradient-middle: rgba(1, 0, 72, 0.1);
+    --gradient-middle2: rgba(1, 0, 72, 0.2);
+    --gradient-middle3: rgba(1, 0, 72, 0.4);
+    --gradient-end: rgba(1, 0, 72, 0.6);
+    --navbar-select: #1B2655;
+    --fade-height: 320px;
 }
 
 #bottom {
@@ -24,25 +38,26 @@
 
 #fade-left {
     position: absolute;
-    width: 9%; 
+    width: 20%; 
     height: 100%;
     left: 0;
-    top: 0;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 30%,
-    rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to left, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
+    var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
     z-index: 100;
+    height: var(--fade-height);
 }
 
 #fade-right {
     position: absolute;
-    width: 10%; 
+    width: 15%; 
     height: 100%;
     right: 0;
-    top: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 30%,
-    rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to right, var(--gradient-start) 0%, var(--gradient-middle) 30%, 
+    var(--gradient-middle2) 50%, var(--gradient-middle3) 70%, var(--gradient-end) 100%);
     pointer-events: none;
+    height: var(--fade-height);
+    z-index: 101;
 }
 
 h1 {
@@ -79,19 +94,21 @@ h1 {
 main {
     display: flex;
     flex-direction: column;
-    background-color: var(--backgound);
+    background-color: var(--background);
     /*------ This set the main absolute position --------*/
     position: absolute; 
     right: 0;
     /*------ If something wrong might be this --------*/
     transition: width 0.3s ease;
     height: 100%;
+    color: var(--text-color);
+    font-family: 'Radio Canada', Arial, Helvetica, sans-serif;
 }
 
 .title {
     margin-bottom: 5px;
     position: relative;
-    z-index: 10000;
+    z-index: 100;
     margin-left: 1rem;
 }
 
@@ -104,10 +121,11 @@ main {
 #top-left {
     width: 50%;
     padding-left: 3%;
+    margin-right: 3%;
     position: relative;
-    padding: 1.5em;
     padding-bottom: 0;
 }
+
 
 #top-right {
     width: 40%;
@@ -178,8 +196,6 @@ main {
     align-items: center;
 }
 
-
-
 .entry:focus, .entry:hover {
     background-color: #C0C0C0;
     cursor: pointer;
@@ -219,6 +235,7 @@ ul li {
 .add-task::before {
     content: '+'; 
     color: #ff0000; 
+    color: #ff0000; 
     font-size: 3rem; 
     margin-bottom: 8px;
     margin-left: 1rem;
@@ -250,7 +267,7 @@ ul li {
     display: block;
     margin: 5px;
     justify-self: end;
-    font-family: Inter;
+    /* font-family: Inter; */
 
 }
 
@@ -270,5 +287,5 @@ ul li {
 .task-name {
     padding-left: 1em;
     margin: 5px;
-    font-family: Inter;
+    /* font-family: Inter; */
 }

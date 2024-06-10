@@ -2,12 +2,14 @@
 const style = `
 /* Task style */
 .task {
+  border-radius: 3%;
   position: relative;
   flex: 0 0 auto;
   margin-top: 0rem;
   margin-bottom: 0.5rem; 
-  padding: 0.1rem;
-  background-color: #f4f4f4;
+  padding: 0.2rem;
+  background-color: var(--task-elem-background);
+  color: var(--task-elem-text-color);
   text-align: center;
   box-sizing: border-box;
   display: flex;
@@ -17,6 +19,8 @@ const style = `
 
 /* Task textarea style */
 textarea {
+  background-color: var(--task-elem-background);
+  color: var(--task-elem-text-color);
   border: 1px solid #ddd;
   padding: 0.3rem;
   font-family: inherit;
@@ -36,7 +40,7 @@ textarea {
 /* Time elements style */
 .time-div {
   border: 1px solid #ddd;
-  background-color: white;
+  background-color: var(--task-elem-background);
   display: flex;
   flex-direction: row;
   font-size: 0.8rem;
