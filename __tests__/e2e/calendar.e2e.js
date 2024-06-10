@@ -11,18 +11,6 @@ describe('e2e testing for calendar', () => {
         await page.evaluate(() => localStorage.clear());
     });
 
-    // Make reload page checking a reusable fucntion to avoid code climate issues
-    // const reloadAndCheck = async (expectedCount) => {
-    //     console.log(`Checking that the tasks persist after reloading the page`);
-    //     await page.reload();
-    //     // TODO: Check that things remain on the page after reloading
-    // };
-
-    // const createTask = async (date) => {
-    //     console.log('Creating a new task');
-
-    // };
-
     it('Add new tasks and check they are displayed on calendar', async () => {
         console.log('Add tasks and check they are displayed on calendar');
         await page.evaluate(() => {
