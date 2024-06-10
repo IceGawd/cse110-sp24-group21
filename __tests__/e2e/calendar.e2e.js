@@ -57,8 +57,7 @@ describe('e2e testing for calendar', () => {
             console.log("TaskMap: ", taskMap);
             localStorage.setItem('tasklist', JSON.stringify(taskMap));
         });
-        await page.reload();
-        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+        await page.reload({ waitUntil: ['domcontentloaded', 'networkidle0'] });
         const tasks = await page.$$('.task');
         console.log("Tasks arr: ", tasks);
         expect(tasks.length).toBe(1);
