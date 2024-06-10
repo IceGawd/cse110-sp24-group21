@@ -4,7 +4,6 @@ describe('Basic user flow for Website', () => {
     beforeAll(async () => {
       await page.goto('http://localhost:3000/', {waitUntil: 'networkidle2'});
       const navbarHandles = await page.$$('my-navbar >>> .nav-row');
-      console.log(navbarHandles);
       await navbarHandles[2].click();
       await delay(1000);
     });
