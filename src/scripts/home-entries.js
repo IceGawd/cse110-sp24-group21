@@ -7,6 +7,9 @@ const titleLength = 14; //length of the title in characters
 
 window.addEventListener('DOMContentLoaded', initEntries);
 
+/**
+ * Initialize entry list from the localstorage
+ */
 function initEntries(){
     entries = storage.getItems('entries');
     let addBtnHTML = document.getElementById('entries-container').querySelector('button').outerHTML;
@@ -14,6 +17,11 @@ function initEntries(){
     populateEntries();
 }
 
+
+/**
+ * Populates the entries to the homepage.
+ * Display the entries by chronological order. By click on each entry, it will redirect to the entries.html. 
+ */
 function populateEntries(){
     let dates = Object.keys(entries).sort();
     let container = document.getElementById("entries-container");

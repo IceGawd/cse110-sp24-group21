@@ -34,14 +34,15 @@ body {
 main {
     display: flex;
     flex-direction: column;
-	background-image: var(--dark-background);
+	  background-image: var(--dark-background);
     background-color: var(--background);
+
     /*------ This set the main absolute position --------*/
-    position: absolute; 
-    right: 0;
+    /* position: absolute; 
+    right: 0; */
     /*------ If something wrong might be this --------*/
-    transition: width 0.3s ease;
-	height: 100%;
+    /* transition: width 0.3s ease;
+	height: 100%; */ 
 }
 
 .calendar-container {
@@ -70,10 +71,11 @@ main {
 	align-items: center;
 	overflow: scroll;
 	color: var(--text-color);
+	z-index: 3;
 }
 
 /* media query for screen changes for responsiveness */
-@media only screen and (max-width: 940px) {
+  @media only screen and (max-width: 940px) {
 	.container {
 		flex-direction: column;
 		overflow: unset;
@@ -82,7 +84,7 @@ main {
 	.left-container {
 		min-height: unset;
 	}
-}
+}  
 
 #create-calendar-task {
 	background-color: lightgray;
@@ -106,7 +108,7 @@ main {
 
 .right-container {
 	min-width: 55vw;
-    padding-left: 10px;
+  padding-left: 10px;
 	overflow: scroll;
 	color: var(--text-color);
 }
@@ -291,7 +293,6 @@ th.day-detail {
 	border-radius: 3px;
 	padding: 5px 1em;
 }
-
 .hourly-schedule {
 	margin-top: 5%;
     max-height: 80vh;
