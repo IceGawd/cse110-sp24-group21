@@ -26,8 +26,9 @@ describe('e2e testing for calendar', () => {
     it('Add new tasks and check they are displayed on calendar', async () => {
         console.log('Add tasks and check they are displayed on calendar');
         await page.evaluate(() => {
-            taskMap = JSON.parse(localStorage.getItem('tasklist'));
+            let taskMap = JSON.parse(localStorage.getItem('tasklist'));
             if (!taskMap) {
+            // if(!(JSON.parse(localStorage.getItem('tasklist')))) {
                 localStorage.setItem('tasklist', JSON.stringify([]));
             }
             taskMap = JSON.parse(localStorage.getItem('tasklist'));
@@ -52,7 +53,7 @@ describe('e2e testing for calendar', () => {
             if (!taskMap[date]) {
                 taskMap[date] = [];
             }
-            console.log("Task to add: ", taskObject);
+            // console.log("Task to add: ", taskObject);
             taskMap[date].push(taskObject);
             console.log("TaskMap: ", taskMap);
             localStorage.setItem('tasklist', JSON.stringify(taskMap));
