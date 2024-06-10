@@ -45,7 +45,7 @@ describe('e2e testing for calendar', () => {
             const currDate = new Date();
             let options = { year: "numeric", month: "2-digit", day: "2-digit" };
             const date = currDate.toLocaleDateString("en", options);
-            console.log(date);
+            console.log("Date: ", date);
 
             let taskObject = { id: inputId, title: "test", date: date, startTime: "00:00", endTime: "23:59", description: "test", labels: [], priority: 'low' };
 
@@ -53,13 +53,13 @@ describe('e2e testing for calendar', () => {
                 taskMap[date] = [];
             }
             taskMap[date].push(taskObject);
-            console.log(taskMap);
+            console.log("TaskMap: ", taskMap);
             localStorage.setItem('tasklist', JSON.stringify(taskMap))
-            console.log(localStorage);
+            console.log("local storage", localStorage);
         });
         await page.reload();
         const tasks = await page.$$('.task');
-        console.log(tasks);
+        console.log("Tasks arr: ", tasks);
         expect(tasks.length).toBe(1);
     });
 });
