@@ -53,10 +53,13 @@ describe('e2e testing for calendar', () => {
                 taskMap[date] = [];
             }
             taskMap[date].push(taskObject);
+            console.log(taskMap);
             localStorage.setItem('tasklist', JSON.stringify(taskMap))
+            console.log(localStorage);
         });
         await page.reload();
         const tasks = await page.$$('.task');
+        console.log(tasks);
         expect(tasks.length).toBe(1);
     });
 });
