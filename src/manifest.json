@@ -1,7 +1,7 @@
 {
-    "name": "cse110-sp24-group21/cse110-sp24-group21",
+    "name": "Group 21 Dev Journal",
     "short_name": "DevJournal",
-    "description": "devjournal",
+    "description": "journal for software developers",
     "start_url": "pages/home.html",
     "display": "standalone",
     "background_color": "#ffffff",

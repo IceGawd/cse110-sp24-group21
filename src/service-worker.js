@@ -1,15 +1,13 @@
-// service-worker.js
-
 const CACHE_NAME = 'devjournal-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
   '/pages/home.html',
-  '/assets/icons/journal.png' // Add more URLs to cache as needed
+  '/assets/icons/journal.png'
 ];
 
-// Install the service worker and cache all necessary assets
+// install service worker and cache the urls needed
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -20,20 +18,20 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch the assets from the cache or network
+// fetch from the cache and network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
         if (response) {
-          return response; // Return the cached asset
+          return response; 
         }
-        return fetch(event.request); // Fetch from the network if not in cache
+        return fetch(event.request); 
       })
   );
 });
 
-// Update the service worker and remove old caches
+// update the service workers and remove the old cache elements
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
