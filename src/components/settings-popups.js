@@ -72,7 +72,7 @@ const settingStyle = `
 }
 
 [data-selected-theme="dark"] {
-    --background: #565656;
+    --background: #161E28;
     --text-color: #cccccc;
     --settings-header: #d9d9d9;
 }
@@ -121,7 +121,7 @@ const settingStyle = `
 }
 
 .settings-box p {
-    color: var(--text-color); /* Added missing hash for color #333 */
+    color: var(--text-color); 
     margin: 12px 0 10px;
 }
 
@@ -143,7 +143,8 @@ const settingStyle = `
 }
 
 .settings-box button#dark {
-    background: #a6abb3;
+    background: #161E28;
+    color: #cccccc;
 }
 
 .settings-box button[aria-pressed="true"] {
@@ -160,7 +161,7 @@ const settingStyle = `
 .settings-box .close-btn {
     width: 100%;
     height: 45px;
-    background: slategray; /* Corrected to 'slategray' */
+    background: #978EEB;
     border-radius: 6px;
     border: none;
     outline: none;
