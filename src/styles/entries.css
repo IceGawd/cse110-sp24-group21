@@ -11,6 +11,7 @@
     --curr-entry-color: white;
     --date-color: #656d76;
     --navbar-select: #ffffff;
+    --add-edit-entry: #978EEB;
 }
 
 [data-selected-theme="dark"] {
@@ -26,6 +27,7 @@
     --curr-entry-color: rgb(255,255,255,0.3);
     --date-color: black;
     --navbar-select: #1B2655;
+    --add-edit-entry: #2e4091;
 }
 
 body {
@@ -82,7 +84,7 @@ main {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background-color: var(--navbar-color);
+    background-color: var(--add-edit-entry);
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
@@ -219,7 +221,7 @@ details {
 #edit-entry {
     position: relative;
     border-radius: 5px;
-    background-color: var(--navbar-color);
+    background-color: var(--add-edit-entry);
     color: var(--text-color);
     font-size: 15px;
     left: 90%;
