@@ -2,12 +2,14 @@
 const style = `
 /* Task style */
 .task {
+  border-radius: 3%;
   position: relative;
   flex: 0 0 auto;
   margin-top: 0rem;
   margin-bottom: 0.5rem; 
-  padding: 0.1rem;
-  background-color: #f4f4f4;
+  padding: 0.2rem;
+  background-color: var(--task-elem-background);
+  color: var(--task-elem-text-color);
   text-align: center;
   box-sizing: border-box;
   display: flex;
@@ -17,6 +19,8 @@ const style = `
 
 /* Task textarea style */
 textarea {
+  background-color: var(--task-elem-background);
+  color: var(--task-elem-text-color);
   border: 1px solid #ddd;
   padding: 0.3rem;
   font-family: inherit;
@@ -36,7 +40,7 @@ textarea {
 /* Time elements style */
 .time-div {
   border: 1px solid #ddd;
-  background-color: white;
+  background-color: var(--task-elem-background);
   display: flex;
   flex-direction: row;
   font-size: 0.8rem;
@@ -98,12 +102,21 @@ input {
  * @classdesc Custom element for a task
  */
 class TaskElement extends HTMLElement {
+  /**
+   * @constructor 
+   */
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
 
-  // Creates the text area for writing task content
+  /**
+   * Creates a textarea with specified text, placeholder text and class
+   * @param {string} text - The text that the textarea will hold
+   * @param {string} placeholderText - The placeholder text for that textarea
+   * @param {string} className - The class that the textarea will be given
+   * @returns {HTMLElement} returns the textarea element with the given specifications
+   */
   createTextarea(text, placeholderText, className) {
     const el = document.createElement('textarea');
     el.classList.add(className);
@@ -112,7 +125,12 @@ class TaskElement extends HTMLElement {
     return el;
   }
 
-  // Creates time div
+    /** 
+   * Create time div holding start, end and all day status
+   * @param {string} startTime - The start time for the task, if any
+   * @param {string} endTime - The end time for the task, if any
+   * @return {HTMLElement} returns the div element holding the rt labels
+   */
   createTimeDiv(startTime, endTime) {
     const timeDiv = document.createElement('div');
     timeDiv.classList.add('time-div');
@@ -147,6 +165,7 @@ class TaskElement extends HTMLElement {
   /**
    * Create label text by taking labels from arrays and adding spaces in between each label
    * @param {*} arr - a text array of input labels
+   * @returns {HTMLElement} - A textarea element with labels separated by spaces
    */
   createLabels(arr) {
     const labels = document.createElement('textarea');
@@ -160,7 +179,7 @@ class TaskElement extends HTMLElement {
    * Creates a dropdown selection menu for assigning different priority to a task
    * 
    * @param {*} priority - A selected priority level
-   * @returns - A created dropdown element with the priority options.
+   * @returns {HTMLElement} - A created dropdown element with the priority options.
    */
   createPriorityDropdown(priority) {
     const dropdown = document.createElement('select');
@@ -180,7 +199,7 @@ class TaskElement extends HTMLElement {
 
   /**
    * Creates a wrapper containing task-related buttons.
-   * @returns - a wrapper containing task-related buttons.
+   * @returns { HTMLElement } - a wrapper containing the delete button
    */
   createButtons() {
     const buttonWrapper = document.createElement('div');
@@ -195,6 +214,10 @@ class TaskElement extends HTMLElement {
     return buttonWrapper;
   }
 
+  /**
+   * Sets the task data and creates the task element
+   * @param {Object} data - The task data
+   */
   set data(data) {
     this.json = data;
     const styles = document.createElement('style');
@@ -220,11 +243,15 @@ class TaskElement extends HTMLElement {
     this.shadowRoot.append(styles, wrapper);
   }
 
+  /**
+   * Returns the task data
+   * @returns {Object} - data of the task element
+   */
   get data() {
     return this.json;
   }
 
-  /**
+ /**
  * Adds an event listener to an element to save changes to the task's JSON object and local storage, 
  * which makes the task can be auto-saved any time and updated to the home page.
  *

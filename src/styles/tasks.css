@@ -2,18 +2,27 @@
 :root,
 [data-selected-theme="light"] {
     --background: #ffffff;
-    --button-background: #e1e1e1;
-    --weekchange-color: #d9d9d9;
+    --button-background: #D0D7FF;
+    --weekchange-color: #ffffff;
     --task-hover: #f0f0f0;
     --text-color: #1e1e1e;
+    --navbar-color: #978EEB;
+    --task-elem-background: white;
+    --task-elem-text-color: black;
+    --navbar-select: #ffffff;
 }
 
 [data-selected-theme="dark"] {
-    --background: #565656;
-    --button-background: #bdbdbd;
-    --weekchange-color: #909090;
+    --background: #585858;
+    --dark-background: url('../assets/background-dark.png');
+    --button-background: rgb(255,255,255,0.2);
+    --weekchange-color: inherit;
     --task-hover: #c0bfbf;
-    --text-color: #cccccc;
+    --text-color: white;
+    --navbar-color: #161E28;
+    --task-elem-background: #161E28;
+    --task-elem-text-color: white;
+    --navbar-select: #1B2655;
 }
 
 body {
@@ -24,6 +33,7 @@ body {
 main {
   display: flex;
   flex-direction: column;
+  background-image: var(--dark-background);
   background-color: var(--background);
   /*------ This set the main absolute position --------*/
   position: absolute; 
@@ -38,9 +48,9 @@ main {
   display: flex;
   justify-content: flex-start; /* Align items to the start */
   align-items: center;
-  padding: 3px;
+  padding: 8px;
   background-color: var(--weekchange-color); 
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ffffff;
   gap: 10px; /* Space between buttons */
 }
 
@@ -74,7 +84,7 @@ main {
   white-space: nowrap;
   padding: 10px; 
   box-sizing: border-box;
-  flex-grow: 1; 
+  flex-grow: 1;
   position: relative; 
   height: calc(100% - 60px); /* Adjust based on button container height */
 }
@@ -100,7 +110,7 @@ main {
   margin-right: 20px; /* Spacing between day-containers */
   padding: 20px; 
   background-color: var(--button-background);
-  border: 1px solid #ddd;
+  border: 1px solid var(--background);
   border-radius: 15px; /* Add rounded edges */
   box-sizing: border-box;
   display: flex;
@@ -132,7 +142,7 @@ main {
   font-size: 1.5rem; 
   font-weight: bold; 
   font-family: 'Radio Canada', sans-serif; 
-  color: #000000; 
+  color: var(--text-color); 
   margin-bottom: 0; 
   line-height: 1; 
 }
@@ -141,7 +151,7 @@ main {
 .day-container .day-of-week {
   font-size: 1.1rem; 
   font-family: 'Radio Canada', sans-serif; 
-  color: #000000; 
+  color: var(--text-color); 
   margin-top: 0px; 
   margin-bottom: 10px; 
 }
@@ -150,7 +160,7 @@ main {
 .add-task {
   background: none; 
   border: none; 
-  color: #545454;
+  color: var(--text-color);
   font-size: 1.2rem; 
   display: flex; 
   align-items: center; 

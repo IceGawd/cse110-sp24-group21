@@ -1,20 +1,29 @@
 :root,
 [data-selected-theme="light"] {
-    --background: #ffffff;
-    --delete-background: #999999;
+    --background: #D0D7FF;
+	--left-background: white;
+    --date-background: #bac5ff;
     --add-task-color: #909090;
     --task-hover: #f0f0f0;
     --text-color: #1e1e1e;
-	--navbar-color: #2196f7;
+	--navbar-color: #978EEB;
+	--calendar-color: #ECECEC;
+	--calendar-nav-button: grey;
+	--navbar-select: #ffffff;
 }
 
 [data-selected-theme="dark"] {
     --background: #252525;
-    --delete-background: #999999;
+	--left-background: #1B2655;
+	--dark-background: url('../assets/background-dark.png');
+    --date-background: rgb(0, 3, 53);
     --add-task-color: #d9d9d9;
     --task-hover: #c0bfbf;
     --text-color: #f4f4f4;
-	--navbar-color: #1a3b57;
+	--navbar-color: #161E28;
+	--upcoming-color: #161E28;
+	--calendar-nav-button: rgb(0, 3, 53);
+	--navbar-select: #1B2655;
 }
 
 body {
@@ -25,7 +34,12 @@ body {
 main {
     display: flex;
     flex-direction: column;
+	  background-image: var(--dark-background);
     background-color: var(--background);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 923e734fb3331bb2e752e26244827dbdfd2f41aa
     /*------ This set the main absolute position --------*/
     /* position: absolute; 
     right: 0; */
@@ -34,7 +48,8 @@ main {
 	height: 100%; */ 
 }
 
-.container {
+.calendar-container {
+	background-image: var(--dark-background);
 	display: flex;
 	overflow: hidden;
 	padding-left: 15px;
@@ -45,8 +60,7 @@ main {
 /* Calendar container */
 .left-container {
 	min-width: 20vw;
-    background-color: white;
-	background: #ffffff;
+	background: var(--left-background);
 	padding: 15px;
 	width: 0.3w;
 	/* margin: 0 auto; */
@@ -59,10 +73,12 @@ main {
     min-height: 90%;
 	align-items: center;
 	overflow: scroll;
+	color: var(--text-color);
+	z-index: 3;
 }
 
 /* media query for screen changes for responsiveness */
- /* @media only screen and (max-width: 940px) {
+  @media only screen and (max-width: 940px) {
 	.container {
 		flex-direction: column;
 		overflow: unset;
@@ -71,7 +87,7 @@ main {
 	.left-container {
 		min-height: unset;
 	}
-}  */
+}  
 
 #create-calendar-task {
 	background-color: lightgray;
@@ -89,11 +105,15 @@ main {
 	background-color: darkgray;
 }
 
-.right-container {
-	min-width: 50vw;
-    padding-left: 10px;
-	overflow: scroll;
+#month-and-year {
+	color: var(--text-color);
+}
 
+.right-container {
+	min-width: 55vw;
+  padding-left: 10px;
+	overflow: scroll;
+	color: var(--text-color);
 }
 
 .day-header {
@@ -111,12 +131,8 @@ main {
 }
 
 .hour {
-	border-top: solid 0.5px black;
+	border-top: solid 0.5px;
 }
-
-/* table, tr, th, td {
-	border: 0.5px solid black;
-} */
 
 table {
 	border-collapse: collapse;
@@ -139,32 +155,17 @@ table {
 }
 
 th.day-detail {
-	background-color: #e3e3e3;
+	background-color: var(--date-background);
 }
 
 .day-detail {
 	min-width: 8vw;
 }
 
-.weekly-container {
-	padding-top: 2%;
-	/* overflow-y: auto; */
-}
-
 #allday-tasks {
 	text-align: center;	
-	background-color: lightgray;
+	background-color: var(--navbar-color);
 }
-
-/* #tue-allday {
-	background-color: red;
-	color: white;
-}
-
-#sat-allday {
-	background-color: #00BCD4;
-	color: white;
-} */
 
 /* Test task coloring */
 .task{
@@ -202,6 +203,7 @@ th.day-detail {
 	text-align: center;
 	font-size: small;
 	margin-bottom: 2%;
+	background-color: var(--upcoming-color);
 }
 
 .left-container h3 {
@@ -212,7 +214,7 @@ th.day-detail {
 /* Buttons in the calendar */
 .button-container-calendar button {
 	cursor: pointer;
-	background: grey;
+	background: var(--calendar-nav-button);
 	color: #fff;
 	border: 1px solid grey;
 	border-radius: 4px;
@@ -221,6 +223,8 @@ th.day-detail {
 
 /* Calendar table */
 .table-calendar {
+	background-color: var(--calendar-color);
+	color: black;
 	border-collapse: collapse;
 	width: 100%;
 }
@@ -292,7 +296,6 @@ th.day-detail {
 	border-radius: 3px;
 	padding: 5px 1em;
 }
-
 .hourly-schedule {
 	margin-top: 5%;
     max-height: 80vh;
