@@ -1,5 +1,4 @@
-describe('Basic user flow for Website', () => {
-    // First, visit the lab 8 website
+describe('e2e testing for calendar', () => {
     const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
     beforeAll(async () => {
       await page.goto('http://localhost:3000/', {waitUntil: 'networkidle2'});
@@ -13,16 +12,16 @@ describe('Basic user flow for Website', () => {
     });
 
     // Make reload page checking a reusable fucntion to avoid code climate issues
-    const reloadAndCheck = async (expectedCount) => {
-        console.log(`Checking that the tasks persist after reloading the page`);
-        await page.reload();
-        // TODO: Check that things remain on the page after reloading
-    };
+    // const reloadAndCheck = async (expectedCount) => {
+    //     console.log(`Checking that the tasks persist after reloading the page`);
+    //     await page.reload();
+    //     // TODO: Check that things remain on the page after reloading
+    // };
 
-    const createTask = async (date) => {
-        console.log('Creating a new task');
+    // const createTask = async (date) => {
+    //     console.log('Creating a new task');
 
-    };
+    // };
 
     it('Add new tasks and check they are displayed on calendar', async () => {
         console.log('Add tasks and check they are displayed on calendar');
@@ -48,7 +47,7 @@ describe('Basic user flow for Website', () => {
             const date = currDate.toLocaleDateString("en", options);
             console.log(date);
 
-            let taskObject = { id: inputId, title: "", date: date, startTime: "00:00", endTime: "23:59", description: "", labels: [], priority: 'low' };
+            let taskObject = { id: inputId, title: "test", date: date, startTime: "00:00", endTime: "23:59", description: "test", labels: [], priority: 'low' };
 
             if (!taskMap[date]) {
                 taskMap[date] = [];
@@ -60,6 +59,4 @@ describe('Basic user flow for Website', () => {
         const tasks = await page.$$('.task');
         expect(tasks.length).toBe(1);
     });
-
-
 });
