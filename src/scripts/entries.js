@@ -14,6 +14,15 @@ function getId(date){
     return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
 }
 
+function saveEntry() {
+    let data = new FormData(document.getElementById('new-entry'));
+    if(data.get('date') == '')
+        return;
+    setEntry(data);
+    document.getElementById('popup').style.visibility = 'hidden';
+    setFocus(data.get('date'));
+}
+
 /**
  * init function, fetches the entries, populates page, adds necessary listeners
  */
@@ -28,15 +37,18 @@ function init(){
     // magic number 10 is the length of YYYY-MM-DD, since main entry id is YYYY-MM-DDmain
     document.getElementById('edit-entry').addEventListener('click', ()=> editEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
     //document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
-    //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));
-    document.getElementById('submit').addEventListener('click', (e)=> {
-                                                        let data = new FormData(document.getElementById('new-entry'));
-                                                        if(data.get('date') == '')
-                                                            return;
-                                                        setEntry(data);
-                                                        document.getElementById('popup').style.visibility = 'hidden';
-                                                        setFocus(data.get('date'));
-                                                    });
+    //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));title
+    let popupElements = document.getElementsByClassName('save-on-enter');
+    console.log(popupElements);
+    console.log(popupElements.length);
+    for (let index = 0; index < popupElements.length; index++) {
+        popupElements[index].addEventListener("keydown", function (e) {
+            if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                saveEntry();
+            }
+        });
+    }
+    document.getElementById('submit').addEventListener('click', (e) => saveEntry());
     // closing the popup when they don't wanna make
     document.getElementById('close').addEventListener('click', () => document.getElementById('popup').style.visibility = 'hidden');
     //set focus based on query in URL
