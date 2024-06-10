@@ -52,12 +52,13 @@ describe('e2e testing for calendar', () => {
             if (!taskMap[date]) {
                 taskMap[date] = [];
             }
+            console.log("Task to add: ", taskObject);
             taskMap[date].push(taskObject);
             console.log("TaskMap: ", taskMap);
-            localStorage.setItem('tasklist', JSON.stringify(taskMap))
-            console.log("local storage", localStorage);
+            localStorage.setItem('tasklist', JSON.stringify(taskMap));
         });
         await page.reload();
+        await page.waitForNavigation({ waitUntil: 'networkidle0' });
         const tasks = await page.$$('.task');
         console.log("Tasks arr: ", tasks);
         expect(tasks.length).toBe(1);
