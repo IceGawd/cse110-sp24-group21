@@ -39,8 +39,6 @@ function init(){
     //document.getElementById('cancel-delete').addEventListener('click', () => document.getElementById('delete-popup').style.visibility = 'hidden');
     //document.getElementById('delete').addEventListener('click', () => deleteEntry(document.getElementsByClassName('entry-container')[0].id.substring(0, 10)));title
     let popupElements = document.getElementsByClassName('save-on-enter');
-    console.log(popupElements);
-    console.log(popupElements.length);
     for (let index = 0; index < popupElements.length; index++) {
         popupElements[index].addEventListener("keydown", function (e) {
             if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
