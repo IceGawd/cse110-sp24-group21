@@ -63,7 +63,7 @@ As our current implementation of the app is via a webpage, it could potentially 
 ## Decision Outcome
 
 Chosen option: **Option 2: Adopting PWA**
-
+In addition to expanding the user base reach and adhering to the "local first" principle, adopting a Progressive Web Application (PWA) can also offer benefits such as improved user engagement and cross-platform compatibility. This aligns with the goal of providing a "barrier-less" user experience while maximizing development efficiency.
 
 
 <!-- Because -->
