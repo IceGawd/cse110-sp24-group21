@@ -36,10 +36,6 @@ main {
     flex-direction: column;
 	  background-image: var(--dark-background);
     background-color: var(--background);
-<<<<<<< HEAD
-=======
-
->>>>>>> 923e734fb3331bb2e752e26244827dbdfd2f41aa
     /*------ This set the main absolute position --------*/
     /* position: absolute; 
     right: 0; */
