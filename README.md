@@ -19,3 +19,9 @@ Here are the JSDocs:
 
 Here is the main page:
 [Developer Journal](https://cse110-sp24-group21.github.io/cse110-sp24-group21/)
+
+Team 21 Final Video:
+[Youtube Link](https://youtu.be/oUdrjI4Dudg)
+
+Team 21 Onboarding Video:
+[Youtube Link](https://youtu.be/1f77yAimXLc)
