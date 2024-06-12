@@ -30,9 +30,7 @@
 &lt;div class="settings-container" id="setting-container"> 
     &lt;div class="settings-box">
         &lt;h1>User Settings&lt;/h1>
-        &lt;p>
-            Color Theme: 
-        &lt;/p>
+        &lt;p>Color Theme: &lt;/p>
         &lt;div id="themes">
             &lt;button id="light" data-theme="light" aria-pressed="true">Light&lt;/button>
             &lt;button id="dark" data-theme="dark" aria-pressed="false">Dark&lt;/button>
@@ -83,9 +81,7 @@
             &lt;option value="+14:00">(GMT +14:00) Line Islands, Tokelau&lt;/option>
         &lt;/select>
 
-        &lt;button class="close-btn" id="close-button">
-            Done
-        &lt;/button>
+        &lt;button class="close-btn" id="close-button">Done&lt;/button>
     &lt;/div>
 &lt;/div>
 `;
@@ -94,13 +90,13 @@ const settingStyle = `
 /* Settings popup styling */
 :root,
 [data-selected-theme="light"] {
-    --background: #f0f0f0;
+    --background: #ffffff;
     --text-color: #1e1e1e;
     --settings-header: #333;
 }
 
 [data-selected-theme="dark"] {
-    --background: #565656;
+    --background: #161E28;
     --text-color: #cccccc;
     --settings-header: #d9d9d9;
 }
@@ -118,7 +114,7 @@ const settingStyle = `
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    z-index: 10000;
+    z-index: 100000;
 }
 
 .settings-container.active {
@@ -134,11 +130,13 @@ const settingStyle = `
     padding: 30px;
     transform: scale(0);
     transition: transform 0.25s ease;
+    z-index: 100000;
 }
 
 .settings-container.active .settings-box {
     transform: scale(1);
     transition-delay: .2s;
+    z-index: 100000;
 }
 
 .settings-box h1 {
@@ -147,7 +145,7 @@ const settingStyle = `
 }
 
 .settings-box p {
-    color: var(--text-color); /* Added missing hash for color #333 */
+    color: var(--text-color); 
     margin: 12px 0 10px;
 }
 
@@ -160,15 +158,17 @@ const settingStyle = `
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .settings-box button#light {
-    background: #e0e0e0;
+    background: #978EEB;
+    color: #000000;
 }
 
 .settings-box button#dark {
-    background: #a6abb3;
+    background: #161E28;
+    color: #cccccc;
 }
 
 .settings-box button[aria-pressed="true"] {
@@ -185,7 +185,7 @@ const settingStyle = `
 .settings-box .close-btn {
     width: 100%;
     height: 45px;
-    background: slategray; /* Corrected to 'slategray' */
+    background: #978EEB;
     border-radius: 6px;
     border: none;
     outline: none;
@@ -194,10 +194,30 @@ const settingStyle = `
     font-size: 18px;
     font-weight: 500;
     margin: 12px 0 5px;
-}
+}`;
 
-/* End of Setting Pop-up Styling */
-`;
+const iconData = {
+    'light': {
+        'Home': '../assets/icons/home.svg',
+        'Calendar': '../assets/icons/calendar.svg',
+        'Entries': '../assets/icons/entries.svg',
+        'Tasks': '../assets/icons/tasks.svg',
+        'Minimize': '../assets/icons/minimize.svg',
+        'Settings': '../assets/icons/settings.svg',
+        'text-color': 'black'
+    },
+    'dark': {
+        'Home': '../assets/icons/home-dark.svg',
+        'Calendar': '../assets/icons/calendar-dark.svg',
+        'Entries': '../assets/icons/entries-dark.svg',
+        'Tasks': '../assets/icons/tasks-dark.svg',
+        'Minimize': '../assets/icons/minimize-dark.svg',
+        'Settings': '../assets/icons/settings-dark.svg',
+        'text-color': 'white'
+    }
+};
+
+
 
 /**
  * Represents a custom setting element.
@@ -240,18 +260,75 @@ class MySettings extends HTMLElement {
             }
         });
 
-        // Handles the selection of the theme
-        const handleThemeSelection = (event) => {
-            const theme = event.target.getAttribute('data-theme');
-            document.documentElement.setAttribute("data-selected-theme", theme);
-
-            const previouslyPressedButton = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
-            previouslyPressedButton.setAttribute('aria-pressed', false);
-            event.target.setAttribute('aria-pressed', 'true');
-        }
-
+        // Constants we will reuse for theme changing
+        const pressedButtonSelector = '[data-theme][aria-pressed="true"]';
         const themeSwitcher = document.querySelector('my-settings').shadowRoot.getElementById('themes');
         const buttons = themeSwitcher.querySelectorAll('button');
+
+        // Gets the saved theme
+        const savedTheme = localStorage.getItem('selected-theme');
+        const defaultTheme = 'light';
+
+        // Applies the given theme
+        const applyTheme = (theme) => {
+            const target = document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${theme}"]`);
+            document.documentElement.setAttribute("data-selected-theme", theme);
+            document.querySelector('my-settings').shadowRoot.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
+            target.setAttribute('aria-pressed', 'true');
+
+            // Update navbar dynamically here
+            const navbarElem = document.querySelector('my-navbar');
+            const navbarShadowRoot = navbarElem.shadowRoot;
+
+            if (navbarShadowRoot) {
+                const sidebarElem = navbarShadowRoot.querySelector('ul#sidebar');
+                // console.log(navbarShadowRoot);
+                const navbarStyle = navbarShadowRoot.querySelector('style');
+                console.log(navbarStyle);
+                let navbarElems = sidebarElem.querySelectorAll('.nav-row');
+                navbarElems.forEach((elem) => {
+                    let btnType = elem.querySelector('p');
+                    // Update image icons based on mapping defined above
+                    elem.querySelector('img').src = iconData[theme][btnType.textContent];
+                    console.log(btnType.style);
+                    btnType.style.color = iconData[theme]['text-color'];
+                });
+            }
+            else {
+                console.error("Navbar Shadow Root not found");
+            }
+        };
+
+        // Handles the selection of the theme
+        const handleThemeSelection = (event) => {
+            const target = event.target;
+            const isPressed = target.getAttribute('aria-pressed');
+            const theme = target.getAttribute('data-theme'); 
+
+            if(isPressed !== "true") {
+                applyTheme(theme);
+                localStorage.setItem('selected-theme', theme);
+            }
+        }
+
+        if (savedTheme &amp;&amp; savedTheme !== defaultTheme) {
+            const prevBtn = document.querySelector('my-settings').shadowRoot.querySelector('[data-theme][aria-pressed="true"]');
+            prevBtn.setAttribute('aria-pressed', false);
+            
+            document.querySelector('my-settings').shadowRoot.querySelector(`[data-theme="${savedTheme}"]`).setAttribute('aria-pressed', true);
+            
+            document.documentElement.setAttribute("data-selected-theme", savedTheme);
+        }
+
+        // Making sure the theme is set correctly 
+        const setInitialTheme = () => {
+            const savedTheme = localStorage.getItem('selected-theme');
+            if(savedTheme &amp;&amp; savedTheme !== defaultTheme) {
+              applyTheme(savedTheme);
+            }
+        };
+          
+        setInitialTheme();
 
         /* Adds the handleThemeSelection as a click handler to each of the buttons */
         buttons.forEach((button) => {
@@ -271,13 +348,13 @@ customElements.define('my-settings', MySettings);</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MyNavbar.html">MyNavbar</a></li><li><a href="MySettings.html">MySettings</a></li><li><a href="TaskElement.html">TaskElement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addDateArr">addDateArr</a></li><li><a href="global.html#addFilledCell">addFilledCell</a></li><li><a href="global.html#addNewTasks">addNewTasks</a></li><li><a href="global.html#adjustTasksResizing">adjustTasksResizing</a></li><li><a href="global.html#bindUpdates">bindUpdates</a></li><li><a href="global.html#casePriorMonthExcluded">casePriorMonthExcluded</a></li><li><a href="global.html#casePriorMonthIncluded">casePriorMonthIncluded</a></li><li><a href="global.html#changeDateHeader">changeDateHeader</a></li><li><a href="global.html#changeWeek">changeWeek</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#compareIsAfter">compareIsAfter</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#createTaskElement">createTaskElement</a></li><li><a href="global.html#datesIntoButtons">datesIntoButtons</a></li><li><a href="global.html#daysInMonth">daysInMonth</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#dispEntry">dispEntry</a></li><li><a href="global.html#displayAllDayTask">displayAllDayTask</a></li><li><a href="global.html#displayEntries">displayEntries</a></li><li><a href="global.html#displayTaskCalendar">displayTaskCalendar</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#entryItemSetup">entryItemSetup</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generate_year_range">generate_year_range</a></li><li><a href="global.html#getBlurb">getBlurb</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDatesForWeek">getDatesForWeek</a></li><li><a href="global.html#getTaskColor">getTaskColor</a></li><li><a href="global.html#getTaskMap">getTaskMap</a></li><li><a href="global.html#getWeekTasks">getWeekTasks</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initEntries">initEntries</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#mathRowLength">mathRowLength</a></li><li><a href="global.html#md2HTML">md2HTML</a></li><li><a href="global.html#newTask">newTask</a></li><li><a href="global.html#next">next</a></li><li><a href="global.html#populateEntries">populateEntries</a></li><li><a href="global.html#populatePage">populatePage</a></li><li><a href="global.html#populateTaskList">populateTaskList</a></li><li><a href="global.html#populateUpcoming">populateUpcoming</a></li><li><a href="global.html#previous">previous</a></li><li><a href="global.html#roundTimeBy30">roundTimeBy30</a></li><li><a href="global.html#roundedFormat">roundedFormat</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchEntriesByLabel">searchEntriesByLabel</a></li><li><a href="global.html#setEntry">setEntry</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setWeek">setWeek</a></li><li><a href="global.html#showCalendar">showCalendar</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#stripMd">stripMd</a></li><li><a href="global.html#updateTaskPos">updateTaskPos</a></li><li><a href="global.html#waitForElement">waitForElement</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 09 2024 02:07:39 GMT-0700 (北美太平洋夏令时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jun 11 2024 21:35:59 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

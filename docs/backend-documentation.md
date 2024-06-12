@@ -48,14 +48,3 @@ Updated 05/28/2024 \
 ```
 
 entry blurbs (for sidebar) will be ~45 characters long
-
-## **Functions**
-Documentation of all functions used in the backend \
-**Detail the function name, input parameters, return type (optional), and function logic (briefly in bullet points should do)
-git p
-**Examples:**
-- display(taskData) →takes in a JSON element (task list), and updates the HTML accordingly
-  - Changes header title, and then adds the tasks individually 
-- colorChange() → toggles between dark mode and light mode when button is clicked
-  - Changes background of body and container separately
-  - Dropdown arrows for tasks have four different states (down and right) x (light and dark), so each arrow has three class parameters in the format “task-icon light-mode-icon right-icon” (task-icon to get all arrows, light-mode-icon to determine whether it is currently light mode (arrow is black) or dark mode (arrow is white), and right-icon to determine whether the dropdown is expanded or not) → these can be read by classList and changed when light/dark mode is activated
