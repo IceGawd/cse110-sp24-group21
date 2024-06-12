@@ -19,3 +19,5 @@ Here are the JSDocs:
 
 Here is the main page:
 [Developer Journal](https://cse110-sp24-group21.github.io/cse110-sp24-group21/)
+
+Here is a change to the readme, demonstrated for the video.
